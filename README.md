@@ -9,12 +9,13 @@ Usage
  Makefile Example using Makefile.lib
 
     target-y  = target1
- target-y += target2
+    target-y += target2
 
- target1_files-y = target_file_shared.c \
-                   target1_file_2.c \
-                   target1_file_3.c
- target1_includes-y = ./ \
+    target1_files-y = target_file_shared.c \
+                      target1_file_2.c \
+                      target1_file_3.c
+
+    target1_includes-y = ./ \
                       /opt/include
  target1_libraries-y = ./ \
                        /opt/lib
