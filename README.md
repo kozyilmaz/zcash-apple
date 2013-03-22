@@ -8,7 +8,7 @@ Usage
 
  Makefile Example using Makefile.lib
 
- target-y  = target1
+    target-y  = target1
  target-y += target2
 
  target1_files-y = target_file_shared.c \
