@@ -11,30 +11,47 @@ Usage
     target-y  = target1
     target-y += target2
 
-    target1_files-y = target_file_shared.c \
-                      target1_file_2.c \
-                      target1_file_3.c
+    target1_files-y = \
+        target_file_shared.c \
+        target1_file_2.c \
+        target1_file_3.c
 
-    target1_includes-y = ./ \
-                      /opt/include
- target1_libraries-y = ./ \
-                       /opt/lib
- target1_cflags-y = -DUSER_DEFINED \
-                    -O2
- target1_ldflags-y = -luserdefined
+    target1_includes-y = \
+        ./ \
+        /opt/include
 
- target2_files-y = target_file_shared.c \
-                   target2_file_2.c \
-                   target2_file_3.c
- target2_includes-y = ./ \
-                      /opt/include
- target2_libraries-y = ./ \
-                       /opt/lib
- target2_cflags-y = -DUSER_DEFINED \
-                    -O2
- target2_ldflags-y = -luserdefined
+    target1_libraries-y = \
+        ./ \
+        /opt/lib
 
- include Makefile.lib
+    target1_cflags-y = \
+        -DUSER_DEFINED \
+        -O2
+
+    target1_ldflags-y = \
+        -luserdefined
+
+    target2_files-y = \
+        target_file_shared.c \
+        target2_file_2.c \
+        target2_file_3.c
+
+    target2_includes-y = \
+        ./ \
+        /opt/include
+
+    target2_libraries-y = \
+        ./ \
+        /opt/lib
+
+    target2_cflags-y = \
+        -DUSER_DEFINED \
+        -O2
+
+    target2_ldflags-y = \
+        -luserdefined
+
+    include Makefile.lib
 
 Overview
 ========
