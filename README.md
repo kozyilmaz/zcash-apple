@@ -62,19 +62,21 @@ Overview
 
  in addition targets may depend each other, so if your target depends on
  target.so just add target.so to target's depend list with;
+
     target_depends-y = target.so
 
  targets may also depend to the subdirectories, so target commands will
  not be executed until subdirs commands get executed.
 
  some usefull files are created in make process, for debugging and for speedup
- .target/*.dep              : includes depend information for the file
- .target/*.dep.cmd          : the command used for generating .dep file
- .target/*.o                : object for the file
- .target/*.o.cmd            : the command used for creating the object
- .target/target[a,so,o]     : the target
- .target/target[a,so,o].cmd : the command used for creating the target
- target                     : the target
+
+    .target/*.dep              : includes depend information for the file
+    .target/*.dep.cmd          : the command used for generating .dep file
+    .target/*.o                : object for the file
+    .target/*.o.cmd            : the command used for creating the object
+    .target/target[a,so,o]     : the target
+    .target/target[a,so,o].cmd : the command used for creating the target
+    target                     : the target
 
 Available Targets
 =================
