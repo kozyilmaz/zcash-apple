@@ -1,8 +1,10 @@
-== makefile.lib
+makefile.lib
+============
 
 makefile helper library for basic management of source/target files
 
-== Overview
+Overview
+--------
 
  you can have more than one target, just add targets as you wish. you can
  share files among targets, files will be compiled for each target with
@@ -26,7 +28,8 @@ makefile helper library for basic management of source/target files
     .target/target[a,so,o].cmd : the command used for creating the target
     target                     : the target
 
-== Available Targets
+Available Targets
+-----------------
 
     target-[y,n, ]    : a binary target.
                         target will be created with $(CC) -o
@@ -36,7 +39,7 @@ makefile helper library for basic management of source/target files
                         target.a will be created with $(AR)
     target_so-[y,n, ] : a shared library target.
                         target.so will be created with $(CC) -o -shared
-    
+
     target.host-[y,n, ]    : a binary target.
                              target will be created with $(HOSTCC) -o
     target.host_o-[y,n, ]  : an object target.
@@ -45,11 +48,12 @@ makefile helper library for basic management of source/target files
                              target.a will be created with $(HOSTAR)
     target.host_so-[y,n, ] : a shared library target.
                              target.so will be created with $(HOSTCC) -o -shared
-   
+
     subdir-[y,n, ] : subdirectory targets are executed with
                      $(subdir-y)_makeflags-y $(MAKE) -C $(subdir-y)
 
-== Available Target Flags
+Available Target Flags
+----------------------
 
     $(TARGET)_makeflags-[y,n, ] : makeflags for target  will be passed to make
                                   command only for corresponding target.
@@ -74,7 +78,8 @@ makefile helper library for basic management of source/target files
     $(TARGET)_depends-[y,n, ]   : all words in depends flag will be added to
                                   prerequisite's list.
 
-== Usage
+Usage
+-----
 
  Makefile Example using Makefile.lib
 
