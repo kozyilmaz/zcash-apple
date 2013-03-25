@@ -23,6 +23,7 @@
 #   20100223 - depend file do not depend temp directories
 #   20100319 - files depends to Makefile located in their folder
 #   20100407 - can handle multiple jobs
+#   20130325 - added missin targets for host
 
 #
 # Example
@@ -531,7 +532,7 @@ define target-defaults
 	$(do_compile.cpp)
 endef
 
-define target_host-defaults
+define target.host-defaults
     $(eval $(call target-defaults_base,$1,$2))
 
     $($1_depends_c): .$1/%.dep: %.c Makefile
@@ -567,11 +568,25 @@ else
 endif
 endef
 
+define target.host-variables
+    $(eval $(call target.host-defaults,$1,$2))
+    
+    .$1/$1:
+	$(do_link.c.host)
+endef
+
 define target.so-variables
     $(eval $(call target-defaults,$1,$2))
 
     .$1/$1:
 	$(do_link_so.c)
+endef
+
+define target.so.host-variables
+    $(eval $(call target.host-defaults,$1,$2))
+
+    .$1/$1:
+	$(do_link_so.c.host)
 endef
 
 define target.a-variables
@@ -582,6 +597,14 @@ define target.a-variables
 	$(do_ranlib)
 endef
 
+define target.a.host-variables
+    $(eval $(call target.host-defaults,$1,$2))
+
+    .$1/$1:
+	$(do_ar.host)
+	$(do_ranlib.host)
+endef
+
 define target.o-variables
     $(eval $(call target-defaults,$1,$2))
 
@@ -589,15 +612,8 @@ define target.o-variables
 	$(do_ld)
 endef
 
-define target_host-variables
-    $(eval $(call target_host-defaults,$1,$2))
-    
-    .$1/$1:
-	$(do_link.c.host)
-endef
-
-define target.o_host-variables
-    $(eval $(call target_host-defaults,$1,$2))
+define target.o.host-variables
+    $(eval $(call target.host-defaults,$1,$2))
     
     .$1/$1:
 	$(do_ld.host)
@@ -636,43 +652,37 @@ endef
 
 # generate target variables
 
-$(eval $(foreach T,$(target-y), \
-	$(eval $(call target-variables,$T,$($T_files-y)))))
-$(eval $(foreach T,$(target.o-y), \
-	$(eval $(call target.o-variables,$T,$($T_files-y)))))
-$(eval $(foreach T,$(target.a-y), \
-	$(eval $(call target.a-variables,$T,$($T_files-y)))))
-$(eval $(foreach T,$(target.so-y), \
-	$(eval $(call target.so-variables,$T,$($T_files-y)))))
+$(eval $(foreach T,$(target-y), $(eval $(call target-variables,$T,$($T_files-y)))))
+$(eval $(foreach T,$(target-n), $(eval $(call target_empty-defaults,$T))))
+$(eval $(foreach T,$(target-),  $(eval $(call target_empty-defaults,$T))))
 
-$(eval $(foreach T,$(target.host-y), \
-	$(eval $(call target_host-variables,$T,$($T_files-y)))))
-$(eval $(foreach T,$(target.o.host-y), \
-	$(eval $(call target.o_host-variables,$T,$($T_files-y)))))
+$(eval $(foreach T,$(target.o-y), $(eval $(call target.o-variables,$T,$($T_files-y)))))
+$(eval $(foreach T,$(target.o-n), $(eval $(call target_empty-defaults,$T))))
+$(eval $(foreach T,$(target.o-),  $(eval $(call target_empty-defaults,$T))))
 
-$(eval $(foreach T,$(target.host-n),$(eval $(call target_empty-defaults,$T))))
-$(eval $(foreach T,$(target.host-),$(eval $(call target_empty-defaults,$T))))
+$(eval $(foreach T,$(target.a-y), $(eval $(call target.a-variables,$T,$($T_files-y)))))
+$(eval $(foreach T,$(target.a-n), $(eval $(call target_empty-defaults,$T))))
+$(eval $(foreach T,$(target.a-),  $(eval $(call target_empty-defaults,$T))))
 
-$(eval $(foreach T,$(target.so.host-n),$(eval $(call target_empty-defaults,$T))))
-$(eval $(foreach T,$(target.so.host-),$(eval $(call target_empty-defaults,$T))))
+$(eval $(foreach T,$(target.so-y), $(eval $(call target.so-variables,$T,$($T_files-y)))))
+$(eval $(foreach T,$(target.so-n), $(eval $(call target_empty-defaults,$T))))
+$(eval $(foreach T,$(target.so-),  $(eval $(call target_empty-defaults,$T))))
 
-$(eval $(foreach T,$(target.a.host-n),$(eval $(call target_empty-defaults,$T))))
-$(eval $(foreach T,$(target.a.host-),$(eval $(call target_empty-defaults,$T))))
+$(eval $(foreach T,$(target.host-y), $(eval $(call target.host-variables,$T,$($T_files-y)))))
+$(eval $(foreach T,$(target.host-n), $(eval $(call target_empty-defaults,$T))))
+$(eval $(foreach T,$(target.host-),  $(eval $(call target_empty-defaults,$T))))
 
-$(eval $(foreach T,$(target.o.host-n),$(eval $(call target_empty-defaults,$T))))
-$(eval $(foreach T,$(target.o.host-),$(eval $(call target_empty-defaults,$T))))
+$(eval $(foreach T,$(target.o.host-y), $(eval $(call target.o.host-variables,$T,$($T_files-y)))))
+$(eval $(foreach T,$(target.o.host-n), $(eval $(call target_empty-defaults,$T))))
+$(eval $(foreach T,$(target.o.host-),  $(eval $(call target_empty-defaults,$T))))
 
-$(eval $(foreach T,$(target-n),$(eval $(call target_empty-defaults,$T))))
-$(eval $(foreach T,$(target-),$(eval $(call target_empty-defaults,$T))))
+$(eval $(foreach T,$(target.so.host-y), $(eval $(call target.so.host-variables,$T,$($T_files-y)))))
+$(eval $(foreach T,$(target.so.host-n), $(eval $(call target_empty-defaults,$T))))
+$(eval $(foreach T,$(target.so.host-),  $(eval $(call target_empty-defaults,$T))))
 
-$(eval $(foreach T,$(target.so-n),$(eval $(call target_empty-defaults,$T))))
-$(eval $(foreach T,$(target.so-),$(eval $(call target_empty-defaults,$T))))
-
-$(eval $(foreach T,$(target.a-n),$(eval $(call target_empty-defaults,$T))))
-$(eval $(foreach T,$(target.a-),$(eval $(call target_empty-defaults,$T))))
-
-$(eval $(foreach T,$(target.o-n),$(eval $(call target_empty-defaults,$T))))
-$(eval $(foreach T,$(target.o-),$(eval $(call target_empty-defaults,$T))))
+$(eval $(foreach T,$(target.a.host-y), $(eval $(call target.a.host-variables,$T,$($T_files-y)))))
+$(eval $(foreach T,$(target.a.host-n), $(eval $(call target_empty-defaults,$T))))
+$(eval $(foreach T,$(target.a.host-),  $(eval $(call target_empty-defaults,$T))))
 
 # generate subdir targets
 
