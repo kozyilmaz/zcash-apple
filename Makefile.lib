@@ -142,7 +142,8 @@ TOPDIR ?= $(CURDIR)
 
 uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
 
-override CFLAGS += -Wall -Wextra -pipe -g3 -O2 -fPIC -fsigned-char -fno-strict-aliasing -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fvisibility=hidden
+override CFLAGS += -Wall -Wextra -pipe -g3 -O2 -fPIC -fsigned-char -fno-strict-aliasing -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
+# -fvisibility=hidden
 
 override CFLAGS += -fno-math-errno -fno-trapping-math
 ifeq ($(uname_S),Linux)
