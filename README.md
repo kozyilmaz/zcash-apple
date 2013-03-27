@@ -81,7 +81,12 @@ Available Target Flags
 Usage
 -----
 
- Makefile Example using Makefile.lib
+you can check projects using libmakefile, for detailed information:
+
+  - <a href="https://github.com/anhanguera/libhthread">lbhthread</a>
+  - <a href="http://sf.net/projects/xynth">xynth</a> 
+
+Makefile Example using Makefile.lib
 
     target-y  = target1
     target-y += target2
