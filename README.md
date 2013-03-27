@@ -83,8 +83,8 @@ Usage
 
 you can check projects using libmakefile, for detailed information:
 
-  - <a href="https://github.com/anhanguera/libhthread">lbhthread</a>
-  - <a href="http://sf.net/projects/xynth">xynth</a> 
+  - <a href="https://github.com/anhanguera/libhthread">libhthread</a>, <a href="http://alperakcan.net/projects/libhthread">libhthread</a> 
+  - <a href="http://sf.net/projects/xynth">xynth</a>, <a href="http://alperakcan.net/projects/xynth">xynth</a>
 
 Makefile Example using Makefile.lib
 
