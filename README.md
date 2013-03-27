@@ -13,7 +13,7 @@ approtiate flags.
 in addition targets may depend each other, so if your target depends on
 target.so just add target.so to target's depend list with;
 
-   target_depends-y = target.so
+    target_depends-y = target.so
 
 targets may also depend to the subdirectories, so target commands will
 not be executed until subdirs commands get executed.
