@@ -168,12 +168,12 @@ AR         := $(CROSS_COMPILE_PREFIX)ar rcs
 RANLIB     := $(CROSS_COMPILE_PREFIX)ranlib
 STRIP      := $(CROSS_COMPILE_PREFIX)strip -sx
 
-HOSTCC     := gcc
-HOSTCPP    := g++
-HOSTLD     := ld
-HOSTAR     := ar rcs
-HOSTRANLIB := ranlib
-HOSTSTRIP  := strip
+HOSTCC     := $(HOST_COMPILE_PREFIX)gcc
+HOSTCPP    := $(HOST_COMPILE_PREFIX)g++
+HOSTLD     := $(HOST_COMPILE_PREFIX)ld
+HOSTAR     := $(HOST_COMPILE_PREFIX)ar rcs
+HOSTRANLIB := $(HOST_COMPILE_PREFIX)ranlib
+HOSTSTRIP  := $(HOST_COMPILE_PREFIX)strip
 
 SED        := sed
 
