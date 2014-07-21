@@ -55,28 +55,32 @@ Available Targets
 Available Target Flags
 ----------------------
 
-    $(target)_makeflags-[y,n, ] : makeflags for target  will be passed to make
-                                  command only for corresponding target.
-    $(target)_files-[y,n, ]     : files must match *.[cho] pattern. *.[ch] files
-                                  will be exemined with $(CC) -M command to
-                                  generate dependency files (*.dep) files. *.[o]
-                                  files will be used only in linking stage. all
-                                  files generated with make command will be
-                                  removed with $(RM) command.
-    $(target)_cflags-[y,n, ]    : cflags will be added to global $(CFLAGS) for
-                                  corresponding target only.
-    $(target)_cppflags-[y,n, ]  : cppflags will be added to global $(CPPFLAGS)
-                                  for corresponding target only.
-    $(target)_includes-[y,n, ]  : a '-I' will be added to all words in includes
-                                  flag, and will be used only for corresponding
-                                  target.
-    $(target)_libraries-[y,n, ] : a '-L' will be added to all words in libraries
-                                  flag, and will be used only for corresponding
-                                  target.
-    $(target)_ldflags-[y,n, ]   : ldflags will be added to gloabal $(LDFLAGS) for
-                                  corresponding target only.
-    $(target)_depends-[y,n, ]   : all words in depends flag will be added to
-                                  prerequisite's list.
+    $(target)_makeflags-[y,n, ]        : makeflags for target  will be passed to make
+                                         command only for corresponding target.
+    $(target)_files-[y,n, ]            : files must match *.[cho] pattern. *.[ch] files
+                                         will be exemined with $(CC) -M command to
+                                         generate dependency files (*.dep) files. *.[o]
+                                         files will be used only in linking stage. all
+                                         files generated with make command will be
+                                         removed with $(RM) command.
+    $(target)_cflags-[y,n, ]           : cflags will be added to global $(CFLAGS) for
+                                         corresponding target only.
+    $(target)_cppflags-[y,n, ]         : cppflags will be added to global $(CPPFLAGS)
+                                         for corresponding target only.
+    $(target)_${file}_cflags-[y,n, ]   : cflags will be added to global $(CFLAGS) for
+                                         corresponding target file only.
+    $(target)_${file}_cppflags-[y,n, ] : cppflags will be added to global $(CPPFLAGS)
+                                         for corresponding target file only.
+    $(target)_includes-[y,n, ]         : a '-I' will be added to all words in includes
+                                         flag, and will be used only for corresponding
+                                         target.
+    $(target)_libraries-[y,n, ]        : a '-L' will be added to all words in libraries
+                                         flag, and will be used only for corresponding
+                                         target.
+    $(target)_ldflags-[y,n, ]          : ldflags will be added to gloabal $(LDFLAGS) for
+                                         corresponding target only.
+    $(target)_depends-[y,n, ]          : all words in depends flag will be added to
+                                         prerequisite's list.
 
 Usage
 -----
@@ -128,6 +132,9 @@ Makefile Example using Makefile.lib
     target2_cflags-y = \
         -DUSER_DEFINED \
         -O2
+
+    target2_target2_file_2.c_cflags-y = \
+        -DUSER_DEFINED_ONLY_FOR_TARGET2_FILE_2_C
 
     target2_ldflags-y = \
         -luserdefined
