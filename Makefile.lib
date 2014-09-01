@@ -530,8 +530,8 @@ define target-defaults_base
     $(eval $1_objects_cc   = $(addprefix .$1/, $(subst .cc,.o,$($1_sources_cc))))
     $(eval $1_objects_cpp  = $(addprefix .$1/, $(subst .cpp,.o,$($1_sources_cpp))))
     $(eval $1_objects_m    = $(addprefix .$1/, $(subst .m,.o,$($1_sources_m))))
-    $(eval $1_eobjects     = $(subst ",,$(filter %.o,$2)))
-    $(eval $1_eobjects    += $(subst ",,$(filter %.lib,$2)))
+    $(eval $1_objects_e     = $(subst ",,$(filter %.o,$2)))
+    $(eval $1_objects_e    += $(subst ",,$(filter %.lib,$2)))
     $(eval $1_depends_c    = $(addprefix .$1/, $(subst .c,.dep,$($1_sources_c))))
     $(eval $1_depends_cc   = $(addprefix .$1/, $(subst .cc,.dep,$($1_sources_cc))))
     $(eval $1_depends_cpp  = $(addprefix .$1/, $(subst .cpp,.dep,$($1_sources_cpp))))
@@ -566,11 +566,12 @@ define target-defaults_base
     $($1_objects_cc): $($1_depends-y) Makefile
     $($1_objects_cpp): $($1_depends-y) Makefile
     $($1_objects_m): $($1_depends-y) Makefile
+    $($1_objects_e): $($1_depends-y) Makefile
     
     $1: .$1/$1 Makefile
 	$(do_cp)
     
-    .$1/$1: $($1_objects_c) $($1_objects_cc) $($1_objects_cpp) $($1_objects_m) $($1_eobjects) Makefile
+    .$1/$1: $($1_objects_c) $($1_objects_cc) $($1_objects_cpp) $($1_objects_m) $($1_objects_e) Makefile
 
     $1_clean: __FORCE
 	$(do_clean) $1 .$1 $$@.cmd $1.dSYM
