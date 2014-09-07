@@ -338,9 +338,9 @@ _cmd_depend.c       = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) $($1_cppflags) \
                       $$@: ,' > $$@
 _cmd_compile.c      = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) $($1_cppflags) \
                       $($1_includes) $$($1_$$<_cflags-y) -c -o $$@ $$<
-_cmd_link.c         = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^)) \
+_cmd_link.c         = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^)) \
                       $($1_ldflags) $(LDFLAGS)
-_cmd_link_so.c      = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^)) \
+_cmd_link_so.c      = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^)) \
                       $($1_ldflags) $(LDFLAGS) -shared
 
 _cmd_depend.c.host  = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
@@ -348,9 +348,9 @@ _cmd_depend.c.host  = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
                       's,\($$*\.o\) *:,.$1/\1 $$@: ,' > $$@
 _cmd_compile.c.host = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
                       $($1_cppflags) $($1_includes) $$($1_$$<_cflags-y) -c -o $$@ $$<
-_cmd_link.c.host    = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^)) \
+_cmd_link.c.host    = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^)) \
                       $($1_ldflags) $(LDFLAGS)
-_cmd_link_so.c.host = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^)) \
+_cmd_link_so.c.host = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^)) \
                       $($1_ldflags) $(LDFLAGS) -shared
 
 _cmd_depend.cpp       = $(CPP) $(CFLAGS) $(CPPFLAGS) $($1_cflags) $($1_cppflags) \
@@ -358,9 +358,9 @@ _cmd_depend.cpp       = $(CPP) $(CFLAGS) $(CPPFLAGS) $($1_cflags) $($1_cppflags)
                         $$@: ,' > $$@
 _cmd_compile.cpp      = $(CPP) $(CFLAGS) $(CPPFLAGS) $($1_cflags) $($1_cppflags) \
                         $($1_includes) $$($1_$$<_cppflags-y) -c -o $$@ $$<
-_cmd_link.cpp         = $(CPP) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^)) \
+_cmd_link.cpp         = $(CPP) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^)) \
                         $($1_ldflags) $(LDFLAGS)
-_cmd_link_so.cpp      = $(CPP) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^)) \
+_cmd_link_so.cpp      = $(CPP) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^)) \
                         $($1_ldflags) $(LDFLAGS) -shared
 
 _cmd_depend.cpp.host  = $(HOSTCPP) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
@@ -368,9 +368,9 @@ _cmd_depend.cpp.host  = $(HOSTCPP) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
                         's,\($$*\.o\) *:,.$1/\1 $$@: ,' > $$@
 _cmd_compile.cpp.host = $(HOSTCPP) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
                         $($1_cppflags) $($1_includes) $$($1_$$<_cppflags-y) -c -o $$@ $$<
-_cmd_link.cpp.host    = $(HOSTCPP) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^)) \
+_cmd_link.cpp.host    = $(HOSTCPP) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^)) \
                         $($1_ldflags) $(LDFLAGS)
-_cmd_link_so.cpp.host = $(HOSTCPP) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^)) \
+_cmd_link_so.cpp.host = $(HOSTCPP) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^)) \
                         $($1_ldflags) $(LDFLAGS) -shared
 
 _cmd_depend.m         = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) $($1_cppflags) \
@@ -378,9 +378,9 @@ _cmd_depend.m         = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) $($1_cppflags) 
                         $$@: ,' > $$@
 _cmd_compile.m        = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) $($1_cppflags) \
                         $($1_includes) $$($1_$$<_cflags-y) -c -o $$@ $$<
-_cmd_link.m           = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^)) \
+_cmd_link.m           = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^)) \
                         $($1_ldflags) $(LDFLAGS)
-_cmd_link_so.m        = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^)) \
+_cmd_link_so.m        = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^)) \
                         $($1_ldflags) $(LDFLAGS) -shared
 
 _cmd_depend.m.host    = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
@@ -388,16 +388,16 @@ _cmd_depend.m.host    = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
                         's,\($$*\.o\) *:,.$1/\1 $$@: ,' > $$@
 _cmd_compile.m.host   = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
                         $($1_cppflags) $($1_includes) $$($1_$$<_cflags-y) -c -o $$@ $$<
-_cmd_link.m.host      = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^)) \
+_cmd_link.m.host      = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^)) \
                         $($1_ldflags) $(LDFLAGS)
-_cmd_link_so.m.host   = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^)) \
+_cmd_link_so.m.host   = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^)) \
                         $($1_ldflags) $(LDFLAGS) -shared
 
-_cmd_ar               = $(AR) $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^))
+_cmd_ar               = $(AR) $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^))
 _cmd_ranlib           = $(RANLIB) $$@
-_cmd_ld               = $(LD) $(LDOPTS) -r -o $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^))
+_cmd_ld               = $(LD) $(LDOPTS) -r -o $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^))
 
-_cmd_ld.host          = $(HOSTLD) $(LDOPTS) -r -o $$@ $$(subst __FORCE,,$$(subst Makefile,,$$^))
+_cmd_ld.host          = $(HOSTLD) $(LDOPTS) -r -o $$@ $$(subst __FORCE,,$$(subst $(MAKEFILE_LIST),,$$^))
 
 _cmd_cp               = $(CP) $$< $$@
 _cmd_mkdir            = $(MKDIR) $$@
@@ -557,21 +557,21 @@ define target-defaults_base
     $($1_directories):
 	$(do_mkdir)
     
-    $($1_depends_c): $($1_headers_c) Makefile
-    $($1_depends_cpp): $($1_headers_cpp) Makefile
-    $($1_depends_m): $($1_headers_m) Makefile
+    $($1_depends_c): $($1_headers_c) $(MAKEFILE_LIST)
+    $($1_depends_cpp): $($1_headers_cpp) $(MAKEFILE_LIST)
+    $($1_depends_m): $($1_headers_m) $(MAKEFILE_LIST)
 
     $1: $($1_depends-y) Makefile
-    $($1_objects_c): $($1_depends-y) Makefile
-    $($1_objects_cc): $($1_depends-y) Makefile
-    $($1_objects_cpp): $($1_depends-y) Makefile
-    $($1_objects_m): $($1_depends-y) Makefile
-    $($1_objects_e): $($1_depends-y) Makefile
+    $($1_objects_c): $($1_depends-y) $(MAKEFILE_LIST)
+    $($1_objects_cc): $($1_depends-y) $(MAKEFILE_LIST)
+    $($1_objects_cpp): $($1_depends-y) $(MAKEFILE_LIST)
+    $($1_objects_m): $($1_depends-y) $(MAKEFILE_LIST)
+    $($1_objects_e): $($1_depends-y) $(MAKEFILE_LIST)
     
-    $1: .$1/$1 Makefile
+    $1: .$1/$1 $(MAKEFILE_LIST)
 	$(do_cp)
     
-    .$1/$1: $($1_objects_c) $($1_objects_cc) $($1_objects_cpp) $($1_objects_m) $($1_objects_e) Makefile
+    .$1/$1: $($1_objects_c) $($1_objects_cc) $($1_objects_cpp) $($1_objects_m) $($1_objects_e) $(MAKEFILE_LIST)
 
     $1_clean: __FORCE
 	$(do_clean) $1 .$1 $$@.cmd $1.dSYM
@@ -580,56 +580,56 @@ endef
 define target-defaults
     $(eval $(call target-defaults_base,$1,$2))
     
-    $($1_depends_c): .$1/%.dep: %.c  Makefile
+    $($1_depends_c): .$1/%.dep: %.c  $(MAKEFILE_LIST)
 	$(do_depend.c)
 
-    $($1_depends_cc): .$1/%.dep: %.cc  Makefile
+    $($1_depends_cc): .$1/%.dep: %.cc  $(MAKEFILE_LIST)
 	$(do_depend.cpp)
 
-    $($1_depends_cpp): .$1/%.dep: %.cpp  Makefile
+    $($1_depends_cpp): .$1/%.dep: %.cpp  $(MAKEFILE_LIST)
 	$(do_depend.cpp)
 
-    $($1_depends_m): .$1/%.dep: %.m  Makefile
+    $($1_depends_m): .$1/%.dep: %.m  $(MAKEFILE_LIST)
 	$(do_depend.m)
 
-    $($1_objects_c): .$1/%.o: %.c Makefile
+    $($1_objects_c): .$1/%.o: %.c $(MAKEFILE_LIST)
 	$(do_compile.c)
 
-    $($1_objects_cc): .$1/%.o: %.cc  Makefile
+    $($1_objects_cc): .$1/%.o: %.cc  $(MAKEFILE_LIST)
 	$(do_compile.cpp)
 
-    $($1_objects_cpp): .$1/%.o: %.cpp  Makefile
+    $($1_objects_cpp): .$1/%.o: %.cpp  $(MAKEFILE_LIST)
 	$(do_compile.cpp)
 
-    $($1_objects_m): .$1/%.o: %.m  Makefile
+    $($1_objects_m): .$1/%.o: %.m  $(MAKEFILE_LIST)
 	$(do_compile.m)
 endef
 
 define target.host-defaults
     $(eval $(call target-defaults_base,$1,$2))
 
-    $($1_depends_c): .$1/%.dep: %.c Makefile
+    $($1_depends_c): .$1/%.dep: %.c $(MAKEFILE_LIST)
 	$(do_depend.c.host)
 
-    $($1_depends_cc): .$1/%.dep: %.cc Makefile
+    $($1_depends_cc): .$1/%.dep: %.cc $(MAKEFILE_LIST)
 	$(do_depend.cpp.host)
 
-    $($1_depends_cpp): .$1/%.dep: %.cpp Makefile
+    $($1_depends_cpp): .$1/%.dep: %.cpp $(MAKEFILE_LIST)
 	$(do_depend.cpp.host)
 
-    $($1_depends_m): .$1/%.dep: %.m Makefile
+    $($1_depends_m): .$1/%.dep: %.m $(MAKEFILE_LIST)
 	$(do_depend.m.host)
 
-    $($1_objects_c): .$1/%.o: %.c Makefile
+    $($1_objects_c): .$1/%.o: %.c $(MAKEFILE_LIST)
 	$(do_compile.c.host)
 
-    $($1_objects_cc): .$1/%.o: %.cc Makefile
+    $($1_objects_cc): .$1/%.o: %.cc $(MAKEFILE_LIST)
 	$(do_compile.cpp.host)
 
-    $($1_objects_cpp): .$1/%.o: %.cpp Makefile
+    $($1_objects_cpp): .$1/%.o: %.cpp $(MAKEFILE_LIST)
 	$(do_compile.cpp.host)
 
-    $($1_objects_m): .$1/%.o: %.m Makefile
+    $($1_objects_m): .$1/%.o: %.m $(MAKEFILE_LIST)
 	$(do_compile.m.host)
 endef
 
