@@ -597,6 +597,7 @@ define target-defaults_base
     $1_clean: __FORCE $1_distclean
 	$(do_clean) $1 .$1 $$@.cmd $1.dSYM
 
+    $1_distclean: __FORCE
 endef
 
 define target-defaults
