@@ -749,66 +749,32 @@ endef
 
 define dist-defaults
     $(eval target-cleans  += $1_distclean)
+    $(eval target-dists += $(distdir)/$2/$1)
+
+    $(distdir)/$2: $(distdir)
+
+    $(distdir)/$2/$1: $1
+	$(do_cp)
+
+    $1_distclean: __FORCE
+	$(do_clean) $(distdir)/$2/$1
+	$(Q)if [ -e $$(abspath $(distdir)) ]; then find $$(abspath $(distdir)) -type d -empty -d -exec rm -rf {} \; ; fi
 endef
 
 define dist.include-variables
-    $(eval $(call dist-defaults,$1))
-
-    $(eval target-dists += $(distdir)/include/$1)
-
-    $(distdir)/include: $(distdir)
-
-    $(distdir)/include/$1: $1
-	$(do_cp)
-
-    $1_distclean: __FORCE
-	$(do_clean) $(distdir)/include/$1
-	$(Q)if [ -e $(distdir) ]; then find $(distdir) -type d -empty -delete; fi
+    $(eval $(call dist-defaults,$1,include))
 endef
 
 define dist.obj-variables
-    $(eval $(call dist-defaults,$1))
-
-    $(eval target-dists += $(distdir)/obj/$1)
-
-    $(distdir)/obj: $(distdir)
-
-    $(distdir)/obj/$1: $1
-	$(do_cp)
-
-    $1_distclean: __FORCE
-	$(do_clean) $(distdir)/obj/$1
-	$(Q)if [ -e $(distdir) ]; then find $(distdir) -type d -empty -delete; fi
+    $(eval $(call dist-defaults,$1,obj))
 endef
 
 define dist.lib-variables
-    $(eval $(call dist-defaults,$1))
-
-    $(eval target-dists += $(distdir)/lib/$1)
-
-    $(distdir)/lib: $(distdir)
-
-    $(distdir)/lib/$1: $1
-	$(do_cp)
-
-    $1_distclean:
-	$(do_clean) $(distdir)/lib/$1
-	$(Q)if [ -e $(distdir) ]; then find $(distdir) -type d -empty -delete; fi
+    $(eval $(call dist-defaults,$1,lib))
 endef
 
 define dist.bin-variables
-    $(eval $(call dist-defaults,$1))
-
-    $(eval target-dists += $(distdir)/bin/$1)
-
-    $(distdir)/bin: $(distdir)
-
-    $(distdir)/bin/$1: $1
-	$(do_cp)
-
-    $1_distclean:
-	$(do_clean) $(distdir)/bin/$1
-	$(Q)if [ -e $(distdir) ]; then find $(distdir) -type d -empty -delete; fi
+    $(eval $(call dist-defaults,$1,bin))
 endef
 
 #
