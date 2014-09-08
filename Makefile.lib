@@ -261,6 +261,8 @@ pur_disp_cp               = echo "  CP         $(pur_objects)"
 pur_disp_mkdir            = echo "  MKDIR      $(CURDIR)/$@"
 pur_disp_clean            = echo "  CLEAN      $$(subst _clean,,$(pur_objects))"
 
+pur_disp_dist             = echo "  DIST       $(pur_objects)"
+
 #
 # VER
 #
@@ -304,6 +306,8 @@ ver_disp_cp               = echo "$(subst ",\",$(cmd_cp))"
 ver_disp_mkdir            = echo "$(subst ",\",$(cmd_mkdir))"
 ver_disp_clean            = echo "$(subst ",\",$(cmd_clean) $1 .$1 $$@.cmd)"
 
+ver_disp_dist             = echo "$(subst ",\",$(cmd_dist))"
+
 #
 # DISP
 #
@@ -346,6 +350,8 @@ disp_ld.host          = $($(verbose)_disp_ld.host)
 disp_cp               = $($(verbose)_disp_cp)
 disp_mkdir            = $($(verbose)_disp_mkdir)
 disp_clean            = $($(verbose)_disp_clean)
+
+disp_dist             = $($(verbose)_disp_dist)
 
 #
 # _CMD
@@ -423,6 +429,8 @@ _cmd_cp               = $(CP) $$< $$@
 _cmd_mkdir            = $(MKDIR) $@
 _cmd_clean            = $(RM)
 
+_cmd_dist             = $(CP) $$< $$@
+
 #
 # CMD
 #
@@ -490,6 +498,8 @@ cmd_cp               = $(_cmd_cp)
 cmd_mkdir            = $(_cmd_mkdir)
 cmd_clean            = $(_cmd_clean)
 
+cmd_dist             = $(_cmd_dist)
+
 #
 # DO
 #
@@ -533,6 +543,8 @@ do_cp               = @$(disp_cp)               ; $(MKDIR) $$(dir $$@); $(cmd_cp
 do_mkdir            = @$(disp_mkdir)            ; $(cmd_mkdir)
 do_clean            = @$(disp_clean)            ; $(cmd_clean)
 
+do_dist             = @$(disp_dist)             ; $(MKDIR) $$(dir $$@); $(cmd_dist)
+
 #
 # Functions
 #
@@ -550,8 +562,8 @@ define target-defaults_base
     $(eval $1_objects_cc   = $(addprefix .$1/, $(subst .cc,.o,$($1_sources_cc))))
     $(eval $1_objects_cpp  = $(addprefix .$1/, $(subst .cpp,.o,$($1_sources_cpp))))
     $(eval $1_objects_m    = $(addprefix .$1/, $(subst .m,.o,$($1_sources_m))))
-    $(eval $1_objects_e     = $(subst ",,$(filter %.o,$2)))
-    $(eval $1_objects_e    += $(subst ",,$(filter %.lib,$2)))
+    $(eval $1_objects_e    = $(subst ",,$(filter %.o,$2)))
+    $(eval $1_objects_e   += $(subst ",,$(filter %.lib,$2)))
     $(eval $1_depends_c    = $(addprefix .$1/, $(subst .c,.d,$($1_sources_c))))
     $(eval $1_depends_cc   = $(addprefix .$1/, $(subst .cc,.d,$($1_sources_cc))))
     $(eval $1_depends_cpp  = $(addprefix .$1/, $(subst .cpp,.d,$($1_sources_cpp))))
@@ -579,15 +591,15 @@ define target-defaults_base
     $($1_directories):
 	$(do_mkdir)
     
-    $($1_depends_c): $($1_headers_c)
+    $($1_depends_c):   $($1_headers_c)
     $($1_depends_cpp): $($1_headers_cpp)
-    $($1_depends_m): $($1_headers_m)
+    $($1_depends_m):   $($1_headers_m)
 
-    $($1_objects_c): $($1_depends_c) $(MAKEFILE_LIST)
-    $($1_objects_cc): $($1_depends_cc) $(MAKEFILE_LIST)
+    $($1_objects_c):   $($1_depends_c)   $(MAKEFILE_LIST)
+    $($1_objects_cc):  $($1_depends_cc)  $(MAKEFILE_LIST)
     $($1_objects_cpp): $($1_depends_cpp) $(MAKEFILE_LIST)
-    $($1_objects_m): $($1_depends_m) $(MAKEFILE_LIST)
-    $($1_objects_e): $(MAKEFILE_LIST)
+    $($1_objects_m):   $($1_depends_m)   $(MAKEFILE_LIST)
+    $($1_objects_e):   $(MAKEFILE_LIST)
     
     $1: .$1/$1 $(MAKEFILE_LIST)
 	$(do_cp)
@@ -754,7 +766,7 @@ define dist-defaults
     $(distdir)/$2: $(distdir)
 
     $(distdir)/$2/$1: $1
-	$(do_cp)
+	$(do_dist)
 
     $1_distclean: __FORCE
 	$(do_clean) $(distdir)/$2/$1
