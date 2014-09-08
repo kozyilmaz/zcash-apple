@@ -575,7 +575,6 @@ define target-defaults_base
     $(eval target-depends += $($1_depends_cpp))
     $(eval target-depends += $($1_depends_m))
     $(eval target-cleans  += $1_clean)
-    $(eval target-cleans  += $1_distclean)
 
     $($1_directories):
 	$(do_mkdir)
@@ -595,10 +594,9 @@ define target-defaults_base
     
     .$1/$1: $($1_depends-y) $($1_objects_c) $($1_objects_cc) $($1_objects_cpp) $($1_objects_m) $($1_objects_e)
 
-    $1_clean: __FORCE
-	$(do_clean) $1 .$1 $$@.cmd $1.dSYM $($1_cleans)
+    $1_clean: __FORCE $1_distclean
+	$(do_clean) $1 .$1 $$@.cmd $1.dSYM
 
-    $1_distclean: __FORCE
 endef
 
 define target-defaults
@@ -761,7 +759,7 @@ define dist.obj-variables
     $(distdir)/obj/$1: $1
 	$(do_cp)
 
-    $1_distclean:
+    $1_distclean: __FORCE
 	$(do_clean) $(distdir)/obj/$1
 	$(Q)if [ -e $(distdir) ]; then find $(distdir) -type d -empty -delete; fi
 endef
