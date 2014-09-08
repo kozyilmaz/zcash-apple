@@ -748,6 +748,22 @@ define subdir-defaults
 endef
 
 define dist-defaults
+    $(eval target-cleans  += $1_distclean)
+endef
+
+define dist.include-variables
+    $(eval $(call dist-defaults,$1))
+
+    $(eval target-dists += $(distdir)/include/$1)
+
+    $(distdir)/include: $(distdir)
+
+    $(distdir)/include/$1: $1
+	$(do_cp)
+
+    $1_distclean: __FORCE
+	$(do_clean) $(distdir)/include/$1
+	$(Q)if [ -e $(distdir) ]; then find $(distdir) -type d -empty -delete; fi
 endef
 
 define dist.obj-variables
@@ -846,6 +862,7 @@ ifneq ($(distdir),)
 $(eval $(foreach D,$(dist.bin-y), $(eval $(call dist.bin-variables,$D))))
 $(eval $(foreach D,$(dist.lib-y), $(eval $(call dist.lib-variables,$D))))
 $(eval $(foreach D,$(dist.obj-y), $(eval $(call dist.obj-variables,$D))))
+$(eval $(foreach D,$(dist.include-y), $(eval $(call dist.include-variables,$D))))
 
 endif
 
