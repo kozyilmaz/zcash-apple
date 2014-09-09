@@ -770,7 +770,7 @@ define dist-defaults
 
     $1_distclean: __FORCE
 	$(do_clean) $(distdir)/$2/$1
-	$(Q)if [ -e $$(abspath $(distdir)) ]; then find $$(abspath $(distdir)) -type d -empty -d -exec rm -rf {} \; ; fi
+	$(Q)if [ -e $$(abspath $(distdir)) ]; then find $$(abspath $(distdir)) -type d -empty -depth -exec rm -rf {} \; ; fi
 endef
 
 define dist.include-variables
