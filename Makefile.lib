@@ -262,6 +262,7 @@ pur_disp_mkdir            = echo "  MKDIR      $(CURDIR)/$@"
 pur_disp_clean            = echo "  CLEAN      $$(subst _clean,,$(pur_objects))"
 
 pur_disp_dist             = echo "  DIST       $(pur_objects)"
+pur_disp_distclean        = echo "  DISTCLEAN  $$(subst _distclean,,$(pur_objects))"
 
 #
 # VER
@@ -307,6 +308,7 @@ ver_disp_mkdir            = echo "$(subst ",\",$(cmd_mkdir))"
 ver_disp_clean            = echo "$(subst ",\",$(cmd_clean) $1 .$1 $$@.cmd)"
 
 ver_disp_dist             = echo "$(subst ",\",$(cmd_dist))"
+ver_disp_distclean        = echo "$(subst ",\",$(cmd_distclean) $1 .$1 $$@.cmd)"
 
 #
 # DISP
@@ -352,6 +354,7 @@ disp_mkdir            = $($(verbose)_disp_mkdir)
 disp_clean            = $($(verbose)_disp_clean)
 
 disp_dist             = $($(verbose)_disp_dist)
+disp_distclean        = $($(verbose)_disp_distclean)
 
 #
 # _CMD
@@ -430,6 +433,7 @@ _cmd_mkdir            = $(MKDIR) $@
 _cmd_clean            = $(RM)
 
 _cmd_dist             = $(CP) $$< $$@
+_cmd_distclean        = $(RM)
 
 #
 # CMD
@@ -499,6 +503,7 @@ cmd_mkdir            = $(_cmd_mkdir)
 cmd_clean            = $(_cmd_clean)
 
 cmd_dist             = $(_cmd_dist)
+cmd_distclean        = $(_cmd_distclean)
 
 #
 # DO
@@ -544,6 +549,7 @@ do_mkdir            = @$(disp_mkdir)            ; $(cmd_mkdir)
 do_clean            = @$(disp_clean)            ; $(cmd_clean)
 
 do_dist             = @$(disp_dist)             ; $(MKDIR) $$(dir $$@); $(cmd_dist)
+do_distclean        = @$(disp_distclean)        ; $(cmd_distclean)
 
 #
 # Functions
@@ -606,7 +612,7 @@ define target-defaults_base
     
     .$1/$1: $($1_depends-y) $($1_objects_c) $($1_objects_cc) $($1_objects_cpp) $($1_objects_m) $($1_objects_e)
 
-    $1_clean: __FORCE $1_distclean
+    $1_clean: __FORCE
 	$(do_clean) $1 .$1 $$@.cmd $1.dSYM
 
     $1_distclean: __FORCE
@@ -769,8 +775,16 @@ define dist-defaults
 	$(do_dist)
 
     $1_distclean: __FORCE
-	$(do_clean) $(distdir)/$2/$1
-	$(Q)if [ -e $$(abspath $(distdir)) ]; then find $$(abspath $(distdir)) -type d -empty -d -exec rm -rf {} \; ; fi
+	$(do_distclean) $(distdir)/$2/$1
+	$(Q)if [ -e $$(abspath $(distdir)) ]; then find $$(abspath $(distdir)) -depth -type d -empty -exec rm -rf {} \; ; fi
+endef
+
+define dist.changelog-variables
+    $(eval $(call dist-defaults,$1,changelog))
+endef
+
+define dist.license-variables
+    $(eval $(call dist-defaults,$1,license))
 endef
 
 define dist.include-variables
@@ -841,6 +855,8 @@ $(eval $(foreach D,$(dist.bin-y), $(eval $(call dist.bin-variables,$D))))
 $(eval $(foreach D,$(dist.lib-y), $(eval $(call dist.lib-variables,$D))))
 $(eval $(foreach D,$(dist.obj-y), $(eval $(call dist.obj-variables,$D))))
 $(eval $(foreach D,$(dist.include-y), $(eval $(call dist.include-variables,$D))))
+$(eval $(foreach D,$(dist.changelog-y), $(eval $(call dist.changelog-variables,$D))))
+$(eval $(foreach D,$(dist.license-y), $(eval $(call dist.license-variables,$D))))
 
 endif
 
