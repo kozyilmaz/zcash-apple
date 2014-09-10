@@ -130,11 +130,11 @@
 #                                         removed with $(RM) command.
 #    $(target)_cflags-[y,n, ]           : cflags will be added to global $(CFLAGS) for
 #                                         corresponding target only.
-#    $(target)_cppflags-[y,n, ]         : cppflags will be added to global $(CPPFLAGS)
+#    $(target)_cxxflags-[y,n, ]         : cxxflags will be added to global $(CXXFLAGS)
 #                                         for corresponding target only.
 #    $(target)_${file}_cflags-[y,n, ]   : cflags will be added to global $(CFLAGS) for
 #                                         corresponding target file only.
-#    $(target)_${file}_cppflags-[y,n, ] : cppflags will be added to global $(CPPFLAGS)
+#    $(target)_${file}_cxxflags-[y,n, ] : cxxflags will be added to global $(CXXFLAGS)
 #                                         for corresponding target file only.
 #    $(target)_includes-[y,n, ]         : a '-I' will be added to all words in includes
 #                                         flag, and will be used only for corresponding
@@ -183,14 +183,16 @@ endif
 MAKE       := + CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" TOPDIR=$(TOPDIR) uname_S=$(uname_S) $(MAKE) --no-print-directory
 
 CC         := $(CROSS_COMPILE_PREFIX)gcc $(SYSROOT)
-CPP        := $(CROSS_COMPILE_PREFIX)g++ $(SYSROOT)
+CXX        := $(CROSS_COMPILE_PREFIX)g++ $(SYSROOT)
+CPP        := $(CROSS_COMPILE_PREFIX)cpp $(SYSROOT)
 LD         := $(CROSS_COMPILE_PREFIX)ld
 AR         := $(CROSS_COMPILE_PREFIX)ar rcs
 RANLIB     := $(CROSS_COMPILE_PREFIX)ranlib
 STRIP      := $(CROSS_COMPILE_PREFIX)strip -sx
 
 HOSTCC     := $(HOST_COMPILE_PREFIX)gcc
-HOSTCPP    := $(HOST_COMPILE_PREFIX)g++
+HOSTCXX    := $(HOST_COMPILE_PREFIX)g++
+HOSTCPP    := $(HOST_COMPILE_PREFIX)cpp
 HOSTLD     := $(HOST_COMPILE_PREFIX)ld
 HOSTAR     := $(HOST_COMPILE_PREFIX)ar rcs
 HOSTRANLIB := $(HOST_COMPILE_PREFIX)ranlib
@@ -221,32 +223,32 @@ pur_objects = $(CURDIR)/$$@
 #
 # PUR
 #
-pur_disp_depend.c         = echo "  DEP        $(pur_objects)"
+pur_disp_depend.c         = echo "  CPP        $(pur_objects)"
 pur_disp_compile.c        = echo "  CC         $(pur_objects)"
 pur_disp_link.c           = echo "  LINK       $(pur_objects)"
 pur_disp_link_so.c        = echo "  LINKSO     $(pur_objects)"
 
-pur_disp_depend.cpp       = echo "  DEP        $(pur_objects)"
-pur_disp_compile.cpp      = echo "  CPP        $(pur_objects)"
-pur_disp_link.cpp         = echo "  LINK       $(pur_objects)"
-pur_disp_link_so.cpp      = echo "  LINKSO     $(pur_objects)"
+pur_disp_depend.cxx       = echo "  CPP        $(pur_objects)"
+pur_disp_compile.cxx      = echo "  CXX        $(pur_objects)"
+pur_disp_link.cxx         = echo "  LINK       $(pur_objects)"
+pur_disp_link_so.cxx      = echo "  LINKSO     $(pur_objects)"
 
-pur_disp_depend.m         = echo "  DEP        $(pur_objects)"
+pur_disp_depend.m         = echo "  CPP        $(pur_objects)"
 pur_disp_compile.m        = echo "  CC         $(pur_objects)"
 pur_disp_link.m           = echo "  LINK       $(pur_objects)"
 pur_disp_link_so.m        = echo "  LINKSO     $(pur_objects)"
 
-pur_disp_depend.c.host    = echo "  HOSTDEP    $(pur_objects)"
+pur_disp_depend.c.host    = echo "  HOSTCPP    $(pur_objects)"
 pur_disp_compile.c.host   = echo "  HOSTCC     $(pur_objects)"
 pur_disp_link.c.host      = echo "  HOSTLINK   $(pur_objects)"
 pur_disp_link_so.c.host   = echo "  HOSTLINKSO $(pur_objects)"
 
-pur_disp_depend.cpp.host  = echo "  HOSTDEP    $(pur_objects)"
-pur_disp_compile.cpp.host = echo "  HOSTCPP    $(pur_objects)"
-pur_disp_link.cpp.host    = echo "  HOSTLINK   $(pur_objects)"
-pur_disp_link_so.cpp.host = echo "  HOSTLINKSO $(pur_objects)"
+pur_disp_depend.cxx.host  = echo "  HOSTCPP    $(pur_objects)"
+pur_disp_compile.cxx.host = echo "  HOSTCXX    $(pur_objects)"
+pur_disp_link.cxx.host    = echo "  HOSTLINK   $(pur_objects)"
+pur_disp_link_so.cxx.host = echo "  HOSTLINKSO $(pur_objects)"
 
-pur_disp_depend.m.host    = echo "  HOSTDEP    $(pur_objects)"
+pur_disp_depend.m.host    = echo "  HOSTCPP    $(pur_objects)"
 pur_disp_compile.m.host   = echo "  HOSTCC     $(pur_objects)"
 pur_disp_link.m.host      = echo "  HOSTLINK   $(pur_objects)"
 pur_disp_link_so.m.host   = echo "  HOSTLINKSO $(pur_objects)"
@@ -272,10 +274,10 @@ ver_disp_compile.c        = echo "$(subst ",\",$(cmd_compile.c))"
 ver_disp_link.c           = echo "$(subst ",\",$(cmd_link.c))"
 ver_disp_link_so.c        = echo "$(subst ",\",$(cmd_link_so.c))"
 
-ver_disp_depend.cpp       = echo "$(subst ",\",$(cmd_depend.cpp))"
-ver_disp_compile.cpp      = echo "$(subst ",\",$(cmd_compile.cpp))"
-ver_disp_link.cpp         = echo "$(subst ",\",$(cmd_link.cpp))"
-ver_disp_link_so.cpp      = echo "$(subst ",\",$(cmd_link_so.cpp))"
+ver_disp_depend.cxx       = echo "$(subst ",\",$(cmd_depend.cxx))"
+ver_disp_compile.cxx      = echo "$(subst ",\",$(cmd_compile.cxx))"
+ver_disp_link.cxx         = echo "$(subst ",\",$(cmd_link.cxx))"
+ver_disp_link_so.cxx      = echo "$(subst ",\",$(cmd_link_so.cxx))"
 
 ver_disp_depend.m         = echo "$(subst ",\",$(cmd_depend.m))"
 ver_disp_compile.m        = echo "$(subst ",\",$(cmd_compile.m))"
@@ -287,10 +289,10 @@ ver_disp_compile.c.host   = echo "$(subst ",\",$(cmd_compile.c.host))"
 ver_disp_link.c.host      = echo "$(subst ",\",$(cmd_link.c.host))"
 ver_disp_link_so.c.host   = echo "$(subst ",\",$(cmd_link_so.c.host))"
 
-ver_disp_depend.cpp.host  = echo "$(subst ",\",$(cmd_depend.cpp.host))"
-ver_disp_compile.cpp.host = echo "$(subst ",\",$(cmd_compile.cpp.host))"
-ver_disp_link.cpp.host    = echo "$(subst ",\",$(cmd_link.cpp.host))"
-ver_disp_link_so.cpp.host = echo "$(subst ",\",$(cmd_link_so.cpp.host))"
+ver_disp_depend.cxx.host  = echo "$(subst ",\",$(cmd_depend.cxx.host))"
+ver_disp_compile.cxx.host = echo "$(subst ",\",$(cmd_compile.cxx.host))"
+ver_disp_link.cxx.host    = echo "$(subst ",\",$(cmd_link.cxx.host))"
+ver_disp_link_so.cxx.host = echo "$(subst ",\",$(cmd_link_so.cxx.host))"
 
 ver_disp_depend.m.host    = echo "$(subst ",\",$(cmd_depend.m.host))"
 ver_disp_compile.m.host   = echo "$(subst ",\",$(cmd_compile.m.host))"
@@ -318,10 +320,10 @@ disp_compile.c        = $($(verbose)_disp_compile.c)
 disp_link.c           = $($(verbose)_disp_link.c)
 disp_link_so.c        = $($(verbose)_disp_link_so.c)
 
-disp_depend.cpp       = $($(verbose)_disp_depend.cpp)
-disp_compile.cpp      = $($(verbose)_disp_compile.cpp)
-disp_link.cpp         = $($(verbose)_disp_link.cpp)
-disp_link_so.cpp      = $($(verbose)_disp_link_so.cpp)
+disp_depend.cxx       = $($(verbose)_disp_depend.cxx)
+disp_compile.cxx      = $($(verbose)_disp_compile.cxx)
+disp_link.cxx         = $($(verbose)_disp_link.cxx)
+disp_link_so.cxx      = $($(verbose)_disp_link_so.cxx)
 
 disp_depend.m         = $($(verbose)_disp_depend.m)
 disp_compile.m        = $($(verbose)_disp_compile.m)
@@ -333,10 +335,10 @@ disp_compile.c.host   = $($(verbose)_disp_compile.c.host)
 disp_link.c.host      = $($(verbose)_disp_link.c.host)
 disp_link_so.c.host   = $($(verbose)_disp_link_so.c.host)
 
-disp_depend.cpp.host  = $($(verbose)_disp_depend.cpp.host)
-disp_compile.cpp.host = $($(verbose)_disp_compile.cpp.host)
-disp_link.cpp.host    = $($(verbose)_disp_link.cpp.host)
-disp_link_so.cpp.host = $($(verbose)_disp_link_so.cpp.host)
+disp_depend.cxx.host  = $($(verbose)_disp_depend.cxx.host)
+disp_compile.cxx.host = $($(verbose)_disp_compile.cxx.host)
+disp_link.cxx.host    = $($(verbose)_disp_link.cxx.host)
+disp_link_so.cxx.host = $($(verbose)_disp_link_so.cxx.host)
 
 disp_depend.m.host    = $($(verbose)_disp_depend.m.host)
 disp_compile.m.host   = $($(verbose)_disp_compile.m.host)
@@ -359,67 +361,67 @@ disp_distclean        = $($(verbose)_disp_distclean)
 #
 # _CMD
 #
-_cmd_depend.c       = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) $($1_cppflags) \
+_cmd_depend.c       = $(CPP) $(CFLAGS) $(CXXFLAGS) $($1_cflags) $($1_cxxflags) \
                       $($1_includes) -M $$< | $(SED) 's,\($$*\.o\) *:,.$1/\1 \
                       $$@: ,' > $$@; \
                       $(CP) $$@ $$@.p; \
                       $(SED) -e 's/\#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$$$//' -e '/^$$$$/ d' -e 's/$$$$/ :/' < $$@ >> $$@.p; \
                       $(MV) $$@.p $$@
-_cmd_compile.c      = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) $($1_cppflags) \
+_cmd_compile.c      = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_cflags) $($1_cxxflags) \
                       $($1_includes) $$($1_$$<_cflags-y) -c -o $$@ $$<
-_cmd_link.c         = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
+_cmd_link.c         = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                       $($1_ldflags) $(LDFLAGS)
-_cmd_link_so.c      = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
+_cmd_link_so.c      = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                       $($1_ldflags) $(LDFLAGS) -shared
 
-_cmd_depend.c.host  = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
-                      $($1_cppflags) $($1_includes) -M $$< | $(SED) \
+_cmd_depend.c.host  = $(HOSTCPP) $(CFLAGS) $(CXXFLAGS) $($1_cflags) \
+                      $($1_cxxflags) $($1_includes) -M $$< | $(SED) \
                       's,\($$*\.o\) *:,.$1/\1 $$@: ,' > $$@
-_cmd_compile.c.host = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
-                      $($1_cppflags) $($1_includes) $$($1_$$<_cflags-y) -c -o $$@ $$<
-_cmd_link.c.host    = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
+_cmd_compile.c.host = $(HOSTCC) $(CFLAGS) $(CXXFLAGS) $($1_cflags) \
+                      $($1_cxxflags) $($1_includes) $$($1_$$<_cflags-y) -c -o $$@ $$<
+_cmd_link.c.host    = $(HOSTCC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                       $($1_ldflags) $(LDFLAGS)
-_cmd_link_so.c.host = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
+_cmd_link_so.c.host = $(HOSTCC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                       $($1_ldflags) $(LDFLAGS) -shared
 
-_cmd_depend.cpp       = $(CPP) $(CFLAGS) $(CPPFLAGS) $($1_cflags) $($1_cppflags) \
+_cmd_depend.cxx       = $(CXX) $(CFLAGS) $(CXXFLAGS) $($1_cflags) $($1_cxxflags) \
                         $($1_includes) -M $$< | $(SED) 's,\($$*\.o\) *:,.$1/\1 \
                         $$@: ,' > $$@
-_cmd_compile.cpp      = $(CPP) $(CFLAGS) $(CPPFLAGS) $($1_cflags) $($1_cppflags) \
-                        $($1_includes) $$($1_$$<_cppflags-y) -c -o $$@ $$<
-_cmd_link.cpp         = $(CPP) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
+_cmd_compile.cxx      = $(CXX) $(CFLAGS) $(CXXFLAGS) $($1_cflags) $($1_cxxflags) \
+                        $($1_includes) $$($1_$$<_cxxflags-y) -c -o $$@ $$<
+_cmd_link.cxx         = $(CXX) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                         $($1_ldflags) $(LDFLAGS)
-_cmd_link_so.cpp      = $(CPP) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
+_cmd_link_so.cxx      = $(CXX) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                         $($1_ldflags) $(LDFLAGS) -shared
 
-_cmd_depend.cpp.host  = $(HOSTCPP) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
-                        $($1_cppflags) $($1_includes) -M $$< | $(SED) \
+_cmd_depend.cxx.host  = $(HOSTCXX) $(CFLAGS) $(CXXFLAGS) $($1_cflags) \
+                        $($1_cxxflags) $($1_includes) -M $$< | $(SED) \
                         's,\($$*\.o\) *:,.$1/\1 $$@: ,' > $$@
-_cmd_compile.cpp.host = $(HOSTCPP) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
-                        $($1_cppflags) $($1_includes) $$($1_$$<_cppflags-y) -c -o $$@ $$<
-_cmd_link.cpp.host    = $(HOSTCPP) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
+_cmd_compile.cxx.host = $(HOSTCXX) $(CFLAGS) $(CXXFLAGS) $($1_cflags) \
+                        $($1_cxxflags) $($1_includes) $$($1_$$<_cxxflags-y) -c -o $$@ $$<
+_cmd_link.cxx.host    = $(HOSTCXX) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                         $($1_ldflags) $(LDFLAGS)
-_cmd_link_so.cpp.host = $(HOSTCPP) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
+_cmd_link_so.cxx.host = $(HOSTCXX) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                         $($1_ldflags) $(LDFLAGS) -shared
 
-_cmd_depend.m         = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) $($1_cppflags) \
+_cmd_depend.m         = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_cflags) $($1_cxxflags) \
                         $($1_includes) -M $$< | $(SED) 's,\($$*\.o\) *:,.$1/\1 \
                         $$@: ,' > $$@
-_cmd_compile.m        = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) $($1_cppflags) \
+_cmd_compile.m        = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_cflags) $($1_cxxflags) \
                         $($1_includes) $$($1_$$<_cflags-y) -c -o $$@ $$<
-_cmd_link.m           = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
+_cmd_link.m           = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                         $($1_ldflags) $(LDFLAGS)
-_cmd_link_so.m        = $(CC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
+_cmd_link_so.m        = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                         $($1_ldflags) $(LDFLAGS) -shared
 
-_cmd_depend.m.host    = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
-                        $($1_cppflags) $($1_includes) -M $$< | $(SED) \
+_cmd_depend.m.host    = $(HOSTCC) $(CFLAGS) $(CXXFLAGS) $($1_cflags) \
+                        $($1_cxxflags) $($1_includes) -M $$< | $(SED) \
                         's,\($$*\.o\) *:,.$1/\1 $$@: ,' > $$@
-_cmd_compile.m.host   = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_cflags) \
-                        $($1_cppflags) $($1_includes) $$($1_$$<_cflags-y) -c -o $$@ $$<
-_cmd_link.m.host      = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
+_cmd_compile.m.host   = $(HOSTCC) $(CFLAGS) $(CXXFLAGS) $($1_cflags) \
+                        $($1_cxxflags) $($1_includes) $$($1_$$<_cflags-y) -c -o $$@ $$<
+_cmd_link.m.host      = $(HOSTCC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                         $($1_ldflags) $(LDFLAGS)
-_cmd_link_so.m.host   = $(HOSTCC) $(CFLAGS) $(CPPFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
+_cmd_link_so.m.host   = $(HOSTCC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                         $($1_ldflags) $(LDFLAGS) -shared
 
 _cmd_ar               = $(AR) $$@ $$(filter-out __FORCE $($1_depends-y),$$^)
@@ -456,23 +458,23 @@ cmd_link.c.host      = echo "$(_cmd_link.c.host)" > $$@.cmd    ; \
 cmd_link_so.c.host   = echo "$(_cmd_link_so.c.host)" > $$@.cmd ; \
                        $(_cmd_link_so.c.host)
 
-cmd_depend.cpp       = echo "$(_cmd_depend.cpp)" > $$@.cmd       ; \
-                       $(_cmd_depend.cpp)
-cmd_compile.cpp      = echo "$(_cmd_compile.cpp)" > $$@.cmd      ; \
-                       $(_cmd_compile.cpp)
-cmd_link.cpp         = echo "$(_cmd_link.cpp)" > $$@.cmd         ; \
-                       $(_cmd_link.cpp)
-cmd_link_so.cpp      = echo "$(_cmd_link_so.cpp)" > $$@.cmd      ; \
-                       $(_cmd_link_so.cpp)
+cmd_depend.cxx       = echo "$(_cmd_depend.cxx)" > $$@.cmd       ; \
+                       $(_cmd_depend.cxx)
+cmd_compile.cxx      = echo "$(_cmd_compile.cxx)" > $$@.cmd      ; \
+                       $(_cmd_compile.cxx)
+cmd_link.cxx         = echo "$(_cmd_link.cxx)" > $$@.cmd         ; \
+                       $(_cmd_link.cxx)
+cmd_link_so.cxx      = echo "$(_cmd_link_so.cxx)" > $$@.cmd      ; \
+                       $(_cmd_link_so.cxx)
 
-cmd_depend.cpp.host  = echo "$(_cmd_depend.cpp.host)" > $$@.cmd  ; \
-                       $(_cmd_depend.cpp.host)
-cmd_compile.cpp.host = echo "$(_cmd_compile.cpp.host)" > $$@.cmd ; \
-                       $(_cmd_compile.cpp.host)
-cmd_link.cpp.host    = echo "$(_cmd_link.cpp.host)" > $$@.cmd    ; \
-                       $(_cmd_link.cpp.host)
-cmd_link_so.cpp.host = echo "$(_cmd_link_so.cpp.host)" > $$@.cmd ; \
-                       $(_cmd_link_so.cpp.host)
+cmd_depend.cxx.host  = echo "$(_cmd_depend.cxx.host)" > $$@.cmd  ; \
+                       $(_cmd_depend.cxx.host)
+cmd_compile.cxx.host = echo "$(_cmd_compile.cxx.host)" > $$@.cmd ; \
+                       $(_cmd_compile.cxx.host)
+cmd_link.cxx.host    = echo "$(_cmd_link.cxx.host)" > $$@.cmd    ; \
+                       $(_cmd_link.cxx.host)
+cmd_link_so.cxx.host = echo "$(_cmd_link_so.cxx.host)" > $$@.cmd ; \
+                       $(_cmd_link_so.cxx.host)
 
 cmd_depend.m         = echo "$(_cmd_depend.m)" > $$@.cmd       ; \
                        $(_cmd_depend.m)
@@ -518,15 +520,15 @@ do_compile.c.host   = @$(disp_compile.c.host)   ; $(MKDIR) $$(dir $$@); $(cmd_co
 do_link.c.host      = @$(disp_link.c.host)      ; $(MKDIR) $$(dir $$@); $(cmd_link.c.host)
 do_link_so.c.host   = @$(disp_link_so.c.host)   ; $(MKDIR) $$(dir $$@); $(cmd_link_so.c.host)
 
-do_depend.cpp       = @$(disp_depend.cpp)       ; $(MKDIR) $$(dir $$@); $(cmd_depend.cpp)
-do_compile.cpp      = @$(disp_compile.cpp)      ; $(MKDIR) $$(dir $$@); $(cmd_compile.cpp)
-do_link.cpp         = @$(disp_link.cpp)         ; $(MKDIR) $$(dir $$@); $(cmd_link.cpp)
-do_link_so.cpp      = @$(disp_link_so.cpp)      ; $(MKDIR) $$(dir $$@); $(cmd_link_so.cpp)
+do_depend.cxx       = @$(disp_depend.cxx)       ; $(MKDIR) $$(dir $$@); $(cmd_depend.cxx)
+do_compile.cxx      = @$(disp_compile.cxx)      ; $(MKDIR) $$(dir $$@); $(cmd_compile.cxx)
+do_link.cxx         = @$(disp_link.cxx)         ; $(MKDIR) $$(dir $$@); $(cmd_link.cxx)
+do_link_so.cxx      = @$(disp_link_so.cxx)      ; $(MKDIR) $$(dir $$@); $(cmd_link_so.cxx)
 
-do_depend.cpp.host  = @$(disp_depend.cpp.host)  ; $(MKDIR) $$(dir $$@); $(cmd_depend.cpp.host)
-do_compile.cpp.host = @$(disp_compile.cpp.host) ; $(MKDIR) $$(dir $$@); $(cmd_compile.cpp.host)
-do_link.cpp.host    = @$(disp_link.cpp.host)    ; $(MKDIR) $$(dir $$@); $(cmd_link.cpp.host)
-do_link_so.cpp.host = @$(disp_link_so.cpp.host) ; $(MKDIR) $$(dir $$@); $(cmd_link_so.cpp.host)
+do_depend.cxx.host  = @$(disp_depend.cxx.host)  ; $(MKDIR) $$(dir $$@); $(cmd_depend.cxx.host)
+do_compile.cxx.host = @$(disp_compile.cxx.host) ; $(MKDIR) $$(dir $$@); $(cmd_compile.cxx.host)
+do_link.cxx.host    = @$(disp_link.cxx.host)    ; $(MKDIR) $$(dir $$@); $(cmd_link.cxx.host)
+do_link_so.cxx.host = @$(disp_link_so.cxx.host) ; $(MKDIR) $$(dir $$@); $(cmd_link_so.cxx.host)
 
 do_depend.m         = @$(disp_depend.m)         ; $(MKDIR) $$(dir $$@); $(cmd_depend.m)
 do_compile.m        = @$(disp_compile.m)        ; $(MKDIR) $$(dir $$@); $(cmd_compile.m)
@@ -560,8 +562,8 @@ define target-defaults_base
     $(eval $1_headers_c    = $(filter %.h,$2))
     $(eval $1_sources_cc   = $(filter %.cc,$2))
     $(eval $1_sources_cpp  = $(filter %.cpp,$2))
-    $(eval $1_headers_cpp  = $(filter %.hh,$2))
-    $(eval $1_headers_cpp += $(filter %.hpp,$2))
+    $(eval $1_headers_cxx  = $(filter %.hh,$2))
+    $(eval $1_headers_cxx += $(filter %.hpp,$2))
     $(eval $1_sources_m    = $(filter %.m,$2))
     $(eval $1_headers_m    = $(filter %.h,$2))
     $(eval $1_objects_c    = $(addprefix .$1/, $(subst .c,.o,$($1_sources_c))))
@@ -575,7 +577,7 @@ define target-defaults_base
     $(eval $1_depends_cpp  = $(addprefix .$1/, $(subst .cpp,.d,$($1_sources_cpp))))
     $(eval $1_depends_m    = $(addprefix .$1/, $(subst .m,.d,$($1_sources_m))))
     $(eval $1_cflags       = $($1_cflags-y))
-    $(eval $1_cppflags     = $($1_cppflags-y))
+    $(eval $1_cxxflags     = $($1_cxxflags-y))
     $(eval $1_includes     = $(addprefix -I, $($1_includes-y)))
     $(eval $1_libraries    = $(addprefix -L, $($1_libraries-y)))
     $(eval $1_ldflags      = $($1_ldflags-y))
@@ -598,7 +600,7 @@ define target-defaults_base
 	$(do_mkdir)
     
     $($1_depends_c):   $($1_headers_c)
-    $($1_depends_cpp): $($1_headers_cpp)
+    $($1_depends_cpp): $($1_headers_cxx)
     $($1_depends_m):   $($1_headers_m)
 
     $($1_objects_c):   $($1_depends_c)   $(MAKEFILE_LIST)
@@ -625,10 +627,10 @@ define target-defaults
 	$(do_depend.c)
 
     $($1_depends_cc): .$1/%.d: %.cc
-	$(do_depend.cpp)
+	$(do_depend.cxx)
 
     $($1_depends_cpp): .$1/%.d: %.cpp
-	$(do_depend.cpp)
+	$(do_depend.cxx)
 
     $($1_depends_m): .$1/%.d: %.m
 	$(do_depend.m)
@@ -637,10 +639,10 @@ define target-defaults
 	$(do_compile.c)
 
     $($1_objects_cc): .$1/%.o: %.cc
-	$(do_compile.cpp)
+	$(do_compile.cxx)
 
     $($1_objects_cpp): .$1/%.o: %.cpp
-	$(do_compile.cpp)
+	$(do_compile.cxx)
 
     $($1_objects_m): .$1/%.o: %.m
 	$(do_compile.m)
@@ -654,10 +656,10 @@ define target.host-defaults
 	$(do_depend.c.host)
 
     $($1_depends_cc): .$1/%.d: %.cc
-	$(do_depend.cpp.host)
+	$(do_depend.cxx.host)
 
     $($1_depends_cpp): .$1/%.d: %.cpp
-	$(do_depend.cpp.host)
+	$(do_depend.cxx.host)
 
     $($1_depends_m): .$1/%.d: %.m
 	$(do_depend.m.host)
@@ -666,10 +668,10 @@ define target.host-defaults
 	$(do_compile.c.host)
 
     $($1_objects_cc): .$1/%.o: %.cc
-	$(do_compile.cpp.host)
+	$(do_compile.cxx.host)
 
     $($1_objects_cpp): .$1/%.o: %.cpp
-	$(do_compile.cpp.host)
+	$(do_compile.cxx.host)
 
     $($1_objects_m): .$1/%.o: %.m
 	$(do_compile.m.host)
@@ -682,7 +684,7 @@ define target-variables
 ifeq ($($1_sources_cpp),)
 	$(do_link.c)
 else
-	$(do_link.cpp)
+	$(do_link.cxx)
 endif
 endef
 
