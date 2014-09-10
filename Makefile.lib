@@ -361,7 +361,7 @@ disp_distclean        = $($(verbose)_disp_distclean)
 #
 # _CMD
 #
-_cmd_depend.c       = $(CPP) $(CFLAGS) $(CXXFLAGS) $($1_cflags) $($1_cxxflags) \
+_cmd_depend.c       = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_cflags) $($1_cxxflags) \
                       $($1_includes) -M $$< | $(SED) 's,\($$*\.o\) *:,.$1/\1 \
                       $$@: ,' > $$@; \
                       $(CP) $$@ $$@.p; \
@@ -374,7 +374,7 @@ _cmd_link.c         = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filt
 _cmd_link_so.c      = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                       $($1_ldflags) $(LDFLAGS) -shared
 
-_cmd_depend.c.host  = $(HOSTCPP) $(CFLAGS) $(CXXFLAGS) $($1_cflags) \
+_cmd_depend.c.host  = $(HOSTCC) $(CFLAGS) $(CXXFLAGS) $($1_cflags) \
                       $($1_cxxflags) $($1_includes) -M $$< | $(SED) \
                       's,\($$*\.o\) *:,.$1/\1 $$@: ,' > $$@
 _cmd_compile.c.host = $(HOSTCC) $(CFLAGS) $(CXXFLAGS) $($1_cflags) \
