@@ -368,7 +368,7 @@ _cmd_depend.c       = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_cflags) $($1_cxxflags) \
                       $(SED) -e 's/\#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$$$//' -e '/^$$$$/ d' -e 's/$$$$/ :/' < $$@ >> $$@.p; \
                       $(MV) $$@.p $$@
 _cmd_compile.c      = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_cflags) $($1_cxxflags) \
-                      $($1_includes) $$($1_$$<_cflags-y) -c -o $$@ $$<
+                      $($1_includes) $$($1_$$<_cflags-y) $$($1_$$<_cxxflags-y) -c -o $$@ $$<
 _cmd_link.c         = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                       $($1_ldflags) $(LDFLAGS)
 _cmd_link_so.c      = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
@@ -388,7 +388,7 @@ _cmd_depend.cxx       = $(CXX) $(CFLAGS) $(CXXFLAGS) $($1_cflags) $($1_cxxflags)
                         $($1_includes) -M $$< | $(SED) 's,\($$*\.o\) *:,.$1/\1 \
                         $$@: ,' > $$@
 _cmd_compile.cxx      = $(CXX) $(CFLAGS) $(CXXFLAGS) $($1_cflags) $($1_cxxflags) \
-                        $($1_includes) $$($1_$$<_cxxflags-y) -c -o $$@ $$<
+                        $($1_includes) $$($1_$$<_cflags-y) $$($1_$$<_cxxflags-y) -c -o $$@ $$<
 _cmd_link.cxx         = $(CXX) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                         $($1_ldflags) $(LDFLAGS)
 _cmd_link_so.cxx      = $(CXX) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
