@@ -163,22 +163,24 @@ TOPDIR ?= $(CURDIR)
 
 uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
 
-override CFLAGS += -Wall -Wextra -Werror -pipe -g3 -O2 -fPIC -fsigned-char -fno-strict-aliasing -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
+override CFLAGS += -Wall -Wextra -Werror -pipe -g3 -O2 -fPIC -fsigned-char -fno-strict-aliasing -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
 # -fvisibility=hidden
 
-override CFLAGS += -fno-math-errno -fno-trapping-math
+#override CFLAGS += -fno-math-errno -fno-trapping-math
 
 ifeq ($(uname_S),Linux)
-    override MFLAGS += __LINUX__=y
-	override CFLAGS += -D__LINUX__=1
-#	override CFLAGS += -fassociative-math -fno-signed-zeros
+	override __LINUX__  = y
+	override MFLAGS    += __LINUX__=y
+	override CFLAGS    += -D__LINUX__=1
+#	override CFLAGS    += -fassociative-math -fno-signed-zeros
 endif
 ifeq ($(uname_S),Darwin)
-	override MFLAGS += __DARWIN__=y
-	override CFLAGS += -D__DARWIN__=1
-	override CFLAGS += -I/opt/local/include
-#	override CFLAGS += -fassociative-math -fno-signed-zeros
-	override LDOPTS += -keep_private_externs
+	override __DARWIN__  = y
+	override MFLAGS     += __DARWIN__=y
+	override CFLAGS     += -D__DARWIN__=1
+	override CFLAGS     += -I/opt/local/include
+#	override CFLAGS     += -fassociative-math -fno-signed-zeros
+	override LDOPTS     += -keep_private_externs
 endif
 
 MAKE       := + CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" TOPDIR=$(TOPDIR) uname_S=$(uname_S) $(MAKE) $(MFLAGS) --no-print-directory
@@ -700,7 +702,11 @@ define target.so-variables
     $(eval $(call target-defaults,$1,$2))
 
     .$1/$1:
+ifeq ($($1_sources_cpp),)
 	$(do_link_so.c)
+else
+	$(do_link_so.cxx)
+endif
 endef
 
 define target.so.host-variables
@@ -769,16 +775,19 @@ define subdir-defaults
 endef
 
 define dist-defaults
-    $(eval target-cleans  += $1_distclean)
-    $(eval target-dists += $(distdir)/$2/$1)
+    $(eval $1_dname          = $(dir $1))
+    $(eval $1_names          = $1)
+    $(eval $1_files          = $(subst $($1_dname), , $($1_names)))
+    $(eval target-cleans    += $1_distclean)
+    $(eval target-dists     += $(addprefix $(distdir)/$2/, $($1_files)))
 
     $(distdir)/$2: $(distdir)
 
-    $(distdir)/$2/$1: $1
+    $(addprefix $(distdir)/$2/, $($1_files)): $1
 	$(do_dist)
 
     $1_distclean: __FORCE
-	$(do_distclean) $(distdir)/$2/$1
+	$(do_distclean) $(addprefix $(distdir)/$2/, $($1_files))
 	$(Q)if [ -e $$(abspath $(distdir)) ]; then find $$(abspath $(distdir)) -depth -type d -empty -exec rm -rf {} \; ; fi
 endef
 
