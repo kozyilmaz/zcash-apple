@@ -26,6 +26,7 @@
 #   20130325 - added missing targets for host
 #   20140721 - cflags per file support
 #   20140908 - distribution support
+#   20150211 - fix depends
 
 #
 # Example
@@ -606,10 +607,10 @@ define target-defaults_base
     $($1_depends_cpp): $($1_headers_cxx)
     $($1_depends_m):   $($1_headers_m)
 
-    $($1_objects_c):   $($1_depends_c)   $(MAKEFILE_LIST)
-    $($1_objects_cc):  $($1_depends_cc)  $(MAKEFILE_LIST)
-    $($1_objects_cpp): $($1_depends_cpp) $(MAKEFILE_LIST)
-    $($1_objects_m):   $($1_depends_m)   $(MAKEFILE_LIST)
+    $($1_objects_c):   $(MAKEFILE_LIST)
+    $($1_objects_cc):  $(MAKEFILE_LIST)
+    $($1_objects_cpp): $(MAKEFILE_LIST)
+    $($1_objects_m):   $(MAKEFILE_LIST)
     $($1_objects_e):   $(MAKEFILE_LIST)
     
     $1: .$1/$1 $(MAKEFILE_LIST)
