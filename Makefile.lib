@@ -27,6 +27,7 @@
 #   20140721 - cflags per file support
 #   20140908 - distribution support
 #   20150211 - fix depends
+#   20150319 - use Wl,-rpath
 
 #
 # Example
@@ -562,6 +563,7 @@ do_distclean        = @$(disp_distclean)        ; $(cmd_distclean)
 #
 
 define target-defaults_base
+    $(eval comma           = ,)
     $(eval $1_sources_c    = $(filter %.c,$2))
     $(eval $1_headers_c    = $(filter %.h,$2))
     $(eval $1_sources_cc   = $(filter %.cc,$2))
@@ -584,6 +586,7 @@ define target-defaults_base
     $(eval $1_cxxflags     = $($1_cxxflags-y))
     $(eval $1_includes     = $(addprefix -I, $($1_includes-y)))
     $(eval $1_libraries    = $(addprefix -L, $($1_libraries-y)))
+    $(eval $1_libraries   += $(addprefix -Wl$(comma)-rpath , $($1_libraries-y)))
     $(eval $1_ldflags      = $($1_ldflags-y))
     $(eval $1_directories  = $(sort $(dir .$1/ $($1_objects_c) $($1_objects_cpp) $($1_objects_m))))
 
@@ -816,6 +819,10 @@ define dist.bin-variables
     $(eval $(call dist-defaults,$1,bin))
 endef
 
+define dist.config-variables
+    $(eval $(call dist-defaults,$1,config))
+endef
+
 #
 # Definitions
 #
@@ -870,6 +877,7 @@ $(eval $(foreach D,$(dist.obj-y), $(eval $(call dist.obj-variables,$D))))
 $(eval $(foreach D,$(dist.include-y), $(eval $(call dist.include-variables,$D))))
 $(eval $(foreach D,$(dist.changelog-y), $(eval $(call dist.changelog-variables,$D))))
 $(eval $(foreach D,$(dist.license-y), $(eval $(call dist.license-variables,$D))))
+$(eval $(foreach D,$(dist.config-y), $(eval $(call dist.config-variables,$D))))
 
 endif
 
