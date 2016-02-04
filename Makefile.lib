@@ -1,7 +1,7 @@
 # 
 # Makefile.lib 
 #
-# version   : 3.0.0
+# version   : 3.0.1
 # copyright : 2002 - 2014 by Alper Akcan
 # email     : alper.akcan@gmail.com
 #
@@ -28,6 +28,7 @@
 #   20140908 - distribution support
 #   20150211 - fix depends
 #   20150319 - use Wl,-rpath
+#   20160204 - fix depends
 
 #
 # Example
@@ -187,8 +188,8 @@ endif
 
 MAKE       := + CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" TOPDIR=$(TOPDIR) uname_S=$(uname_S) $(MAKE) $(MFLAGS) --no-print-directory
 
-CC         := $(CROSS_COMPILE_PREFIX)gcc $(SYSROOT)
-CXX        := $(CROSS_COMPILE_PREFIX)g++ $(SYSROOT)
+CC         ?= $(CROSS_COMPILE_PREFIX)gcc $(SYSROOT)
+CXX        ?= $(CROSS_COMPILE_PREFIX)g++ $(SYSROOT)
 CPP        := $(CROSS_COMPILE_PREFIX)cpp $(SYSROOT)
 LD         := $(CROSS_COMPILE_PREFIX)ld
 AR         := $(CROSS_COMPILE_PREFIX)ar rcs
@@ -610,10 +611,10 @@ define target-defaults_base
     $($1_depends_cpp): $($1_headers_cxx)
     $($1_depends_m):   $($1_headers_m)
 
-    $($1_objects_c):   $(MAKEFILE_LIST)
-    $($1_objects_cc):  $(MAKEFILE_LIST)
-    $($1_objects_cpp): $(MAKEFILE_LIST)
-    $($1_objects_m):   $(MAKEFILE_LIST)
+    $($1_objects_c):   .$1/%.o: .$1/%.d $(MAKEFILE_LIST)
+    $($1_objects_cc):  .$1/%.o: .$1/%.d $(MAKEFILE_LIST)
+    $($1_objects_cpp): .$1/%.o: .$1/%.d $(MAKEFILE_LIST)
+    $($1_objects_m):   .$1/%.o: .$1/%.d $(MAKEFILE_LIST)
     $($1_objects_e):   $(MAKEFILE_LIST)
     
     $1: .$1/$1 $(MAKEFILE_LIST)
