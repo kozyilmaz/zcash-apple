@@ -578,6 +578,7 @@ define target-defaults_base
     $(eval $1_objects_cpp  = $(addprefix .$1/, $(subst .cpp,.o,$($1_sources_cpp))))
     $(eval $1_objects_m    = $(addprefix .$1/, $(subst .m,.o,$($1_sources_m))))
     $(eval $1_objects_e    = $(subst ",,$(filter %.o,$2)))
+    $(eval $1_objects_e   += $(subst ",,$(filter %.a,$2)))
     $(eval $1_objects_e   += $(subst ",,$(filter %.lib,$2)))
     $(eval $1_depends_c    = $(addprefix .$1/, $(subst .c,.d,$($1_sources_c))))
     $(eval $1_depends_cc   = $(addprefix .$1/, $(subst .cc,.d,$($1_sources_cc))))
