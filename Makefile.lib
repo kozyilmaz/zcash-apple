@@ -29,6 +29,7 @@
 #   20150211 - fix depends
 #   20150319 - use Wl,-rpath
 #   20160204 - fix depends
+#   20160721 - files-y += *.a support
 
 #
 # Example
