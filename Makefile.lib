@@ -30,6 +30,7 @@
 #   20150319 - use Wl,-rpath
 #   20160204 - fix depends
 #   20160721 - files-y += *.a support
+#   20160726 - overload cc
 
 #
 # Example
@@ -189,8 +190,8 @@ endif
 
 MAKE       := + CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" TOPDIR=$(TOPDIR) uname_S=$(uname_S) $(MAKE) $(MFLAGS) --no-print-directory
 
-CC         ?= $(CROSS_COMPILE_PREFIX)gcc $(SYSROOT)
-CXX        ?= $(CROSS_COMPILE_PREFIX)g++ $(SYSROOT)
+CC         := $(CROSS_COMPILE_PREFIX)gcc $(SYSROOT)
+CXX        := $(CROSS_COMPILE_PREFIX)g++ $(SYSROOT)
 CPP        := $(CROSS_COMPILE_PREFIX)cpp $(SYSROOT)
 LD         := $(CROSS_COMPILE_PREFIX)ld
 AR         := $(CROSS_COMPILE_PREFIX)ar rcs
