@@ -9,7 +9,7 @@ kconfig_clone:
 	if [ ! -d "kconfig-$(KCONFIG_VERSION)" ]; then git clone -b $(KCONFIG_VERSION) https://github.com/kozyilmaz/kconfig.git kconfig-$(KCONFIG_VERSION); fi
 
 kconfig_config:
-	if [ ! -d "kconfig-$(KCONFIG_VERSION)/.pc" ]; then ( cd kconfig-$(KCONFIG_VERSION); quilt push -a ); fi
+	@true
 
 kconfig_build:
 	PKG_CONFIG_PATH="" make CC="gcc" HOSTCC="gcc" obj=. -C kconfig-$(KCONFIG_VERSION) -f Makefile.br conf
