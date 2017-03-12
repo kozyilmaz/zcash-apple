@@ -1,6 +1,6 @@
 
 ifeq ($(BSPTOOLS),)
-    $(error You must first export $$BSPTOOLS for install dir and add it to $$PATH)
+    $(error You must first run 'source environment')
 endif
 
 # essentials
