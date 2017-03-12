@@ -1,11 +1,15 @@
 
 .PHONY: clone config build install uninstall clean
 
-define patch_package
+# common macros
+
+define patchme
 	if [ -d "$(1)" ] && [ -d "patches" ] && [ ! -f ".patched" ]; then \
-	    $(foreach F, $(wildcard $(shell find patches -type f \( -name "*.patch" \) | sort)), patch -d $(1) -p1 < $(F); echo $(F) >> .patched;) \
+		$(foreach F, $(wildcard $(shell find patches -type f \( -name "*.patch" \) | sort)), patch -d $(1) -p1 < $(F); echo $(F) >> .patched;) \
 	fi
 endef
+
+# make targets
 
 clone: __FORCE
 	@echo "\033[1;31m  CLONE      ${target_name}\033[0m"
