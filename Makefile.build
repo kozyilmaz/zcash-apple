@@ -37,13 +37,14 @@ clean: __FORCE
 	@${MAKE} ${target_name}_clean > /dev/null 2>&1;
 	@rm -rf .built
 	@rm -rf .configured
-	@rm -rf .cloned
 
 distclean: __FORCE
 	@echo "\033[0;31m  DISTCLEAN  ${target_name}\033[0m"
 	@${MAKE} ${target_name}_distclean > /dev/null 2>&1;
 	@rm -rf .built
 	@rm -rf .configured
+	@rm -rf .patched
+	@rm -rf .cloned
 
 install: build __FORCE
 	@echo "\033[1;34m  INSTALL    ${target_name}\033[0m"
