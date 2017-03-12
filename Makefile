@@ -16,6 +16,14 @@ subdir-y += \
 	flock \
 	kconfig
 
+# gcc
+subdir-y += \
+	gmp \
+	mpfr \
+	mpc \
+	isl \
+	gnugcc
+
 autoconf_depends-y = \
 	m4
 
@@ -33,6 +41,21 @@ flock_depends-y = \
 
 kconfig_depends-y = \
 	pkgconfig
+
+gmp_depends-y = \
+	pkgconfig
+
+mpfr_depends-y = \
+	gmp
+
+mpc_depends-y = \
+	mpfr
+
+isl_depends-y = \
+	mpc
+
+gnugcc_depends-y = \
+	isl
 
 
 include Makefile.lib
