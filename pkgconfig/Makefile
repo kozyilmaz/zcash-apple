@@ -13,7 +13,7 @@ pkgconfig_config:
 	( cd pkg-config-$(PKGCONFIG_VERSION); ./configure --prefix=${BSPTOOLS}/o -with-internal-glib; )
 
 pkgconfig_build:
-	make -C pkg-config-$(PKGCONFIG_VERSION)
+	make -C pkg-config-$(PKGCONFIG_VERSION) -j ${BSPJOB}
 
 pkgconfig_install:
 	make -C pkg-config-$(PKGCONFIG_VERSION) install

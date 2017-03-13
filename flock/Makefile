@@ -12,7 +12,7 @@ flock_config:
 	( cd flock-$(FLOCK_VERSION); ./autogen.sh; ./configure --prefix=${BSPTOOLS}/o )
 
 flock_build:
-	make -C flock-$(FLOCK_VERSION) flock
+	make -C flock-$(FLOCK_VERSION) -j ${BSPJOB} flock
 
 flock_install:
 	if [ -f "flock-$(FLOCK_VERSION)/flock" ]; then cp flock-$(FLOCK_VERSION)/flock ${BSPTOOLS}/o/bin; fi

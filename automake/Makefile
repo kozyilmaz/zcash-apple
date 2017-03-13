@@ -13,7 +13,7 @@ automake_config:
 	( cd automake-$(AUTOMAKE_VERSION); ./configure --prefix=${BSPTOOLS}/o; )
 
 automake_build:
-	make -C automake-$(AUTOMAKE_VERSION)
+	make -C automake-$(AUTOMAKE_VERSION) -j ${BSPJOB}
 
 automake_install:
 	make -C automake-$(AUTOMAKE_VERSION) install

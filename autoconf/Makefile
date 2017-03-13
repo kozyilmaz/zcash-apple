@@ -13,7 +13,7 @@ autoconf_config:
 	( cd autoconf-$(AUTOCONF_VERSION); ./configure --prefix=${BSPTOOLS}/o )
 
 autoconf_build:
-	make -C autoconf-$(AUTOCONF_VERSION)
+	make -C autoconf-$(AUTOCONF_VERSION) -j ${BSPJOB}
 
 autoconf_install:
 	make -C autoconf-$(AUTOCONF_VERSION) install

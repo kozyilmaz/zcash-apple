@@ -13,7 +13,7 @@ mpfr_config:
 	( cd mpfr-$(MPFR_VERSION); ./configure --prefix=${BSPTOOLS}/o --with-gmp=${BSPTOOLS}/o --enable-static --disable-shared; )
 
 mpfr_build:
-	make -C mpfr-$(MPFR_VERSION)
+	make -C mpfr-$(MPFR_VERSION) -j ${BSPJOB}
 
 mpfr_install:
 	make -C mpfr-$(MPFR_VERSION) install

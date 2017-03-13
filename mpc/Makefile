@@ -13,7 +13,7 @@ mpc_config:
 	( cd mpc-$(MPC_VERSION); ./configure --prefix=${BSPTOOLS}/o --with-gmp=${BSPTOOLS}/o --with-mpfr=${BSPTOOLS}/o --enable-static --disable-shared; )
 
 mpc_build:
-	make -C mpc-$(MPC_VERSION)
+	make -C mpc-$(MPC_VERSION) -j ${BSPJOB}
 
 mpc_install:
 	make -C mpc-$(MPC_VERSION) install

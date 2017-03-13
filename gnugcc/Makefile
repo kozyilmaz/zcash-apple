@@ -13,7 +13,7 @@ gnugcc_config:
 	( cd gcc-$(GCC_VERSION); CFLAGS="" ./configure --prefix=${BSPTOOLS}/o --enable-checking=release --with-gmp=${BSPTOOLS}/o --with-mpfr=${BSPTOOLS}/o --with-mpc=${BSPTOOLS}/o --enable-languages=c,c++ --with-isl=${BSPTOOLS}/o --program-suffix=-$(GCC_VERSION); )
 
 gnugcc_build:
-	make -C gcc-$(GCC_VERSION) -j 8
+	make -C gcc-$(GCC_VERSION) -j ${BSPJOB}
 
 gnugcc_install:
 	make -C gcc-$(GCC_VERSION) install

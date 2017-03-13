@@ -13,7 +13,7 @@ m4_config:
 	( cd m4-$(M4_VERSION); ./configure --prefix=${BSPTOOLS}/o )
 
 m4_build:
-	make -C m4-$(M4_VERSION)
+	make -C m4-$(M4_VERSION) -j ${BSPJOB}
 
 m4_install:
 	make -C m4-$(M4_VERSION) install

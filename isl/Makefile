@@ -13,7 +13,7 @@ isl_config:
 	( cd isl-$(ISL_VERSION); ./configure --prefix=${BSPTOOLS}/o --with-gmp-prefix=${BSPTOOLS}/o --enable-static --disable-shared; )
 
 isl_build:
-	make -C isl-$(ISL_VERSION)
+	make -C isl-$(ISL_VERSION) -j ${BSPJOB}
 
 isl_install:
 	make -C isl-$(ISL_VERSION) install

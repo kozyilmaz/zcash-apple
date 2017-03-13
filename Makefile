@@ -3,12 +3,10 @@ ifeq ($(BSPTOOLS),)
     $(error You must first run 'source environment')
 endif
 
-# essentials
+# essentials (m4 and libtool are present on macOS)
 subdir-y = \
-	m4 \
 	autoconf \
 	automake \
-	libtool \
 	pkgconfig
 
 # optionals
@@ -24,17 +22,11 @@ subdir-y += \
 	isl \
 	gnugcc
 
-autoconf_depends-y = \
-	m4
-
 automake_depends-y = \
 	autoconf
 
-libtool_depends-y = \
-	automake
-
 pkgconfig_depends-y = \
-	libtool
+	automake
 
 flock_depends-y = \
 	pkgconfig

@@ -13,7 +13,7 @@ gmp_config:
 	( cd gmp-$(GMP_VERSION); ./configure --prefix=${BSPTOOLS}/o --enable-cxx  --enable-static --disable-shared; )
 
 gmp_build:
-	make -C gmp-$(GMP_VERSION)
+	make -C gmp-$(GMP_VERSION) -j ${BSPJOB}
 
 gmp_install:
 	make -C gmp-$(GMP_VERSION) install

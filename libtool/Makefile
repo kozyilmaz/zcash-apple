@@ -13,7 +13,7 @@ libtool_config:
 	( cd libtool-$(LIBTOOL_VERSION); ./configure --prefix=${BSPTOOLS}/o --enable-static --disable-shared --disable-ltdl-install; )
 
 libtool_build:
-	make -C libtool-$(LIBTOOL_VERSION)
+	make -C libtool-$(LIBTOOL_VERSION) -j ${BSPJOB}
 
 libtool_install:
 	make -C libtool-$(LIBTOOL_VERSION) install
