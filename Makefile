@@ -7,8 +7,9 @@ endif
 subdir-y = \
 	autoconf \
 	automake \
-	pkgconfig \
 	libtool \
+	pkgconfig \
+	cmake \
 	coreutils \
 	openmp
 
@@ -18,7 +19,7 @@ subdir-y += \
 	kconfig
 
 # gcc
-subdir-y += \
+subdir-n += \
 	gmp \
 	mpfr \
 	mpc \
@@ -33,6 +34,9 @@ libtool_depends-y = \
 
 pkgconfig_depends-y = \
 	automake
+
+cmake_depends-y = \
+	pkgconfig
 
 coreutils_depends-y = \
 	pkgconfig
