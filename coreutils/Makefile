@@ -18,12 +18,12 @@ coreutils_build:
 coreutils_install:
 	if [ -f "coreutils-$(COREUTILS_VERSION)/src/md5sum" ]; then cp coreutils-$(COREUTILS_VERSION)/src/md5sum ${BSPTOOLS}/o/bin/md5sum; fi
 	if [ -f "coreutils-$(COREUTILS_VERSION)/src/md5sum" ]; then cp coreutils-$(COREUTILS_VERSION)/src/sha256sum ${BSPTOOLS}/o/bin/sha256sum; fi
-	if [ -f "coreutils-$(COREUTILS_VERSION)/src/readlink" ]; then cp coreutils-$(COREUTILS_VERSION)/src/readlink ${BSPTOOLS}/o/bin/greadlink; fi
+	if [ -f "coreutils-$(COREUTILS_VERSION)/src/readlink" ]; then cp coreutils-$(COREUTILS_VERSION)/src/readlink ${BSPTOOLS}/o/bin/readlink; fi
 
 coreutils_uninstall:
 	rm -rf ${BSPTOOLS}/o/bin/md5sum
 	rm -rf ${BSPTOOLS}/o/bin/sha256sum
-	rm -rf ${BSPTOOLS}/o/bin/greadlink
+	rm -rf ${BSPTOOLS}/o/bin/readlink
 
 coreutils_clean:
 	if [ -f "coreutils-$(COREUTILS_VERSION)/Makefile" ]; then make -C coreutils-$(COREUTILS_VERSION) distclean; fi
