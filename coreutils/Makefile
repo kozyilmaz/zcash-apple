@@ -16,8 +16,8 @@ coreutils_build:
 	make -C coreutils-$(COREUTILS_VERSION) -j ${BSPJOB}
 
 coreutils_install:
-	if [ -f "coreutils-$(COREUTILS_VERSION)/src/md5sum" ]; then cp coreutils-$(COREUTILS_VERSION)/src/gmd5sum ${BSPTOOLS}/o/bin; fi
-	if [ -f "coreutils-$(COREUTILS_VERSION)/src/readlink" ]; then cp coreutils-$(COREUTILS_VERSION)/src/greadlink ${BSPTOOLS}/o/bin; fi
+	if [ -f "coreutils-$(COREUTILS_VERSION)/src/md5sum" ]; then cp coreutils-$(COREUTILS_VERSION)/src/md5sum ${BSPTOOLS}/o/bin/gmd5sum; fi
+	if [ -f "coreutils-$(COREUTILS_VERSION)/src/readlink" ]; then cp coreutils-$(COREUTILS_VERSION)/src/readlink ${BSPTOOLS}/o/bin/greadlink; fi
 
 coreutils_uninstall:
 	rm -rf ${BSPTOOLS}/o/bin/gmd5sum
