@@ -9,9 +9,7 @@ subdir-y = \
 	automake \
 	libtool \
 	pkgconfig \
-	cmake \
-	coreutils \
-	openmp
+	coreutils
 
 # optionals
 subdir-y += \
@@ -19,7 +17,7 @@ subdir-y += \
 	kconfig
 
 # gcc
-subdir-n += \
+subdir-y += \
 	gmp \
 	mpfr \
 	mpc \
@@ -35,14 +33,14 @@ libtool_depends-y = \
 pkgconfig_depends-y = \
 	automake
 
-cmake_depends-y = \
-	pkgconfig
+#cmake_depends-y = \
+#	pkgconfig
 
 coreutils_depends-y = \
 	pkgconfig
 
-openmp_depends-y = \
-	pkgconfig
+#openmp_depends-y = \
+#	pkgconfig
 
 flock_depends-y = \
 	pkgconfig
