@@ -10,13 +10,13 @@ cmake_clone:
 	if [ ! -d "cmake-$(CMAKE_VERSION)" ]; then tar xzf cmake-$(CMAKE_VERSION).tar.gz; fi
 
 cmake_config:
-	( cd cmake-$(CMAKE_VERSION); ./configure --prefix=${BSPTOOLS}/o; )
+	( cd cmake-$(CMAKE_VERSION); ./bootstrap --prefix=${BSPTOOLS}/o; )
 
 cmake_build:
 	make -C cmake-$(CMAKE_VERSION) -j ${BSPJOB}
 
 cmake_install:
-	make -C cmake-$(CMAKE_VERSION) install
+	make -C cmake-$(CMAKE_VERSION) -j ${BSPJOB} install
 
 cmake_uninstall:
 	make -C cmake-$(CMAKE_VERSION) uninstall
