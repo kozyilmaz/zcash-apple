@@ -10,7 +10,7 @@ openmp_clone:
 	if [ ! -d "openmp-$(OPENMP_VERSION).src" ]; then tar xzf openmp-$(OPENMP_VERSION).src.tar.xz; fi
 
 openmp_config:
-	( cd openmp-$(OPENMP_VERSION).src; ./configure --prefix=${BSPTOOLS}/o2; )
+	( cd openmp-$(OPENMP_VERSION).src; cmake -DCMAKE_INSTALL_PREFIX=${BSPTOOLS}/o -DLIBOMP_ENABLE_SHARED=off .; )
 
 openmp_build:
 	make -C openmp-$(OPENMP_VERSION).src -j ${BSPJOB}
