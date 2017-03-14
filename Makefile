@@ -8,7 +8,8 @@ subdir-y = \
 	autoconf \
 	automake \
 	pkgconfig \
-	libtool
+	libtool \
+	coreutils
 
 # optionals
 subdir-y += \
@@ -26,8 +27,14 @@ subdir-y += \
 automake_depends-y = \
 	autoconf
 
+libtool_depends-y = \
+	automake
+
 pkgconfig_depends-y = \
 	automake
+
+coreutils_depends-y = \
+	pkgconfig
 
 flock_depends-y = \
 	pkgconfig
