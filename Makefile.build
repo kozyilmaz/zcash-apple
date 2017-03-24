@@ -48,7 +48,7 @@ distclean: __FORCE
 
 install: build __FORCE
 	@echo "\033[1;34m  INSTALL    ${target_name}\033[0m"
-	@${MAKE} ${target_name}_install > /dev/null 2>&1;
+	@${MAKE} ${target_name}_install;
 
 uninstall: __FORCE
 	@echo "\033[1;31m  UNINSTALL  ${target_name}\033[0m"
