@@ -17,7 +17,7 @@ subdir-y += \
 	kconfig
 
 # gcc
-subdir-y += \
+subdir-${ENABLE_GCC} += \
 	gmp \
 	mpfr \
 	mpc \
@@ -33,14 +33,14 @@ libtool_depends-y = \
 pkgconfig_depends-y = \
 	automake
 
-#cmake_depends-y = \
-#	pkgconfig
+cmake_depends-y = \
+	pkgconfig
 
 coreutils_depends-y = \
 	pkgconfig
 
-#openmp_depends-y = \
-#	pkgconfig
+openmp_depends-y = \
+	pkgconfig
 
 flock_depends-y = \
 	pkgconfig

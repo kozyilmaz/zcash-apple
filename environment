@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BSPJOB=8
+BSPJOB=16
 BSPTOOLS=`pwd`
 PATH=${BSPTOOLS}/o/bin:${PATH}
 
