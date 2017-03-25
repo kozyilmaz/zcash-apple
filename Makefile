@@ -3,20 +3,40 @@ ifeq ($(BSPTOOLS),)
     $(error You must first run 'source environment')
 endif
 
+ifeq ($(uname_S), Linux)
+ENABLE_ESSENTIALS ?= n
+ENABLE_GNUTOOLS   ?= n
+ENABLE_FLOCK      ?= n
+ENABLE_KCONFIG    ?= y
+ENABLE_GCC        ?= n
+else
+ENABLE_ESSENTIALS ?= y
+ENABLE_GNUTOOLS   ?= y
+ENABLE_FLOCK      ?= y
+ENABLE_KCONFIG    ?= y
+ENABLE_GCC        ?= n
+endif
+
 # essentials
-subdir-y = \
+subdir-${ENABLE_ESSENTIALS} = \
 	autoconf \
 	automake \
 	libtool \
-	pkgconfig \
+	pkgconfig
+
+# flock (needed on macOS: zcash)
+subdir-${ENABLE_GNUTOOLS} += \
 	coreutils
 
-# optionals
-subdir-y += \
-	flock \
+# flock (needed on macOS: zcash)
+subdir-${ENABLE_FLOCK} += \
+	flock
+
+# kconfig
+subdir-${ENABLE_KCONFIG} += \
 	kconfig
 
-# gcc
+# gcc (needed on macOS)
 subdir-${ENABLE_GCC} += \
 	gmp \
 	mpfr \
@@ -39,15 +59,13 @@ cmake_depends-y = \
 coreutils_depends-y = \
 	pkgconfig
 
-openmp_depends-y = \
-	pkgconfig
-
 flock_depends-y = \
 	pkgconfig
 
 kconfig_depends-y = \
 	pkgconfig
 
+# gcc dependencies
 gmp_depends-y = \
 	pkgconfig
 
