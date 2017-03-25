@@ -5,12 +5,14 @@ endif
 
 ifeq ($(uname_S), Linux)
 ENABLE_ESSENTIALS ?= n
+ENABLE_CMAKE      ?= n
 ENABLE_GNUTOOLS   ?= n
 ENABLE_FLOCK      ?= n
 ENABLE_KCONFIG    ?= y
 ENABLE_GCC        ?= n
 else
 ENABLE_ESSENTIALS ?= y
+ENABLE_CMAKE      ?= n
 ENABLE_GNUTOOLS   ?= y
 ENABLE_FLOCK      ?= y
 ENABLE_KCONFIG    ?= y
@@ -24,11 +26,15 @@ subdir-${ENABLE_ESSENTIALS} = \
 	libtool \
 	pkgconfig
 
-# flock (needed on macOS: zcash)
+# cmake (on macOS)
+subdir-${ENABLE_CMAKE} = \
+	cmake
+
+# gnu utils (on macOS)
 subdir-${ENABLE_GNUTOOLS} += \
 	coreutils
 
-# flock (needed on macOS: zcash)
+# flock (on macOS)
 subdir-${ENABLE_FLOCK} += \
 	flock
 
@@ -36,7 +42,7 @@ subdir-${ENABLE_FLOCK} += \
 subdir-${ENABLE_KCONFIG} += \
 	kconfig
 
-# gcc (needed on macOS)
+# gcc (on macOS)
 subdir-${ENABLE_GCC} += \
 	gmp \
 	mpfr \
@@ -65,7 +71,6 @@ flock_depends-y = \
 kconfig_depends-y = \
 	pkgconfig
 
-# gcc dependencies
 gmp_depends-y = \
 	pkgconfig
 
