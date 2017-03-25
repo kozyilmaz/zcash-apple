@@ -2,6 +2,7 @@
 .PHONY: clone config build install uninstall clean
 
 # common macros
+# $(call patchme,DIRECTORY_TO_BE_PATCHED)
 
 define patchme
 	if [ -d "$(1)" ] && [ -d "patches" ] && [ ! -f ".patched" ]; then \
