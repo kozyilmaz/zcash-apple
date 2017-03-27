@@ -57,7 +57,7 @@ libtool_depends-y = \
 	automake
 
 pkgconfig_depends-y = \
-	automake
+	libtool
 
 cmake_depends-y = \
 	pkgconfig
