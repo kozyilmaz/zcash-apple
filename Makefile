@@ -5,6 +5,7 @@ endif
 
 ifeq ($(uname_S), Linux)
 ENABLE_ESSENTIALS ?= n
+ENABLE_OBJCONV    ?= n
 ENABLE_CMAKE      ?= n
 ENABLE_GNUTOOLS   ?= n
 ENABLE_FLOCK      ?= n
@@ -12,6 +13,7 @@ ENABLE_KCONFIG    ?= y
 ENABLE_GCC        ?= n
 else
 ENABLE_ESSENTIALS ?= y
+ENABLE_OBJCONV    ?= y
 ENABLE_CMAKE      ?= y
 ENABLE_GNUTOOLS   ?= y
 ENABLE_FLOCK      ?= y
@@ -25,6 +27,10 @@ subdir-${ENABLE_ESSENTIALS} = \
 	automake \
 	libtool \
 	pkgconfig
+
+# objconv (on macOS)
+subdir-${ENABLE_OBJCONV} += \
+	objconv
 
 # cmake (on macOS)
 subdir-${ENABLE_CMAKE} += \
@@ -58,6 +64,9 @@ libtool_depends-y = \
 
 pkgconfig_depends-y = \
 	libtool
+
+objconv_depends-y = \
+	pkgconfig
 
 cmake_depends-y = \
 	pkgconfig
