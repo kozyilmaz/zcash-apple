@@ -12,11 +12,11 @@ ENABLE_KCONFIG    ?= y
 ENABLE_GCC        ?= n
 else
 ENABLE_ESSENTIALS ?= y
-ENABLE_CMAKE      ?= n
+ENABLE_CMAKE      ?= y
 ENABLE_GNUTOOLS   ?= y
 ENABLE_FLOCK      ?= y
 ENABLE_KCONFIG    ?= y
-ENABLE_GCC        ?= n
+ENABLE_GCC        ?= y
 endif
 
 # essentials
