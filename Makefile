@@ -27,7 +27,7 @@ subdir-${ENABLE_ESSENTIALS} = \
 	pkgconfig
 
 # cmake (on macOS)
-subdir-${ENABLE_CMAKE} = \
+subdir-${ENABLE_CMAKE} += \
 	cmake
 
 # gnu utils (on macOS)
