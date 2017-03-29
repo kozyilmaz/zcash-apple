@@ -10,17 +10,17 @@ ENABLE_FASM       ?= n
 ENABLE_CMAKE      ?= n
 ENABLE_GNUTOOLS   ?= n
 ENABLE_FLOCK      ?= n
-ENABLE_KCONFIG    ?= y
+ENABLE_KCONFIG    ?= n
 ENABLE_GCC        ?= n
 else
 ENABLE_ESSENTIALS ?= y
-ENABLE_OBJCONV    ?= y
-ENABLE_FASM       ?= y
-ENABLE_CMAKE      ?= y
-ENABLE_GNUTOOLS   ?= y
-ENABLE_FLOCK      ?= y
-ENABLE_KCONFIG    ?= y
-ENABLE_GCC        ?= y
+ENABLE_OBJCONV    ?= n
+ENABLE_FASM       ?= n
+ENABLE_CMAKE      ?= n
+ENABLE_GNUTOOLS   ?= n
+ENABLE_FLOCK      ?= n
+ENABLE_KCONFIG    ?= n
+ENABLE_GCC        ?= n
 endif
 
 # essentials
