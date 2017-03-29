@@ -6,6 +6,7 @@ endif
 ifeq ($(uname_S), Linux)
 ENABLE_ESSENTIALS ?= n
 ENABLE_OBJCONV    ?= n
+ENABLE_FASM       ?= n
 ENABLE_CMAKE      ?= n
 ENABLE_GNUTOOLS   ?= n
 ENABLE_FLOCK      ?= n
@@ -14,6 +15,7 @@ ENABLE_GCC        ?= n
 else
 ENABLE_ESSENTIALS ?= y
 ENABLE_OBJCONV    ?= y
+ENABLE_FASM       ?= y
 ENABLE_CMAKE      ?= y
 ENABLE_GNUTOOLS   ?= y
 ENABLE_FLOCK      ?= y
@@ -31,6 +33,10 @@ subdir-${ENABLE_ESSENTIALS} = \
 # objconv (on macOS)
 subdir-${ENABLE_OBJCONV} += \
 	objconv
+
+# fasm (on macOS)
+subdir-${ENABLE_FASM} += \
+	fasm
 
 # cmake (on macOS)
 subdir-${ENABLE_CMAKE} += \
@@ -67,6 +73,9 @@ pkgconfig_depends-y = \
 
 objconv_depends-y = \
 	pkgconfig
+
+fasm_depends-y = \
+	objconv
 
 cmake_depends-y = \
 	pkgconfig
