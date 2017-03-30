@@ -4,58 +4,58 @@ ifeq ($(BSPTOOLS),)
 endif
 
 ifeq ($(uname_S), Linux)
-ENABLE_ESSENTIALS ?= n
-ENABLE_OBJCONV    ?= n
-ENABLE_FASM       ?= n
-ENABLE_CMAKE      ?= n
-ENABLE_GNUTOOLS   ?= n
-ENABLE_FLOCK      ?= n
-ENABLE_KCONFIG    ?= n
-ENABLE_GCC        ?= n
+TOOLS_ENABLE_ESSENTIALS ?= n
+TOOLS_ENABLE_OBJCONV    ?= n
+TOOLS_ENABLE_FASM       ?= n
+TOOLS_ENABLE_CMAKE      ?= n
+TOOLS_ENABLE_GNUTOOLS   ?= n
+TOOLS_ENABLE_FLOCK      ?= n
+TOOLS_ENABLE_KCONFIG    ?= n
+TOOLS_ENABLE_GCC        ?= n
 else
-ENABLE_ESSENTIALS ?= y
-ENABLE_OBJCONV    ?= n
-ENABLE_FASM       ?= n
-ENABLE_CMAKE      ?= n
-ENABLE_GNUTOOLS   ?= n
-ENABLE_FLOCK      ?= n
-ENABLE_KCONFIG    ?= n
-ENABLE_GCC        ?= n
+TOOLS_ENABLE_ESSENTIALS ?= y
+TOOLS_ENABLE_OBJCONV    ?= n
+TOOLS_ENABLE_FASM       ?= n
+TOOLS_ENABLE_CMAKE      ?= n
+TOOLS_ENABLE_GNUTOOLS   ?= n
+TOOLS_ENABLE_FLOCK      ?= n
+TOOLS_ENABLE_KCONFIG    ?= n
+TOOLS_ENABLE_GCC        ?= n
 endif
 
 # essentials
-subdir-${ENABLE_ESSENTIALS} = \
+subdir-${TOOLS_ENABLE_ESSENTIALS} = \
 	autoconf \
 	automake \
 	libtool \
 	pkgconfig
 
 # objconv (on macOS)
-subdir-${ENABLE_OBJCONV} += \
+subdir-${TOOLS_ENABLE_OBJCONV} += \
 	objconv
 
 # fasm (on macOS)
-subdir-${ENABLE_FASM} += \
+subdir-${TOOLS_ENABLE_FASM} += \
 	fasm
 
 # cmake (on macOS)
-subdir-${ENABLE_CMAKE} += \
+subdir-${TOOLS_ENABLE_CMAKE} += \
 	cmake
 
 # gnu utils (on macOS)
-subdir-${ENABLE_GNUTOOLS} += \
+subdir-${TOOLS_ENABLE_GNUTOOLS} += \
 	coreutils
 
 # flock (on macOS)
-subdir-${ENABLE_FLOCK} += \
+subdir-${TOOLS_ENABLE_FLOCK} += \
 	flock
 
 # kconfig
-subdir-${ENABLE_KCONFIG} += \
+subdir-${TOOLS_ENABLE_KCONFIG} += \
 	kconfig
 
 # gcc (on macOS)
-subdir-${ENABLE_GCC} += \
+subdir-${TOOLS_ENABLE_GCC} += \
 	gmp \
 	mpfr \
 	mpc \
