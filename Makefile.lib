@@ -683,34 +683,34 @@ define target.host-defaults
     $($1_sources_moc): .$1/%-moc.cpp: %.h
 	$(do_moc.cxx.host)
 
-    $($1_depends_c): .$1/%.d: %.c
+    $($1_depends_c): .$1/%.c.d: %.c
 	$(do_depend.c.host)
 
-    $($1_depends_cc): .$1/%.d: %.cc
+    $($1_depends_cc): .$1/%.cc.d: %.cc
 	$(do_depend.cxx.host)
 
-    $($1_depends_cpp): .$1/%.d: %.cpp
+    $($1_depends_cpp): .$1/%.cpp.d: %.cpp
 	$(do_depend.cxx.host)
 
-    $($1_depends_moc): .$1/%.d: .$1/%.cpp
+    $($1_depends_moc): .$1/%.cpp.d: .$1/%.cpp
 	$(do_depend.cxx.host)
 
-    $($1_depends_m): .$1/%.d: %.m
+    $($1_depends_m): .$1/%.m.d: %.m
 	$(do_depend.m.host)
 
-    $($1_objects_c): .$1/%.o: %.c
+    $($1_objects_c): .$1/%.c.o: %.c
 	$(do_compile.c.host)
 
-    $($1_objects_cc): .$1/%.o: %.cc
+    $($1_objects_cc): .$1/%.cc.o: %.cc
 	$(do_compile.cxx.host)
 
-    $($1_objects_cpp): .$1/%.o: %.cpp
+    $($1_objects_cpp): .$1/%.cpp.o: %.cpp
 	$(do_compile.cxx.host)
 
-    $($1_objects_moc): .$1/%.o: .$1/%.cpp
+    $($1_objects_moc): .$1/%.cpp.o: .$1/%.cpp
 	$(do_compile.cxx.host)
 
-    $($1_objects_m): .$1/%.o: %.m
+    $($1_objects_m): .$1/%.m.o: %.m
 	$(do_compile.m.host)
 endef
 
