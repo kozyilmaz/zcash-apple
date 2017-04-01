@@ -32,6 +32,7 @@
 #   20160721 - files-y += *.a support
 #   20160726 - overload cc
 #   20170209 - qt moc support
+#   20170401 - add .o as suffix
 
 #
 # Example
@@ -198,7 +199,7 @@ LD         := $(CROSS_COMPILE_PREFIX)ld
 AR         := $(CROSS_COMPILE_PREFIX)ar rcs
 RANLIB     := $(CROSS_COMPILE_PREFIX)ranlib
 STRIP      := $(CROSS_COMPILE_PREFIX)strip -sx
-MOC        := $(CROSS_COMPILE_PREFIX)moc
+MOC        ?= $(CROSS_COMPILE_PREFIX)moc
 
 HOSTCC     := $(HOST_COMPILE_PREFIX)gcc
 HOSTCXX    := $(HOST_COMPILE_PREFIX)g++
@@ -207,7 +208,7 @@ HOSTLD     := $(HOST_COMPILE_PREFIX)ld
 HOSTAR     := $(HOST_COMPILE_PREFIX)ar rcs
 HOSTRANLIB := $(HOST_COMPILE_PREFIX)ranlib
 HOSTSTRIP  := $(HOST_COMPILE_PREFIX)strip
-HOSTMOC    := $(HOST_COMPILE_PREFIX)moc
+HOSTMOC    ?= $(HOST_COMPILE_PREFIX)moc
 
 SED        := sed
 
@@ -577,19 +578,19 @@ define target-defaults_base
     $(eval $1_sources_moc  = $(addprefix .$1/, $(filter %-moc.cpp,$2)))
     $(eval $1_sources_m    = $(filter %.m,$2))
     $(eval $1_headers_m    = $(filter %.h,$2))
-    $(eval $1_objects_c    = $(addprefix .$1/, $(subst .c,.o,$($1_sources_c))))
-    $(eval $1_objects_cc   = $(addprefix .$1/, $(subst .cc,.o,$($1_sources_cc))))
-    $(eval $1_objects_cpp  = $(addprefix .$1/, $(subst .cpp,.o,$($1_sources_cpp))))
-    $(eval $1_objects_moc  = $(subst .cpp,.o,$($1_sources_moc)))
-    $(eval $1_objects_m    = $(addprefix .$1/, $(subst .m,.o,$($1_sources_m))))
+    $(eval $1_objects_c    = $(addprefix .$1/, $(subst .c,.c.o,$($1_sources_c))))
+    $(eval $1_objects_cc   = $(addprefix .$1/, $(subst .cc,.cc.o,$($1_sources_cc))))
+    $(eval $1_objects_cpp  = $(addprefix .$1/, $(subst .cpp,.cpp.o,$($1_sources_cpp))))
+    $(eval $1_objects_moc  = $(subst .cpp,.cpp.o,$($1_sources_moc)))
+    $(eval $1_objects_m    = $(addprefix .$1/, $(subst .m,.m.o,$($1_sources_m))))
     $(eval $1_objects_e    = $(subst ",,$(filter %.o,$2)))
     $(eval $1_objects_e   += $(subst ",,$(filter %.a,$2)))
     $(eval $1_objects_e   += $(subst ",,$(filter %.lib,$2)))
-    $(eval $1_depends_c    = $(addprefix .$1/, $(subst .c,.d,$($1_sources_c))))
-    $(eval $1_depends_cc   = $(addprefix .$1/, $(subst .cc,.d,$($1_sources_cc))))
-    $(eval $1_depends_cpp  = $(addprefix .$1/, $(subst .cpp,.d,$($1_sources_cpp))))
-    $(eval $1_depends_moc  = $(subst .cpp,.d,$($1_sources_moc)))
-    $(eval $1_depends_m    = $(addprefix .$1/, $(subst .m,.d,$($1_sources_m))))
+    $(eval $1_depends_c    = $(addprefix .$1/, $(subst .c,.c.d,$($1_sources_c))))
+    $(eval $1_depends_cc   = $(addprefix .$1/, $(subst .cc,.cc.d,$($1_sources_cc))))
+    $(eval $1_depends_cpp  = $(addprefix .$1/, $(subst .cpp,.cpp.d,$($1_sources_cpp))))
+    $(eval $1_depends_moc  = $(subst .cpp,.cpp.d,$($1_sources_moc)))
+    $(eval $1_depends_m    = $(addprefix .$1/, $(subst .m,.m.d,$($1_sources_m))))
     $(eval $1_cflags       = $($1_cflags-y))
     $(eval $1_cxxflags     = $($1_cxxflags-y))
     $(eval $1_includes     = $(addprefix -I, $($1_includes-y)))
@@ -644,34 +645,34 @@ define target-defaults
     $($1_sources_moc): .$1/%-moc.cpp: %.h
 	$(do_moc.cxx)
 
-    $($1_depends_c): .$1/%.d: %.c $(MAKEFILE_LIST)
+    $($1_depends_c): .$1/%.c.d: %.c $(MAKEFILE_LIST)
 	$(do_depend.c)
 
-    $($1_depends_cc): .$1/%.d: %.cc
+    $($1_depends_cc): .$1/%.cc.d: %.cc
 	$(do_depend.cxx)
 
-    $($1_depends_cpp): .$1/%.d: %.cpp
+    $($1_depends_cpp): .$1/%.cpp.d: %.cpp
 	$(do_depend.cxx)
 
-    $($1_depends_moc): .$1/%.d: .$1/%.cpp
+    $($1_depends_moc): .$1/%.cpp.d: .$1/%.cpp
 	$(do_depend.cxx)
 
-    $($1_depends_m): .$1/%.d: %.m
+    $($1_depends_m): .$1/%.m.d: %.m
 	$(do_depend.m)
 
-    $($1_objects_c): .$1/%.o: %.c
+    $($1_objects_c): .$1/%.c.o: %.c
 	$(do_compile.c)
 
-    $($1_objects_cc): .$1/%.o: %.cc
+    $($1_objects_cc): .$1/%.cc.o: %.cc
 	$(do_compile.cxx)
 
-    $($1_objects_cpp): .$1/%.o: %.cpp
+    $($1_objects_cpp): .$1/%.cpp.o: %.cpp
 	$(do_compile.cxx)
 
-    $($1_objects_moc): .$1/%.o: .$1/%.cpp
+    $($1_objects_moc): .$1/%.cpp.o: .$1/%.cpp
 	$(do_compile.cxx)
 
-    $($1_objects_m): .$1/%.o: %.m
+    $($1_objects_m): .$1/%.m.o: %.m
 	$(do_compile.m)
 
 endef
