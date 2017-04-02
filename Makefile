@@ -3,15 +3,18 @@ ifeq ($(BSPROOT),)
     $(error You must first run 'source environment')
 endif
 
-subdir-y := tools
+#subdir-y := tools
 subdir-y += gmp
 subdir-y += boost
 
-gmp_depends-y = \
-	tools
+#gmp_depends-y = \
+#	tools
 
 boost_depends-y = \
 	gmp
+
+zcash_depends-y = \
+	boost
 
 include Makefile.lib
 
