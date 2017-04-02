@@ -11,6 +11,7 @@ subdir-y += libsodium
 subdir-y += libsnark
 subdir-y += libevent
 subdir-y += openssl
+subdir-y += librustzcash
 subdir-y += zcash
 
 #gmp_depends-y = \
