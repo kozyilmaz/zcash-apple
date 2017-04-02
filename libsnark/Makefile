@@ -3,10 +3,11 @@ target_name ?= libsnark
 
 include ../Makefile.build
 
-LIBSNARK_VERSION=9ada3f84ab484c57b2247c2f41091fd6a0916573
+LIBSNARK_VERSION=master
+LIBSNARK_COMMIT=9ada3f84ab484c57b2247c2f41091fd6a0916573
 
 libsnark_clone:
-	if [ ! -d "libsnark_$(LIBSNARK_VERSION)" ]; then git clone -b $(LIBSNARK_VERSION) https://github.com/zcash/libsnark.git libsnark_$(LIBSNARK_VERSION); fi
+	if [ ! -d "libsnark_$(LIBSNARK_VERSION)" ]; then git clone https://github.com/zcash/libsnark.git libsnark_$(LIBSNARK_VERSION); cd libsnark_$(LIBSNARK_VERSION); git checkout $(LIBSNARK_COMMIT) ; fi
 
 libsnark_config:
 	$(call patchme,libsnark_$(LIBSNARK_VERSION))
