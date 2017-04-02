@@ -10,8 +10,8 @@ openssl_clone:
 	if [ ! -d "openssl-$(OPENSSL_VERSION)" ]; then tar xvf openssl-$(OPENSSL_VERSION).tar.gz; fi
 
 openssl_config:
-	( cd $(OPENSSL_VERSION); \
-		CC=gcc-6.3.0 ./config --prefix=${BSPROOTFS} --openssldir=${BSPROOTFS}/ssl no-shared \
+	( cd openssl-$(OPENSSL_VERSION); \
+		CC=gcc-6.3.0 ./config --prefix=${BSPROOTFS} --openssldir=/System/Library/OpenSSL no-shared \
 		no-afalgeng no-asm no-async no-bf no-blake2 no-camellia no-capieng no-cast no-chacha no-cmac no-cms no-comp \
 		no-crypto-mdebug no-crypto-mdebug-backtrace no-ct no-des no-dgram no-dsa no-dso no-dtls no-dtls1 no-dtls1-method \
 		no-dynamic-engine no-ec2m no-ec_nistp_64_gcc_128 no-egd no-engine no-err no-gost no-heartbeats no-idea no-md2 \
@@ -22,17 +22,17 @@ openssl_config:
 	)
 
 openssl_build:
-	make -C $(OPENSSL_VERSION) -j ${BSPJOB}
+	make -C openssl-$(OPENSSL_VERSION) -j ${BSPJOB}
 
 openssl_install:
-	make -C $(OPENSSL_VERSION) install install_sw
+	make -C openssl-$(OPENSSL_VERSION) install_sw
 
 openssl_uninstall:
-	make -C $(OPENSSL_VERSION) uninstall
+	make -C openssl-$(OPENSSL_VERSION) uninstall_sw
 
 openssl_clean:
-	if [ -f "$(OPENSSL_VERSION)/Makefile" ]; then make -C $(OPENSSL_VERSION) distclean; fi
+	if [ -f "openssl-$(OPENSSL_VERSION)/Makefile" ]; then make -C openssl-$(OPENSSL_VERSION) distclean; fi
 
 openssl_distclean:
-	rm -rf $(OPENSSL_VERSION)
+	rm -rf openssl-$(OPENSSL_VERSION)
 
