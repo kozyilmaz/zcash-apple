@@ -4,6 +4,7 @@ ifeq ($(BSPROOT),)
 endif
 
 #subdir-y := tools
+subdir-y += bdb
 subdir-y += gmp
 subdir-y += boost
 subdir-y += libsodium
@@ -23,7 +24,9 @@ libsnark_depends-y = \
 	libsodium
 
 zcash_depends-y = \
-	libsnark
+	libsnark \
+	openssl \
+	libevent
 
 include Makefile.lib
 
