@@ -7,10 +7,13 @@ LIBSNARK_VERSION=master
 LIBSNARK_COMMIT=9ada3f84ab484c57b2247c2f41091fd6a0916573
 
 libsnark_clone:
-	if [ ! -d "libsnark_$(LIBSNARK_VERSION)" ]; then git clone https://github.com/zcash/libsnark.git libsnark_$(LIBSNARK_VERSION); cd libsnark_$(LIBSNARK_VERSION); git checkout $(LIBSNARK_COMMIT) ; fi
+	if [ ! -d "libsnark_$(LIBSNARK_VERSION)" ]; then git clone https://github.com/zcash/libsnark.git libsnark_$(LIBSNARK_VERSION); fi
+ifneq ($(LIBSNARK_COMMIT),)
+	if [ ! -d "libsnark_$(LIBSNARK_VERSION)" ]; then cd libsnark_$(LIBSNARK_VERSION); git checkout $(LIBSNARK_COMMIT); fi
+endif
 
 libsnark_config:
-	$(call patchme,libsnark_$(LIBSNARK_VERSION))
+#	$(call patchme,libsnark_$(LIBSNARK_VERSION))
 
 libsnark_build:
 	CFLAGS="-I${BSPROOTFS}/include" CXXFLAGS="-I${BSPROOTFS}/include" LDFLAGS="-L${BSPROOTFS}/lib" make -C libsnark_$(LIBSNARK_VERSION) lib NO_SUPERCOP=1 CURVE=ALT_BN128 NO_PROCPS=1 NO_GTEST=1 NO_DOCS=1 STATIC=1 PREFIX=${BSPROOTFS}
