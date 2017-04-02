@@ -4,12 +4,12 @@ target_name ?= librustzcash
 include ../Makefile.build
 
 LIBRUSTZCASH_VERSION=master
-LIBRUSTZCASH_COMMIT=9ada3f84ab484c57b2247c2f41091fd6a0916573
+LIBRUSTZCASH_COMMIT=91348647a86201a9482ad4ad68398152dc3d635e
 
 librustzcash_clone:
-	if [ ! -d "librustzcash_$(LIBRUSTZCASH_VERSION)" ]; then git clone https://github.com/zcash/libsnark.git librustzcash_$(LIBRUSTZCASH_VERSION); fi
+	if [ ! -d "librustzcash-$(LIBRUSTZCASH_VERSION)" ]; then git clone -b $(LIBRUSTZCASH_VERSION) https://github.com/zcash/librustzcash.git librustzcash-$(LIBRUSTZCASH_VERSION); fi
 ifneq ($(LIBRUSTZCASH_COMMIT),)
-	if [ ! -d "librustzcash_$(LIBRUSTZCASH_VERSION)" ]; then cd librustzcash_$(LIBRUSTZCASH_VERSION); git checkout $(LIBRUSTZCASH_COMMIT); fi
+	if [ -d "librustzcash-$(LIBRUSTZCASH_VERSION)" ]; then cd librustzcash-$(LIBRUSTZCASH_VERSION); git checkout $(LIBRUSTZCASH_COMMIT); fi
 endif
 
 librustzcash_config:
@@ -19,13 +19,19 @@ librustzcash_build:
 	( cd librustzcash-$(LIBRUSTZCASH_VERSION); cargo build --release; )
 
 librustzcash_install:
-	@true
+	if [ -f "librustzcash-$(LIBRUSTZCASH_VERSION)/target/release/librustzcash.a" ]; then \
+		cp librustzcash-$(LIBRUSTZCASH_VERSION)/target/release/librustzcash.a ${BSPROOTFS}/lib; \
+	fi
+	if [ -f "librustzcash-$(LIBRUSTZCASH_VERSION)/include/librustzcash.h" ]; then \
+		cp librustzcash-$(LIBRUSTZCASH_VERSION)/include/librustzcash.h ${BSPROOTFS}/include; \
+	fi
 
 librustzcash_uninstall:
-	make -C librustzcash_$(LIBRUSTZCASH_VERSION) uninstall
+	rm -rf ${BSPROOTFS}/lib/librustzcash.a
+	rm -rf ${BSPROOTFS}/include/librustzcash.h
 
 librustzcash_clean:
-	make -C librustzcash_$(LIBRUSTZCASH_VERSION) clean-all
+	@true
 
 librustzcash_distclean:
-	rm -rf librustzcash_$(LIBRUSTZCASH_VERSION)
+	rm -rf librustzcash-$(LIBRUSTZCASH_VERSION)
