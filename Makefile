@@ -6,6 +6,7 @@ endif
 #subdir-y := tools
 subdir-y += gmp
 subdir-y += boost
+subdir-y += libsodium
 subdir-y += libsnark
 subdir-y += zcash
 
@@ -16,7 +17,8 @@ boost_depends-y = \
 	gmp
 
 libsnark_depends-y = \
-	boost
+	gmp \
+	libsodium
 
 zcash_depends-y = \
 	libsnark
