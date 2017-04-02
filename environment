@@ -1,0 +1,16 @@
+#!/bin/sh
+
+BSPJOB=8
+BSPROOT=`pwd`
+BSPTOOLS=${BSPROOT}/tools
+BSPROOTFS=${BSPROOT}/rootfs
+BSPINSTALL=${BSPROOT}  # change to /usr/local/bin if you like!
+PATH=${BSPTOOLS}/o/bin:${PATH}
+
+export BSPJOB BSPROOT BSPTOOLS BSPROOTFS BSPINSTALL PATH
+
+# tool selection
+export TOOLS_ENABLE_CMAKE=y
+export TOOLS_ENABLE_GNUTOOLS=y
+export TOOLS_ENABLE_FLOCK=y
+export TOOLS_ENABLE_GCC=y
