@@ -20,6 +20,8 @@ zcash_config:
 		LDFLAGS="-L${BSPROOTFS}/lib" \
 		SSL_CFLAGS="-I${BSPROOTFS}/include" SSL_LIBS="-L${BSPROOTFS}/lib" \
 		CRYPTO_CFLAGS="-I${BSPROOTFS}/include" CRYPTO_LIBS="-L${BSPROOTFS}/lib" \
+		EVENT_CFLAGS="-I${BSPROOTFS}/include" EVENT_LIBS="-L${BSPROOTFS}/lib" \
+		EVENT_PTHREADS_CFLAGS="-I${BSPROOTFS}/include" EVENT_PTHREADS_LIBS="-L${BSPROOTFS}/lib" \
 		./configure --prefix=${BSPROOTFS} --disable-wallet --with-boost=${BSPROOTFS}; \
 	)
 
