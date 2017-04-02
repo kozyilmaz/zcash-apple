@@ -20,7 +20,7 @@ rust_install:
 	( cd rust-$(RUST_VERSION)-$(RUST_PLATFORM); ./install.sh --prefix=${BSPTOOLS}/o --without=rust-docs; )
 
 rust_uninstall:
-	@true
+	( cd rust-$(RUST_VERSION)-$(RUST_PLATFORM); ./install.sh --prefix=${BSPTOOLS}/o --uninstall; )
 
 rust_clean:
 	@true
