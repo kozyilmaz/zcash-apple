@@ -4,10 +4,14 @@ ifeq ($(BSPROOT),)
 endif
 
 subdir-y := tools
+subdir-y += gmp
 subdir-y += boost
 
-boost_depends-y = \
+gmp_depends-y = \
 	tools
+
+boost_depends-y = \
+	gmp
 
 include Makefile.lib
 
