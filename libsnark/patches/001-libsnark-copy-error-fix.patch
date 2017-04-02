@@ -1,0 +1,15 @@
+diff --git a/Makefile b/Makefile
+index 13e54da..29920e4 100644
+--- a/Makefile
++++ b/Makefile
+@@ -253,8 +253,10 @@ $(HEADERS_DEST): $(PREFIX)/include/libsnark/%: src/%
+ install: $(INSTALL_LIBS) $(HEADERS_DEST) $(DEPINST_EXISTS)
+ 	mkdir -p $(PREFIX)/lib
+ 	cp -v $(INSTALL_LIBS) $(PREFIX)/lib/
++ifneq ($(PREFIX),$(DEPINST))
+ 	cp -rv $(DEPINST)/include $(PREFIX)
+ endif
++endif
+ 
+ doxy:
+ 	doxygen doxygen.conf
