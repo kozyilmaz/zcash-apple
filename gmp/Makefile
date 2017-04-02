@@ -10,7 +10,7 @@ gmp_clone:
 	if [ ! -d "gmp-$(GMP_VERSION)" ]; then tar xzf gmp-$(GMP_VERSION).tar.bz2; fi
 
 gmp_config:
-	( cd gmp-$(GMP_VERSION); ./configure --prefix=${BSPROOTFS} --enable-cxx --enable-static --disable-shared; )
+	( cd gmp-$(GMP_VERSION); CC=gcc-6.3.0 CXX=g++-6.3.0 ./configure --prefix=${BSPROOTFS} --enable-static --disable-shared; )
 
 gmp_build:
 	make -C gmp-$(GMP_VERSION) -j ${BSPJOB}
