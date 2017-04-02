@@ -1,0 +1,15 @@
+diff --git a/configure.ac b/configure.ac
+index 44dd34b..0492735 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -437,8 +437,8 @@ if test x$use_hardening != xno; then
+     HARDENED_CPPFLAGS="$HARDENED_CPPFLAGS -D_FORTIFY_SOURCE=2"
+   ],[AC_MSG_ERROR(Cannot enable -D_FORTIFY_SOURCE=2)])
+ 
+-  AX_CHECK_LINK_FLAG([[-Wl,-z,relro]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,relro"],[AC_MSG_ERROR(Cannot enable RELRO)])
+-  AX_CHECK_LINK_FLAG([[-Wl,-z,now]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,now"],[AC_MSG_ERROR(Cannot enable BIND_NOW)])
++  AX_CHECK_LINK_FLAG([[-Wl,-z,relro]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,relro"],[AC_MSG_WARN(Cannot enable RELRO)])
++  AX_CHECK_LINK_FLAG([[-Wl,-z,now]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,now"],[AC_MSG_WARN(Cannot enable BIND_NOW)])
+ 
+   if test x$TARGET_OS != xwindows; then
+     # All windows code is PIC, forcing it on just adds useless compile warnings

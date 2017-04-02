@@ -6,6 +6,8 @@ endif
 #subdir-y := tools
 subdir-y += gmp
 subdir-y += boost
+subdir-y += libsnark
+subdir-y += zcash
 
 #gmp_depends-y = \
 #	tools
@@ -13,8 +15,11 @@ subdir-y += boost
 boost_depends-y = \
 	gmp
 
-zcash_depends-y = \
+libsnark_depends-y = \
 	boost
+
+zcash_depends-y = \
+	libsnark
 
 include Makefile.lib
 
