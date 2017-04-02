@@ -12,6 +12,7 @@ TOOLS_ENABLE_GNUTOOLS   ?= n
 TOOLS_ENABLE_FLOCK      ?= n
 TOOLS_ENABLE_KCONFIG    ?= n
 TOOLS_ENABLE_GCC        ?= n
+TOOLS_ENABLE_RUST       ?= n
 else
 TOOLS_ENABLE_ESSENTIALS ?= y
 TOOLS_ENABLE_OBJCONV    ?= n
@@ -21,6 +22,7 @@ TOOLS_ENABLE_GNUTOOLS   ?= n
 TOOLS_ENABLE_FLOCK      ?= n
 TOOLS_ENABLE_KCONFIG    ?= n
 TOOLS_ENABLE_GCC        ?= n
+TOOLS_ENABLE_RUST       ?= n
 endif
 
 # essentials
@@ -61,6 +63,10 @@ subdir-${TOOLS_ENABLE_GCC} += \
 	mpc \
 	isl \
 	gnugcc
+
+# rust & cargo (on macOS)
+subdir-${TOOLS_ENABLE_RUST} += \
+	rust
 
 automake_depends-y = \
 	autoconf
