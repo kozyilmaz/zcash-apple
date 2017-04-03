@@ -3,7 +3,7 @@ target_name ?= gmp
 
 include ../Makefile.build
 
-GMP_VERSION="6.1.2"
+GMP_VERSION=6.1.2
 
 gmp_clone:
 	if [ ! -f "gmp-$(GMP_VERSION).tar.bz2" ]; then curl -OL http://ftp.gnu.org/gnu/gmp/gmp-$(GMP_VERSION).tar.bz2; fi;
