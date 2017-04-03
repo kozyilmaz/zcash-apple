@@ -1,5 +1,5 @@
 diff --git a/configure.ac b/configure.ac
-index e356b9e0..5bee06e1 100644
+index e356b9e0..d44f2090 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -443,8 +443,8 @@ if test x$use_hardening != xno; then
@@ -13,3 +13,12 @@ index e356b9e0..5bee06e1 100644
  
    if test x$TARGET_OS != xwindows; then
      # All windows code is PIC, forcing it on just adds useless compile warnings
+@@ -776,7 +776,7 @@ if test x$enable_rust != xno; then
+   RUST_LIBS="-lrustzcash"
+ fi
+ 
+-LIBZCASH_LIBS="-lsnark -lgmp -lgmpxx -lboost_system-mt -lcrypto -lsodium -fopenmp $RUST_LIBS"
++LIBZCASH_LIBS="-lsnark -lgmp -lgmpxx -lboost_system -lcrypto -lsodium -fopenmp $RUST_LIBS"
+ 
+ CXXFLAGS_TEMP="$CXXFLAGS"
+ LIBS_TEMP="$LIBS"
