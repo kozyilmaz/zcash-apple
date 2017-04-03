@@ -3,7 +3,7 @@ target_name ?= libsodium
 
 include ../Makefile.build
 
-LIBSODIUM_VERSION="1.0.12"
+LIBSODIUM_VERSION=1.0.12
 
 libsodium_clone:
 	if [ ! -f "libsodium-$(LIBSODIUM_VERSION).tar.gz" ]; then curl -OL https://download.libsodium.org/libsodium/releases/libsodium-$(LIBSODIUM_VERSION).tar.gz; fi;
