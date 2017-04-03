@@ -14,14 +14,14 @@ zcash_config:
 	( cd zcash_$(ZCASH_VERSION); \
 		CC=gcc-6.3.0 \
 		CXX=g++-6.3.0 \
-		CFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark" \
-		CXXFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark" \
-		CPPFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark" \
+		CFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark -fpermissive" \
+		CXXFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark -fpermissive" \
+		CPPFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark -fpermissive" \
 		LDFLAGS="-L${BSPROOTFS}/lib" \
-		SSL_CFLAGS="-I${BSPROOTFS}/include" SSL_LIBS="-L${BSPROOTFS}/lib" \
-		CRYPTO_CFLAGS="-I${BSPROOTFS}/include" CRYPTO_LIBS="-L${BSPROOTFS}/lib" \
-		EVENT_CFLAGS="-I${BSPROOTFS}/include" EVENT_LIBS="-L${BSPROOTFS}/lib" \
-		EVENT_PTHREADS_CFLAGS="-I${BSPROOTFS}/include" EVENT_PTHREADS_LIBS="-L${BSPROOTFS}/lib" \
+		SSL_CFLAGS="-I${BSPROOTFS}/include" SSL_LIBS="-L${BSPROOTFS}/lib -lssl" \
+		CRYPTO_CFLAGS="-I${BSPROOTFS}/include" CRYPTO_LIBS="-L${BSPROOTFS}/lib -lcrypto" \
+		EVENT_CFLAGS="-I${BSPROOTFS}/include" EVENT_LIBS="-L${BSPROOTFS}/lib -levent" \
+		EVENT_PTHREADS_CFLAGS="-I${BSPROOTFS}/include" EVENT_PTHREADS_LIBS="-L${BSPROOTFS}/lib -levent_pthreads" \
 		./configure --prefix=${BSPROOTFS} --disable-wallet --with-boost=${BSPROOTFS}; \
 	)
 
