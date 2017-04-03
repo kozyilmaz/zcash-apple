@@ -14,9 +14,9 @@ zcash_config:
 	( cd zcash_$(ZCASH_VERSION); \
 		CC=gcc-6.3.0 \
 		CXX=g++-6.3.0 \
-		CFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark -fpermissive" \
-		CXXFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark -fpermissive" \
-		CPPFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark -fpermissive" \
+		CFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark" \
+		CXXFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark -fwrapv -fno-strict-aliasing -Werror -g -Wl,-undefined -Wl,dynamic_lookup" \
+		CPPFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark" \
 		LDFLAGS="-L${BSPROOTFS}/lib" \
 		SSL_CFLAGS="-I${BSPROOTFS}/include" SSL_LIBS="-L${BSPROOTFS}/lib -lssl" \
 		CRYPTO_CFLAGS="-I${BSPROOTFS}/include" CRYPTO_LIBS="-L${BSPROOTFS}/lib -lcrypto" \
