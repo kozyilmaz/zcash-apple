@@ -1,0 +1,13 @@
+diff --git a/src/wallet/asyncrpcoperation_sendmany.cpp b/src/wallet/asyncrpcoperation_sendmany.cpp
+index 1691452b..e867ee42 100644
+--- a/src/wallet/asyncrpcoperation_sendmany.cpp
++++ b/src/wallet/asyncrpcoperation_sendmany.cpp
+@@ -1058,7 +1058,7 @@ UniValue AsyncRPCOperation_sendmany::perform_joinsplit(
+     UniValue arrInputMap(UniValue::VARR);
+     UniValue arrOutputMap(UniValue::VARR);
+     for (size_t i = 0; i < ZC_NUM_JS_INPUTS; i++) {
+-        arrInputMap.push_back(inputMap[i]);
++        arrInputMap.push_back((uint64_t)inputMap[i]);
+     }
+     for (size_t i = 0; i < ZC_NUM_JS_OUTPUTS; i++) {
+         arrOutputMap.push_back(outputMap[i]);
