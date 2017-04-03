@@ -1,0 +1,13 @@
+diff --git a/src/serialize.h b/src/serialize.h
+index f776d6d9..0b71470a 100644
+--- a/src/serialize.h
++++ b/src/serialize.h
+@@ -948,7 +948,7 @@ struct CSerActionUnserialize
+ template<typename Stream, typename T>
+ inline void SerReadWrite(Stream& s, const T& obj, int nType, int nVersion, CSerActionSerialize ser_action)
+ {
+-    ::Serialize(s, obj, nType, nVersion);
++    //::Serialize(s, obj, nType, nVersion);
+ }
+ 
+ template<typename Stream, typename T>
