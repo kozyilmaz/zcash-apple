@@ -14,15 +14,14 @@ zcash_config:
 	( cd zcash_$(ZCASH_VERSION); \
 		CC=gcc-6.3.0 \
 		CXX=g++-6.3.0 \
-		CFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark" \
-		CXXFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark -fwrapv -fno-strict-aliasing -Werror -g -Wl,-undefined -Wl,dynamic_lookup" \
 		CPPFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark" \
-		LDFLAGS="-L${BSPROOTFS}/lib" \
+		CXXFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark -fwrapv -fno-strict-aliasing -Werror -g -Wl,-undefined -Wl,dynamic_lookup" \
+		LDFLAGS="-L${BSPROOTFS}/lib -static-libstdc++ -static-libgcc" \
 		SSL_CFLAGS="-I${BSPROOTFS}/include" SSL_LIBS="-L${BSPROOTFS}/lib -lssl" \
 		CRYPTO_CFLAGS="-I${BSPROOTFS}/include" CRYPTO_LIBS="-L${BSPROOTFS}/lib -lcrypto" \
 		EVENT_CFLAGS="-I${BSPROOTFS}/include" EVENT_LIBS="-L${BSPROOTFS}/lib -levent" \
 		EVENT_PTHREADS_CFLAGS="-I${BSPROOTFS}/include" EVENT_PTHREADS_LIBS="-L${BSPROOTFS}/lib -levent_pthreads" \
-		./configure --prefix=${BSPROOTFS} --disable-wallet --with-boost=${BSPROOTFS}; \
+		./configure --prefix=${BSPINSTALL} --with-boost=${BSPROOTFS} --without-libs --disable-tests; \
 	)
 
 zcash_build:
