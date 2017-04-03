@@ -1,8 +1,8 @@
 #!/bin/sh
 
-BSPJOB=8
+BSPJOB=16
 BSPROOT=`pwd`
-BSPTOOLS=${BSPROOT}/tools
+BSPTOOLS=/Users/loki/Desktop/devel/tools
 BSPROOTFS=${BSPROOT}/rootfs
 BSPINSTALL=${BSPROOT}  # change to /usr/local/bin if you like!
 PATH=${BSPTOOLS}/o/bin:${PATH}
