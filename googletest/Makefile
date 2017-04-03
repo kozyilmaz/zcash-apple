@@ -3,30 +3,33 @@ target_name ?= googletest
 
 include ../Makefile.build
 
-GOOGLETEST_VERSION=1.7.0
+GOOGLETEST_VERSION=1.8.0
 
 googletest_clone:
-	if [ ! -f "googletest-$(GOOGLETEST_VERSION).tar.gz" ]; then curl -OL https://github.com/google/googletest/archive/googletest-$(GOOGLETEST_VERSION).tar.gz; fi;
-	if [ ! -d "googletest-$(GOOGLETEST_VERSION)" ]; then tar xzf googletest-$(GOOGLETEST_VERSION).tar.gz; fi
+	if [ ! -f "release-$(GOOGLETEST_VERSION).tar.gz" ]; then curl -OL https://github.com/google/googletest/archive/release-$(GOOGLETEST_VERSION).tar.gz; fi;
+	if [ ! -d "googletest-release-$(GOOGLETEST_VERSION)" ]; then tar xzf release-$(GOOGLETEST_VERSION).tar.gz; fi
 
 googletest_config:
-	( cd googletest-$(GOOGLETEST_VERSION); \
-		CC=gcc-6.3.0 CXX=g++-6.3.0 CFLAGS="" CXXFLAGS="" CPPFLAGS="" \
-		./configure --prefix=${BSPROOTFS} --enable-cxx --enable-static --disable-shared; \
-	)
+	@true
 
 googletest_build:
-	make -C googletest-$(GOOGLETEST_VERSION) -j ${BSPJOB}
+	CC=gcc-6.3.0 CXX=g++-6.3.0 make -C googletest-release-$(GOOGLETEST_VERSION)/googletest/make CXXFLAGS=-fPIC gtest.a
 
 googletest_install:
-	make -C googletest-$(GOOGLETEST_VERSION) install
+	if [ -f "googletest-release-$(GOOGLETEST_VERSION)/googletest/make/gtest.a" ]; then \
+		cp googletest-release-$(GOOGLETEST_VERSION)/googletest/make/gtest.a ${BSPROOTFS}/lib/libgtest.a; \
+	fi
+	if [ -d "googletest-release-$(GOOGLETEST_VERSION)/googletest/include" ]; then \
+		cp -a googletest-release-$(GOOGLETEST_VERSION)/googletest/include/* ${BSPROOTFS}/include; \
+	fi
 
 googletest_uninstall:
-	make -C googletest-$(GOOGLETEST_VERSION) uninstall
+	rm -rf ${BSPROOTFS}/lib/libgtest.a
+	rm -rf ${BSPROOTFS}/include/gtest
 
 googletest_clean:
-	if [ -f "googletest-$(GOOGLETEST_VERSION)/Makefile" ]; then make -C googletest-$(GOOGLETEST_VERSION) distclean; fi
+	CC=gcc-6.3.0 CXX=g++-6.3.0 make -C googletest-release-$(GOOGLETEST_VERSION)/googletest/make clean
 
 googletest_distclean:
-	rm -rf googletest-$(GOOGLETEST_VERSION)
-	rm -rf googletest-$(GOOGLETEST_VERSION).tar.gz
+	rm -rf googletest-release-$(GOOGLETEST_VERSION)
+	rm -rf release-$(GOOGLETEST_VERSION).tar.gz
