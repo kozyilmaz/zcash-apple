@@ -4,18 +4,16 @@ ifeq ($(BSPROOT),)
 endif
 
 #subdir-y := tools
-subdir-y += bdb
 subdir-y += gmp
+subdir-y += bdb
 subdir-y += boost
 subdir-y += libsodium
 subdir-y += libsnark
 subdir-y += libevent
 subdir-y += openssl
 subdir-y += librustzcash
+subdir-y += googletest
 subdir-y += zcash
-
-#gmp_depends-y = \
-#	tools
 
 boost_depends-y = \
 	gmp
@@ -25,9 +23,13 @@ libsnark_depends-y = \
 	libsodium
 
 zcash_depends-y = \
+	bdb \
+	boost \
 	libsnark \
 	openssl \
-	libevent
+	libevent \
+	librustzcash \
+	googletest
 
 include Makefile.lib
 
