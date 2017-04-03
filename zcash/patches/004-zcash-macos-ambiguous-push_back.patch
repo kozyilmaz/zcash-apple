@@ -15,3 +15,25 @@ index 1691452b..b6b3370b 100644
      }
  
      UniValue obj(UniValue::VOBJ);
+diff --git a/src/wallet/rpcwallet.cpp b/src/wallet/rpcwallet.cpp
+index efa1a18a..e1ada6ac 100644
+--- a/src/wallet/rpcwallet.cpp
++++ b/src/wallet/rpcwallet.cpp
+@@ -1336,7 +1336,7 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
+             entry.push_back(Pair("fee", ValueFromAmount(-nFee)));
+             if (fLong)
+                 WalletTxToJSON(wtx, entry);
+-            entry.push_back(Pair("size", static_cast<CTransaction>(wtx).GetSerializeSize(SER_NETWORK, PROTOCOL_VERSION)));
++            entry.push_back(Pair("size", (uint64_t)static_cast<CTransaction>(wtx).GetSerializeSize(SER_NETWORK, PROTOCOL_VERSION)));
+             ret.push_back(entry);
+         }
+     }
+@@ -1373,7 +1373,7 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
+                 entry.push_back(Pair("vout", r.vout));
+                 if (fLong)
+                     WalletTxToJSON(wtx, entry);
+-                entry.push_back(Pair("size", static_cast<CTransaction>(wtx).GetSerializeSize(SER_NETWORK, PROTOCOL_VERSION)));
++                entry.push_back(Pair("size", (uint64_t)static_cast<CTransaction>(wtx).GetSerializeSize(SER_NETWORK, PROTOCOL_VERSION)));
+                 ret.push_back(entry);
+             }
+         }
