@@ -1,8 +1,8 @@
 diff --git a/configure.ac b/configure.ac
-index 44dd34b..0492735 100644
+index e356b9e0..5bee06e1 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -437,8 +437,8 @@ if test x$use_hardening != xno; then
+@@ -443,8 +443,8 @@ if test x$use_hardening != xno; then
      HARDENED_CPPFLAGS="$HARDENED_CPPFLAGS -D_FORTIFY_SOURCE=2"
    ],[AC_MSG_ERROR(Cannot enable -D_FORTIFY_SOURCE=2)])
  
