@@ -1,5 +1,5 @@
 diff --git a/zcutil/fetch-params.sh b/zcutil/fetch-params.sh
-index 8bb31fc3..b9e6daab 100755
+index 8bb31fc3..33ae1646 100755
 --- a/zcutil/fetch-params.sh
 +++ b/zcutil/fetch-params.sh
 @@ -2,7 +2,11 @@
@@ -49,3 +49,30 @@ index 8bb31fc3..b9e6daab 100755
  $expectedhash  $dlname
  EOF
  
+@@ -46,12 +56,20 @@ EOF
+ # Use flock to prevent parallel execution.
+ function lock() {
+     local lockfile=/tmp/fetch_params.lock
+-    # create lock file
+-    eval "exec 200>/$lockfile"
+-    # acquire the lock
+-    flock -n 200 \
+-        && return 0 \
+-        || return 1
++    if [[ "$OSTYPE" == "darwin"* ]]; then
++        if shlock -f ${lockfile} -p $$; then
++            return 0
++        else
++            return 1
++        fi
++    else
++        # create lock file
++        eval "exec 200>/$lockfile"
++        # acquire the lock
++        flock -n 200 \
++            && return 0 \
++            || return 1
++    fi
+ }
+ 
+ function exit_locked_error {
