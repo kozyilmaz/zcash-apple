@@ -11,7 +11,7 @@ openssl_clone:
 
 openssl_config:
 	( cd openssl-$(OPENSSL_VERSION); \
-		CC=gcc-6.3.0 ./config --prefix=${BSPROOTFS} --openssldir=/System/Library/OpenSSL no-shared \
+		CC=${BSP_CC} CXX=${BSP_CXX} ./config --prefix=${BSPROOTFS} --openssldir=/System/Library/OpenSSL no-shared \
 		no-afalgeng no-asm no-async no-bf no-blake2 no-camellia no-capieng no-cast no-chacha no-cmac no-cms no-comp \
 		no-crypto-mdebug no-crypto-mdebug-backtrace no-ct no-des no-dgram no-dsa no-dso no-dtls no-dtls1 no-dtls1-method \
 		no-dynamic-engine no-ec2m no-ec_nistp_64_gcc_128 no-egd no-engine no-err no-gost no-heartbeats no-idea no-md2 \
