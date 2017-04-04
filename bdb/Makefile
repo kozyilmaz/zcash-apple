@@ -11,12 +11,13 @@ bdb_clone:
 
 bdb_config:
 	( cd db-$(BDB_VERSION)/build_unix; \
-		CC=gcc-6.3.0 CXX=g++-6.3.0 ../dist/configure --prefix=${BSPROOTFS} \
+		CC=gcc-6.3.0 CXX=g++-6.3.0 CFLAGS="" CXXFLAGS="" \
+		../dist/configure --prefix=${BSPROOTFS} \
 		--enable-static --disable-shared --enable-cxx --disable-replication \
 	)
 
 bdb_build:
-	make -C db-$(BDB_VERSION)/build_unix -j ${BSPJOB}
+	make -C db-$(BDB_VERSION)/build_unix -j ${BSPJOB} libdb_cxx-6.2.a libdb-6.2.a
 
 bdb_install:
 	make -C db-$(BDB_VERSION)/build_unix install_lib install_include
