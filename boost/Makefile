@@ -17,10 +17,10 @@ boost_config:
 	( cd boost_$(BOOST_VERSION); ./bootstrap.sh --prefix=${BSPROOTFS} --without-icu --with-libraries=chrono,filesystem,program_options,system,thread,test; )
 
 boost_build:
-	( cd boost_$(BOOST_VERSION); ./b2 headers; ./b2 -j ${BSPJOB} variant=release link=static runtime-link=static threading=multi toolset=darwin-6.3; )
+	( cd boost_$(BOOST_VERSION); ./b2 headers; ./b2 -j ${BSPJOB} variant=release link=static runtime-link=shared threading=multi toolset=darwin-6.3; )
 
 boost_install:
-	( cd boost_$(BOOST_VERSION); ./b2 headers; ./b2 -j ${BSPJOB} variant=release link=static runtime-link=static threading=multi toolset=darwin-6.3 install; )
+	( cd boost_$(BOOST_VERSION); ./b2 headers; ./b2 -j ${BSPJOB} variant=release link=static runtime-link=shared threading=multi toolset=darwin-6.3 install; )
 
 boost_uninstall:
 	@true
