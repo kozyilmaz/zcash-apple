@@ -26,4 +26,4 @@ libsodium_clean:
 
 libsodium_distclean:
 	rm -rf libsodium-$(LIBSODIUM_VERSION)
-	rm -rf libsodium-$(LIBSODIUM_VERSION).tar.bz2
+	rm -rf libsodium-$(LIBSODIUM_VERSION).tar.gz
