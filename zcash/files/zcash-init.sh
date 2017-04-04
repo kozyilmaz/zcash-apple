@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # excerpted from zclassic/zutil/init-mac.sh
 
