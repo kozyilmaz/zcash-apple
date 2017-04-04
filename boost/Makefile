@@ -12,7 +12,7 @@ boost_clone:
 boost_config:
 	$(call patchme,boost_$(BOOST_VERSION))
 	if [ ! -f boost_$(BOOST_VERSION)/tools/build/src/user-config.jam ]; then \
-		echo "using darwin : 6.3 : ${BSPTOOLS}/o/bin/g++-6.3.0 : <cxxflags>"-fvisibility=hidden" : ; " >> boost_$(BOOST_VERSION)/tools/build/src/user-config.jam; \
+		echo "using darwin : 6.3 : ${BSPTOOLS}/o/bin/${BSP_CXX} : <cxxflags>"-fvisibility=hidden" : ; " >> boost_$(BOOST_VERSION)/tools/build/src/user-config.jam; \
 	fi
 	( cd boost_$(BOOST_VERSION); ./bootstrap.sh --prefix=${BSPROOTFS} --without-icu --with-libraries=chrono,filesystem,program_options,system,thread,test; )
 
