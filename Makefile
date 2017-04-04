@@ -3,9 +3,9 @@ ifeq ($(BSPROOT),)
     $(error You must first run 'source environment')
 endif
 
-#subdir-y := tools
-subdir-y += gmp
+subdir-y := tools
 subdir-y += bdb
+subdir-y += gmp
 subdir-y += boost
 subdir-y += libsodium
 subdir-y += libsnark
@@ -24,10 +24,12 @@ libsnark_depends-y = \
 
 zcash_depends-y = \
 	bdb \
+	gmp \
 	boost \
+	libsodium \
 	libsnark \
-	openssl \
 	libevent \
+	openssl \
 	librustzcash \
 	googletest
 
