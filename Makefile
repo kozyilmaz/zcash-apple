@@ -9,6 +9,7 @@ subdir-y += gmp
 subdir-y += boost
 subdir-y += libsodium
 subdir-y += libsnark
+subdir-y += libzmq
 subdir-y += libevent
 subdir-y += openssl
 subdir-y += librustzcash
@@ -28,6 +29,7 @@ zcash_depends-y = \
 	boost \
 	libsodium \
 	libsnark \
+	libzmq \
 	libevent \
 	openssl \
 	librustzcash \
