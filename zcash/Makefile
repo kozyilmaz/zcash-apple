@@ -49,6 +49,8 @@ zcash_install:
 	$(call fix_library_paths,${BSPINSTALL}/usr/local/bin/zcashd)
 	$(call fix_library_paths,${BSPINSTALL}/usr/local/bin/zcash-tx)
 	$(call fix_library_paths,${BSPINSTALL}/usr/local/bin/zcash-cli)
+# install zcash init script
+	cp -a files/* ${BSPINSTALL}/usr/local/bin
 
 zcash_uninstall:
 	make -C zcash_$(ZCASH_VERSION) uninstall
