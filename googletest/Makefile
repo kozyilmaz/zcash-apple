@@ -13,8 +13,8 @@ googletest_config:
 	@true
 
 googletest_build:
-	CC=gcc-6.3.0 CXX=g++-6.3.0 make -C googletest-release-$(GOOGLETEST_VERSION)/googletest/make CXXFLAGS="-fPIC" gtest.a
-	CC=gcc-6.3.0 CXX=g++-6.3.0 make -C googletest-release-$(GOOGLETEST_VERSION)/googlemock/make CXXFLAGS="-fPIC" gmock-all.o
+	CC=${BSP_CC} CXX=${BSP_CXX} make -C googletest-release-$(GOOGLETEST_VERSION)/googletest/make CXXFLAGS="-fPIC" gtest.a
+	CC=${BSP_CC} CXX=${BSP_CXX} make -C googletest-release-$(GOOGLETEST_VERSION)/googlemock/make CXXFLAGS="-fPIC" gmock-all.o
 
 googletest_install:
 	if [ -f "googletest-release-$(GOOGLETEST_VERSION)/googletest/make/gtest.a" ]; then \
