@@ -1,0 +1,51 @@
+diff --git a/zcutil/fetch-params.sh b/zcutil/fetch-params.sh
+index 8bb31fc3..b9e6daab 100755
+--- a/zcutil/fetch-params.sh
++++ b/zcutil/fetch-params.sh
+@@ -2,7 +2,11 @@
+ 
+ set -eu
+ 
+-PARAMS_DIR="$HOME/.zcash-params"
++if [[ "$OSTYPE" == "darwin"* ]]; then
++    PARAMS_DIR="$HOME/Library/Application Support/ZcashParams"
++else
++    PARAMS_DIR="$HOME/.zcash-params"
++fi
+ 
+ SPROUT_PKEY_NAME='sprout-proving.key'
+ SPROUT_VKEY_NAME='sprout-verifying.key'
+@@ -18,17 +22,23 @@ function fetch_params {
+     local dlname="${output}.dl"
+     local expectedhash="$3"
+ 
+-    if ! [ -f "$output" ]
+-    then
++    if ! [ -f "$output" ]; then
+         echo "Retrieving: $url"
+-        wget \
+-            --progress=dot:giga \
+-            --output-document="$dlname" \
+-            --continue \
+-            --retry-connrefused --waitretry=3 --timeout=30 \
+-            "$url"
+-
+-        "$SHA256CMD" $SHA256ARGS -c <<EOF
++        if [[ $(sw_vers -productName) == "Mac OS X" ]]; then
++            curl \
++                --output "$dlname" \
++                -# -L -C - \
++                "$url"
++        else
++            wget \
++                --progress=dot:giga \
++                --output-document="$dlname" \
++                --continue \
++                --retry-connrefused --waitretry=3 --timeout=30 \
++                "$url"
++        fi
++
++        "$SHA256CMD" $SHA256ARGS --check <<EOF
+ $expectedhash  $dlname
+ EOF
+ 
