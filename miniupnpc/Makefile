@@ -3,7 +3,7 @@ target_name ?= miniupnpc
 
 include ../Makefile.build
 
-MINIUPNPC_VERSION=2.0
+MINIUPNPC_VERSION=2.0.20161216
 
 miniupnpc_clone:
 	if [ ! -f "miniupnpc-$(MINIUPNPC_VERSION).tar.gz" ]; then curl -OL http://miniupnp.free.fr/files/miniupnpc-$(MINIUPNPC_VERSION).tar.gz; fi;
