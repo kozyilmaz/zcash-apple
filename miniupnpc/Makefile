@@ -10,7 +10,9 @@ miniupnpc_clone:
 	if [ ! -d "miniupnpc-$(MINIUPNPC_VERSION)" ]; then tar xvf miniupnpc-$(MINIUPNPC_VERSION).tar.gz; fi
 
 miniupnpc_config:
-	( cd miniupnpc-$(MINIUPNPC_VERSION); CC=${BSP_CC} CXX=${BSP_CXX} ./configure --prefix=${BSPROOTFS} --enable-static --disable-shared; )
+	( cd miniupnpc-$(MINIUPNPC_VERSION); \
+		CC=${BSP_CC} CXX=${BSP_CXX} cmake -DCMAKE_INSTALL_PREFIX=${BSPROOTFS} -DUPNPC_BUILD_STATIC=TRUE -DUPNPC_BUILD_SHARED=FALSE . ; \
+	)
 
 miniupnpc_build:
 	make -C miniupnpc-$(MINIUPNPC_VERSION) -j ${BSPJOB}
