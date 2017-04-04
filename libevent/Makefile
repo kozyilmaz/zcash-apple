@@ -11,7 +11,7 @@ libevent_clone:
 
 libevent_config:
 	( cd libevent-$(LIBEVENT_VERSION); \
-		CC=gcc-6.3.0 CXX=g++-6.3.0 ./configure --prefix=${BSPROOTFS} \
+		CC=${BSP_CC} CXX=${BSP_CXX} ./configure --prefix=${BSPROOTFS} \
 		--enable-static --disable-shared --disable-openssl --disable-libevent-regress --disable-debug-mode; \
 	)
 
