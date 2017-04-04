@@ -7,12 +7,13 @@ subdir-y := tools
 subdir-y += bdb
 subdir-y += gmp
 subdir-y += boost
+subdir-y += libzmq
 subdir-y += libsodium
 subdir-y += libsnark
-subdir-y += libzmq
 subdir-y += libevent
-subdir-y += openssl
 subdir-y += librustzcash
+subdir-y += openssl
+subdir-y += miniupnpc
 subdir-y += googletest
 subdir-y += zcash
 
@@ -27,12 +28,13 @@ zcash_depends-y = \
 	bdb \
 	gmp \
 	boost \
+	libzmq \
 	libsodium \
 	libsnark \
-	libzmq \
 	libevent \
-	openssl \
 	librustzcash \
+	openssl \
+	miniupnpc \
 	googletest
 
 include Makefile.lib
