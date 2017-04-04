@@ -14,9 +14,11 @@ No additional dependency required, all tools (`autotools, cmake, gcc etc.`) and 
 `$ make`
 
 
-ZCash binaries will be installed to /out directory under project root  
-
-```zcashd
+After successful build ZCash binaries will be installed to `out` directory under project root  
+```
+zcashd
 zcash-cli
 zcash-tx
 ```
+
+
