@@ -21,7 +21,7 @@ zcash_config:
 		CRYPTO_CFLAGS="-I${BSPROOTFS}/include" CRYPTO_LIBS="-L${BSPROOTFS}/lib -lcrypto" \
 		EVENT_CFLAGS="-I${BSPROOTFS}/include" EVENT_LIBS="-L${BSPROOTFS}/lib -levent" \
 		EVENT_PTHREADS_CFLAGS="-I${BSPROOTFS}/include" EVENT_PTHREADS_LIBS="-L${BSPROOTFS}/lib -levent_pthreads" \
-		./configure --prefix=${BSPINSTALL} --with-boost=${BSPROOTFS} --without-libs --disable-tests; \
+		./configure --with-boost=${BSPROOTFS} --without-libs --disable-tests; \
 	)
 
 zcash_build:
@@ -34,21 +34,21 @@ define fix_library_paths
 endef
 
 zcash_install:
-	make -C zcash_$(ZCASH_VERSION) install
+	make DESTDIR=${BSPINSTALL} -C zcash_$(ZCASH_VERSION) install
 # unable to static link yet (-static-libgcc -static-libstdc++), fix up library paths for portability
-	( cd ${BSPINSTALL}/bin; \
-		cp -a ${BSPTOOLS}/o/lib/libgcc_s.1.dylib ${BSPINSTALL}/bin; \
-		cp -a ${BSPTOOLS}/o/lib/libgomp.1.dylib ${BSPINSTALL}/bin; \
-		cp -a ${BSPTOOLS}/o/lib/libstdc++.6.dylib ${BSPINSTALL}/bin; \
+	( cd ${BSPINSTALL}/usr/local/bin; \
+		cp -a ${BSPTOOLS}/o/lib/libgcc_s.1.dylib ${BSPINSTALL}/usr/local/bin; \
+		cp -a ${BSPTOOLS}/o/lib/libgomp.1.dylib ${BSPINSTALL}/usr/local/bin; \
+		cp -a ${BSPTOOLS}/o/lib/libstdc++.6.dylib ${BSPINSTALL}/usr/local/bin; \
 		install_name_tool -id @executable_path/libgcc_s.1.dylib libgcc_s.1.dylib; \
 		install_name_tool -id @executable_path/libgomp.1.dylib libgomp.1.dylib; \
 		install_name_tool -change ${BSPTOOLS}/o/lib/libgcc_s.1.dylib @executable_path/libgcc_s.1.dylib libgomp.1.dylib; \
 		install_name_tool -id @executable_path/libstdc++.6.dylib libstdc++.6.dylib; \
 		install_name_tool -change ${BSPTOOLS}/o/lib/libgcc_s.1.dylib @executable_path/libgcc_s.1.dylib libstdc++.6.dylib; \
 	)
-	$(call fix_library_paths,${BSPINSTALL}/bin/zcashd)
-	$(call fix_library_paths,${BSPINSTALL}/bin/zcash-tx)
-	$(call fix_library_paths,${BSPINSTALL}/bin/zcash-cli)
+	$(call fix_library_paths,${BSPINSTALL}/usr/local/bin/zcashd)
+	$(call fix_library_paths,${BSPINSTALL}/usr/local/bin/zcash-tx)
+	$(call fix_library_paths,${BSPINSTALL}/usr/local/bin/zcash-cli)
 
 zcash_uninstall:
 	make -C zcash_$(ZCASH_VERSION) uninstall
