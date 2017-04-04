@@ -11,7 +11,7 @@ gmp_clone:
 
 gmp_config:
 	( cd gmp-$(GMP_VERSION); \
-		CC=gcc-6.3.0 CXX=g++-6.3.0 CFLAGS="" CXXFLAGS="" CPPFLAGS="" \
+		CC=gcc-6.3.0 CXX=g++-6.3.0 CFLAGS="" CXXFLAGS="" CPPFLAGS="-fPIC" \
 		./configure --prefix=${BSPROOTFS} --enable-cxx --enable-static --disable-shared; \
 	)
 
