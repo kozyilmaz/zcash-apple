@@ -10,7 +10,7 @@ libsodium_clone:
 	if [ ! -d "libsodium-$(LIBSODIUM_VERSION)" ]; then tar xvf libsodium-$(LIBSODIUM_VERSION).tar.gz; fi
 
 libsodium_config:
-	( cd libsodium-$(LIBSODIUM_VERSION); CC=gcc-6.3.0 CXX=g++-6.3.0 ./configure --prefix=${BSPROOTFS} --enable-static --disable-shared; )
+	( cd libsodium-$(LIBSODIUM_VERSION); CC=${BSP_CC} CXX=${BSP_CXX} ./configure --prefix=${BSPROOTFS} --enable-static --disable-shared; )
 
 libsodium_build:
 	make -C libsodium-$(LIBSODIUM_VERSION) -j ${BSPJOB}
