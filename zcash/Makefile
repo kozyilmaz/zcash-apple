@@ -27,8 +27,28 @@ zcash_config:
 zcash_build:
 	make -C zcash_$(ZCASH_VERSION) -j ${BSPJOB}
 
+define fix_library_paths
+	install_name_tool -change "${BSPTOOLS}/o/lib/libgcc_s.1.dylib" "@executable_path/libgcc_s.1.dylib" $(1);
+	install_name_tool -change "${BSPTOOLS}/o/lib/libgomp.1.dylib" "@executable_path/libgomp.1.dylib" $(1);
+	install_name_tool -change "${BSPTOOLS}/o/lib/libstdc++.6.dylib" "@executable_path/libstdc++.6.dylib" $(1);
+endef
+
 zcash_install:
 	make -C zcash_$(ZCASH_VERSION) install
+# unable to static link yet (-static-libgcc -static-libstdc++), fix up library paths for portability
+	( cd ${BSPINSTALL}/bin; \
+		cp -a ${BSPTOOLS}/o/lib/libgcc_s.1.dylib ${BSPINSTALL}/bin; \
+		cp -a ${BSPTOOLS}/o/lib/libgomp.1.dylib ${BSPINSTALL}/bin; \
+		cp -a ${BSPTOOLS}/o/lib/libstdc++.6.dylib ${BSPINSTALL}/bin; \
+		install_name_tool -id @executable_path/libgcc_s.1.dylib libgcc_s.1.dylib; \
+		install_name_tool -id @executable_path/libgomp.1.dylib libgomp.1.dylib; \
+		install_name_tool -change ${BSPTOOLS}/o/lib/libgcc_s.1.dylib @executable_path/libgcc_s.1.dylib libgomp.1.dylib; \
+		install_name_tool -id @executable_path/libstdc++.6.dylib libstdc++.6.dylib; \
+		install_name_tool -change ${BSPTOOLS}/o/lib/libgcc_s.1.dylib @executable_path/libgcc_s.1.dylib libstdc++.6.dylib; \
+	)
+	$(call fix_library_paths,${BSPINSTALL}/bin/zcashd)
+	$(call fix_library_paths,${BSPINSTALL}/bin/zcash-tx)
+	$(call fix_library_paths,${BSPINSTALL}/bin/zcash-cli)
 
 zcash_uninstall:
 	make -C zcash_$(ZCASH_VERSION) uninstall
