@@ -33,6 +33,7 @@ define fix_library_paths
 endef
 
 zcash_install:
+	mkdir -p ${BSPINSTALL}
 	make DESTDIR=${BSPINSTALL} -C zcash_$(ZCASH_VERSION) install
 # unable to static link yet (-static-libgcc -static-libstdc++), fix up library paths for portability
 	( cd ${BSPINSTALL}/usr/local/bin; \
