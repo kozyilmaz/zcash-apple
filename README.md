@@ -1,4 +1,4 @@
-# zcash-apple : Yet Another ZCash Build for Apple Platform
+# Yet Another ZCash Builder for Apple Platform
 
 This repository builds standalone ZCash binaries for macOS platform without installing brew.  
 No additional dependency required, all tools (`autotools, cmake, gcc etc.`) and libraries (`boost`, `libsnark`) are compiled from scratch.  
@@ -12,3 +12,11 @@ No additional dependency required, all tools (`autotools, cmake, gcc etc.`) and 
 `$ cd zcash-apple`  
 `$ source environment`  
 `$ make`
+
+
+ZCash binaries will be installed to /out directory under project root  
+
+```zcashd
+zcash-cli
+zcash-tx
+```
