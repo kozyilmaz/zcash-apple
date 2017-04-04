@@ -2,7 +2,7 @@
 
 BSPJOB=16
 BSPROOT=`pwd`
-BSPTOOLS=/Users/loki/Desktop/devel/tools
+BSPTOOLS=${BSPROOT}/tools
 BSPROOTFS=${BSPROOT}/rootfs
 BSPINSTALL=${BSPROOT}  # change to /usr/local/bin if you like!
 PATH=${BSPTOOLS}/o/bin:${PATH}
