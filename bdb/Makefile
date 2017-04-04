@@ -11,7 +11,7 @@ bdb_clone:
 
 bdb_config:
 	( cd db-$(BDB_VERSION)/build_unix; \
-		CC=gcc-6.3.0 CXX=g++-6.3.0 CFLAGS="" CXXFLAGS="" \
+		CC=${BSP_CC} CXX=${BSP_CXX} CFLAGS="" CXXFLAGS="" \
 		../dist/configure --prefix=${BSPROOTFS} \
 		--enable-static --disable-shared --enable-cxx --disable-replication \
 	)
@@ -23,7 +23,7 @@ bdb_install:
 	make -C db-$(BDB_VERSION)/build_unix install_lib install_include
 
 bdb_uninstall:
-	make -C db-$(BDB_VERSION)/build_unix uninstall
+	make -C db-$(BDB_VERSION)/build_unix uninstall_lib uninstall_include
 
 bdb_clean:
 	if [ -f "db-$(BDB_VERSION)/build_unix/Makefile" ]; then make -C db-$(BDB_VERSION)/build_unix distclean; fi
