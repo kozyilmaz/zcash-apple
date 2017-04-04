@@ -12,8 +12,7 @@ zcash_config:
 	$(call patchme,zcash_$(ZCASH_VERSION))
 	if [ ! -f zcash_$(ZCASH_VERSION)/configure ]; then (cd zcash_$(ZCASH_VERSION); ./autogen.sh); fi
 	( cd zcash_$(ZCASH_VERSION); \
-		CC=gcc-6.3.0 \
-		CXX=g++-6.3.0 \
+		CC=${BSP_CC} CXX=${BSP_CXX} \
 		CPPFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark" \
 		CXXFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark -fwrapv -fno-strict-aliasing -Werror -g" \
 		LDFLAGS="-L${BSPROOTFS}/lib" \
