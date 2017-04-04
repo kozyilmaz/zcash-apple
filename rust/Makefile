@@ -17,7 +17,7 @@ rust_build:
 	@true
 
 rust_install:
-	( cd rust-$(RUST_VERSION)-$(RUST_PLATFORM); ./install.sh --prefix=${BSPTOOLS}/o --without=rust-docs; )
+	( cd rust-$(RUST_VERSION)-$(RUST_PLATFORM); ./install.sh --prefix=${BSPTOOLS}/o --without=rust-docs --disable-ldconfig; )
 
 rust_uninstall:
 	( cd rust-$(RUST_VERSION)-$(RUST_PLATFORM); ./install.sh --prefix=${BSPTOOLS}/o --uninstall; )
