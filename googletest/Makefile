@@ -37,8 +37,8 @@ googletest_uninstall:
 	rm -rf ${BSPROOTFS}/include/gmock
 
 googletest_clean:
-	CC=gcc-6.3.0 CXX=g++-6.3.0 make -C googletest-release-$(GOOGLETEST_VERSION)/googletest/make clean
-	CC=gcc-6.3.0 CXX=g++-6.3.0 make -C googletest-release-$(GOOGLETEST_VERSION)/googlemock/make clean
+	CC=${BSP_CC} CXX=${BSP_CXX} make -C googletest-release-$(GOOGLETEST_VERSION)/googletest/make clean
+	CC=${BSP_CC} CXX=${BSP_CXX} make -C googletest-release-$(GOOGLETEST_VERSION)/googlemock/make clean
 
 googletest_distclean:
 	rm -rf googletest-release-$(GOOGLETEST_VERSION)
