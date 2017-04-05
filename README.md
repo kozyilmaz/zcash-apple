@@ -11,8 +11,6 @@ No additional dependency required, all tools (`autotools, cmake, gcc etc.`) and 
 `$ source environment`  
 `$ make`
 
-
-### Run instructions
 After successful build ZCash binaries will be installed to `out` directory under project root  
 ```
 bash-3.2$ ls -lrt out/usr/local/bin/
@@ -31,8 +29,9 @@ out/usr/local/bin/zcashd:
     @executable_path/libgomp.1.dylib (compatibility version 2.0.0, current version 2.0.0)
     /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1238.51.1)
     @executable_path/libgcc_s.1.dylib (compatibility version 1.0.0, current version 1.0.0)
-bash-3.2$ 
 ```
+
+### Run instructions
 
 `$ cd out/usr/local/bin`  
 `$ ./zcash-fetch-params`  
@@ -42,7 +41,7 @@ bash-3.2$
 Vaklinov's [Desktop GUI Wallet](https://github.com/vaklinov/zcash-swing-wallet-ui) also works, please follow [build instructions for MacOS](https://github.com/vaklinov/zcash-swing-wallet-ui/blob/master/docs/Readme-Mac.md)
 
 ## Thanks
-Developers of `Zcash`
+Developers of `Zcash`  
 Developers of `ZClassic` for MacOS patches
 
 ## Donations
