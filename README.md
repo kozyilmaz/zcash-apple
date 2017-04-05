@@ -36,12 +36,14 @@ out/usr/local/bin/zcashd:
 
 When launching `Zcash` on MacOS for the first time, certain initalization steps should be completed.  
 Please run the commands below once for the first time  
+
 `$ cd out/usr/local/bin`  
 `$ ./zcash-fetch-params`  
 `$ ./zcash-init`  
 `$ ./zcashd`  
 
-You can just run `ZCash` by launching the daemon afterwards
+You can just run `ZCash` by launching the daemon afterwards  
+
 `$ ./zcashd`  
 
 Vaklinov's [Desktop GUI Wallet](https://github.com/vaklinov/zcash-swing-wallet-ui) also works, please follow [build instructions for MacOS](https://github.com/vaklinov/zcash-swing-wallet-ui/blob/master/docs/Readme-Mac.md)
