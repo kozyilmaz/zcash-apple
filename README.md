@@ -39,9 +39,11 @@ bash-3.2$
 `$ ./zcash-init`  
 `$ ./zcashd`  
 
+Vaklinov's (Desktop GUI Wallet)[https://github.com/vaklinov/zcash-swing-wallet-ui] also works, please follow (build instructions for MacOS)[https://github.com/vaklinov/zcash-swing-wallet-ui/blob/master/docs/Readme-Mac.md]
 
 ## Thanks
-Original authors of `nheqminer`
+Developers of `Zcash`
+Developers of `ZClassic` for MacOS patches
 
 ## Donations
 If you feel this project is useful to you. Feel free to donate.
