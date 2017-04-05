@@ -42,6 +42,49 @@ Please run the commands below once for the first time
 `$ ./zcash-init`  
 `$ ./zcashd`  
 
+```
+bash-3.2$ ./zcash-fetch-params
+Zcash - fetch-params.sh
+
+This script will fetch the Zcash zkSNARK parameters and verify their
+integrity with sha256sum.
+
+If they already exist locally, it will exit now and do nothing else.
+The parameters are currently just under 911MB in size, so plan accordingly
+for your bandwidth constraints. If the files are already present and
+have the correct sha256sum, no networking is used.
+
+Creating params directory. For details about this directory, see:
+/Users/loki/Library/Application Support/ZcashParams/README
+
+Retrieving: https://z.cash/downloads/sprout-proving.key
+######################################################################## 100.0%
+/Users/loki/Library/Application Support/ZcashParams/sprout-proving.key.dl: OK
+/Users/loki/Library/Application Support/ZcashParams/sprout-proving.key.dl -> /Users/loki/Library/Application Support/ZcashParams/sprout-proving.key
+Retrieving: https://z.cash/downloads/sprout-verifying.key
+######################################################################## 100.0%
+/Users/loki/Library/Application Support/ZcashParams/sprout-verifying.key.dl: OK
+/Users/loki/Library/Application Support/ZcashParams/sprout-verifying.key.dl -> /Users/loki/Library/Application Support/ZcashParams/sprout-verifying.key
+bash-3.2$ 
+bash-3.2$ cat zcash-init 
+#!/bin/bash
+
+# excerpted from zclassic/zutil/init-mac.sh
+
+if [ ! -f "$HOME/Library/Application Support/Zcash/zcash.conf" ]; then
+    echo "Creating zcash.conf"
+    mkdir -p "$HOME/Library/Application Support/Zcash/"
+    echo "rpcuser=zcashrpc" > ~/Library/Application\ Support/Zcash/zcash.conf
+    PASSWORD=$(cat /dev/urandom | env LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+    echo "rpcpassword=$PASSWORD" >> "$HOME/Library/Application Support/Zcash/zcash.conf"
+    echo "Complete!"
+fi
+bash-3.2$ 
+bash-3.2$ ./zcash-init 
+Creating zcash.conf
+Complete!
+```
+
 You can just run `ZCash` by launching the daemon afterwards  
 
 `$ ./zcashd`  
