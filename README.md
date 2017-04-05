@@ -1,11 +1,9 @@
 # Yet Another ZCash Builder for Apple Platform
-
 This repository builds standalone ZCash binaries for macOS platform without installing brew.  
 No additional dependency required, all tools (`autotools, cmake, gcc etc.`) and libraries (`boost`, `libsnark`) are compiled from scratch.  
 
 
 ### Build instructions
-
 **NOTE: Common mistake is to clone this repo without recursive, you need to use --recursive**
 
 `$ git clone --recursive https://github.com/kozyilmaz/zcash-apple.git`  
@@ -14,6 +12,7 @@ No additional dependency required, all tools (`autotools, cmake, gcc etc.`) and 
 `$ make`
 
 
+### Run instructions
 After successful build ZCash binaries will be installed to `out` directory under project root  
 ```
 bash-3.2$ ls -lrt out/usr/local/bin/
@@ -41,5 +40,27 @@ bash-3.2$
 `$ ./zcashd`  
 
 
+## Thanks
+Original authors of `nheqminer`
 
+## Donations
+If you feel this project is useful to you. Feel free to donate.
+
+    BTC address: 1GmXRm5sEATy3Kz1hCxS1dwfXuCPkevsa
+    ZEC address: t1Z3dksJWjgtD5R62zsHm7ZjKSFxZYnC31a
+
+
+### Disclaimer
+This program is not officially endorsed by or associated with the ZCash project and the ZCash company.
+[ZCash®](https://trademarks.justia.com/871/93/zcash-87193130.html) and the 
+[ZCash® logo](https://trademarks.justia.com/868/84/z-86884549.html) are trademarks of the
+[Zerocoin Electric Coin Company](https://trademarks.justia.com/owners/zerocoin-electric-coin-company-3232749/).
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
