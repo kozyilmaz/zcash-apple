@@ -39,7 +39,7 @@ bash-3.2$
 `$ ./zcash-init`  
 `$ ./zcashd`  
 
-Vaklinov's (Desktop GUI Wallet)[https://github.com/vaklinov/zcash-swing-wallet-ui] also works, please follow (build instructions for MacOS)[https://github.com/vaklinov/zcash-swing-wallet-ui/blob/master/docs/Readme-Mac.md]
+Vaklinov's [Desktop GUI Wallet](https://github.com/vaklinov/zcash-swing-wallet-ui) also works, please follow [build instructions for MacOS](https://github.com/vaklinov/zcash-swing-wallet-ui/blob/master/docs/Readme-Mac.md)
 
 ## Thanks
 Developers of `Zcash`
