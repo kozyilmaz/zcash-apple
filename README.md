@@ -12,6 +12,7 @@ No additional dependency required, all tools (`autotools, cmake, gcc etc.`) and 
 `$ make`
 
 After successful build ZCash binaries will be installed to `out` directory under project root  
+You can then copy binary directory anywhere you like there are no dependencies to the build tree anymore  
 ```
 bash-3.2$ ls -lrt out/usr/local/bin/
 total 104760
@@ -33,9 +34,14 @@ out/usr/local/bin/zcashd:
 
 ### Run instructions
 
+When launching `Zcash` on MacOS for the first time, certain initalization steps should be completed.  
+Please run the commands below once for the first time  
 `$ cd out/usr/local/bin`  
 `$ ./zcash-fetch-params`  
 `$ ./zcash-init`  
+`$ ./zcashd`  
+
+You can just run `ZCash` by launching the daemon afterwards
 `$ ./zcashd`  
 
 Vaklinov's [Desktop GUI Wallet](https://github.com/vaklinov/zcash-swing-wallet-ui) also works, please follow [build instructions for MacOS](https://github.com/vaklinov/zcash-swing-wallet-ui/blob/master/docs/Readme-Mac.md)
