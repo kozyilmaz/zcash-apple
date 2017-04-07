@@ -33,6 +33,7 @@
 #   20160726 - overload cc
 #   20170209 - qt moc support
 #   20170401 - add .o as suffix
+#   20170507 - depends-y file gen fix
 
 #
 # Example
@@ -599,8 +600,9 @@ define target-defaults_base
     $(eval $1_ldflags      = $($1_ldflags-y))
     $(eval $1_directories  = $(sort $(dir .$1/ $($1_objects_c) $($1_objects_cpp) $($1_objects_m) $($1_objects_moc))))
 
-    $(eval $1_depends-y   +=  $(MAKEFILE_LIST) $($1_depends_c) $($1_depends_cc) $($1_depends_cpp) $($1_depends_m) $($1_depends_moc))
-    
+    $(eval $1_depends      = $(MAKEFILE_LIST) $($1_depends_c) $($1_depends_cc) $($1_depends_cpp) $($1_depends_m) $($1_depends_moc))
+    $(eval $1_depends-y   += $($1_depends))
+
     $(eval target-builds  += $1)
     $(eval target-objects += $($1_objects_c))
     $(eval target-objects += $($1_objects_cc))
@@ -627,6 +629,8 @@ define target-defaults_base
     $($1_objects_moc): .$1/%.o: .$1/%.d $(MAKEFILE_LIST)
     $($1_objects_m):   .$1/%.o: .$1/%.d $(MAKEFILE_LIST)
     $($1_objects_e):   $(MAKEFILE_LIST)
+
+    $(target-depends): $(filter-out $($1_depends), $($1_depends-y))
 
     $1: .$1/$1 $(MAKEFILE_LIST)
 	$(do_cp)
