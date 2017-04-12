@@ -9,7 +9,6 @@ TOOLS_ENABLE_OBJCONV    ?= n
 TOOLS_ENABLE_FASM       ?= n
 TOOLS_ENABLE_CMAKE      ?= n
 TOOLS_ENABLE_GNUTOOLS   ?= n
-TOOLS_ENABLE_FLOCK      ?= n
 TOOLS_ENABLE_KCONFIG    ?= n
 TOOLS_ENABLE_GCC        ?= n
 TOOLS_ENABLE_RUST       ?= n
@@ -19,7 +18,6 @@ TOOLS_ENABLE_OBJCONV    ?= n
 TOOLS_ENABLE_FASM       ?= n
 TOOLS_ENABLE_CMAKE      ?= n
 TOOLS_ENABLE_GNUTOOLS   ?= n
-TOOLS_ENABLE_FLOCK      ?= n
 TOOLS_ENABLE_KCONFIG    ?= n
 TOOLS_ENABLE_GCC        ?= n
 TOOLS_ENABLE_RUST       ?= n
@@ -47,10 +45,6 @@ subdir-${TOOLS_ENABLE_CMAKE} += \
 # gnu utils (on macOS)
 subdir-${TOOLS_ENABLE_GNUTOOLS} += \
 	coreutils
-
-# flock (on macOS)
-subdir-${TOOLS_ENABLE_FLOCK} += \
-	flock
 
 # kconfig
 subdir-${TOOLS_ENABLE_KCONFIG} += \
@@ -87,9 +81,6 @@ cmake_depends-y = \
 	pkgconfig
 
 coreutils_depends-y = \
-	pkgconfig
-
-flock_depends-y = \
 	pkgconfig
 
 kconfig_depends-y = \
