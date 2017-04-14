@@ -1,0 +1,13 @@
+diff --git a/src/crypto/equihash.cpp b/src/crypto/equihash.cpp
+index d22244a..4601212 100644
+--- a/src/crypto/equihash.cpp
++++ b/src/crypto/equihash.cpp
+@@ -16,6 +16,8 @@
+ #include "config/bitcoin-config.h"
+ #endif
+ 
++#include "compat/endian.h"
++
+ #include "crypto/equihash.h"
+ #include "util.h"
+ 

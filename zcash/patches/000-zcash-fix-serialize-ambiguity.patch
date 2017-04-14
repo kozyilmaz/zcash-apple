@@ -1,0 +1,13 @@
+diff --git a/src/wallet/wallet.h b/src/wallet/wallet.h
+index e73d05c..9962ab6 100644
+--- a/src/wallet/wallet.h
++++ b/src/wallet/wallet.h
+@@ -160,7 +160,7 @@ public:
+     // Transaction hash
+     uint256 hash;
+     // Index into CTransaction.vjoinsplit
+-    size_t js;
++    uint64_t js;
+     // Index into JSDescription fields of length ZC_NUM_JS_OUTPUTS
+     uint8_t n;
+ 
