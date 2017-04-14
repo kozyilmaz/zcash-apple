@@ -3,7 +3,7 @@ target_name ?= pkgconfig
 
 include ../Makefile.build
 
-PKGCONFIG_VERSION="0.29.1"
+PKGCONFIG_VERSION="0.29.2"
 
 pkgconfig_clone:
 	if [ ! -f "pkg-config-$(PKGCONFIG_VERSION).tar.gz" ]; then curl -OL http://pkgconfig.freedesktop.org/releases/pkg-config-$(PKGCONFIG_VERSION).tar.gz; fi;
