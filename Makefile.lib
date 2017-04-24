@@ -839,7 +839,7 @@ define dist.license-variables
 endef
 
 define dist.include-variables
-    $(eval $(call dist-defaults,$1,include))
+    $(eval $(call dist-defaults,$1,include/${dist.base}))
 endef
 
 define dist.obj-variables
