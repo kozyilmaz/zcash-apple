@@ -1,24 +1,20 @@
 diff --git a/configure.ac b/configure.ac
-index e356b9e0..d44f2090 100644
+index 9aee141..bca5033 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -443,8 +443,8 @@ if test x$use_hardening != xno; then
+@@ -449,8 +449,13 @@ if test x$use_hardening != xno; then
      HARDENED_CPPFLAGS="$HARDENED_CPPFLAGS -D_FORTIFY_SOURCE=2"
    ],[AC_MSG_ERROR(Cannot enable -D_FORTIFY_SOURCE=2)])
  
 -  AX_CHECK_LINK_FLAG([[-Wl,-z,relro]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,relro"],[AC_MSG_ERROR(Cannot enable RELRO)])
 -  AX_CHECK_LINK_FLAG([[-Wl,-z,now]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,now"],[AC_MSG_ERROR(Cannot enable BIND_NOW)])
-+  AX_CHECK_LINK_FLAG([[-Wl,-z,relro]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,relro"],[AC_MSG_WARN(Cannot enable RELRO)])
-+  AX_CHECK_LINK_FLAG([[-Wl,-z,now]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,now"],[AC_MSG_WARN(Cannot enable BIND_NOW)])
++  if test x$BUILD_OS != xdarwin; then
++    AX_CHECK_LINK_FLAG([[-Wl,-z,relro]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,relro"],[AC_MSG_ERROR(Cannot enable RELRO)])
++    AX_CHECK_LINK_FLAG([[-Wl,-z,now]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,now"],[AC_MSG_ERROR(Cannot enable BIND_NOW)])
++  else
++    AX_CHECK_LINK_FLAG([[-Wl,-z,relro]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,relro"],[AC_MSG_WARN(Cannot enable RELRO)])
++    AX_CHECK_LINK_FLAG([[-Wl,-z,now]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -Wl,-z,now"],[AC_MSG_WARN(Cannot enable BIND_NOW)])
++  fi
  
    if test x$TARGET_OS != xwindows; then
      # All windows code is PIC, forcing it on just adds useless compile warnings
-@@ -776,7 +776,7 @@ if test x$enable_rust != xno; then
-   RUST_LIBS="-lrustzcash"
- fi
- 
--LIBZCASH_LIBS="-lsnark -lgmp -lgmpxx -lboost_system-mt -lcrypto -lsodium -fopenmp $RUST_LIBS"
-+LIBZCASH_LIBS="-lsnark -lgmp -lgmpxx -lboost_system -lcrypto -lsodium -fopenmp $RUST_LIBS"
- 
- CXXFLAGS_TEMP="$CXXFLAGS"
- LIBS_TEMP="$LIBS"
