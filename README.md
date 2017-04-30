@@ -103,7 +103,7 @@ Developers of `ZClassic` for MacOS patches
 If you feel this project is useful to you. Feel free to donate.
 
     BTC address: 1GmXRm5sEATy3Kz1hCxS1dwfXuCPkevsa
-    ZEC address: t1Z3dksJWjgtD5R62zsHm7ZjKSFxZYnC31a
+    ZEC address: t1MW8Vx4SF1ewmL3rTN8UfRxULFTaugh1ab
 
 
 ### Disclaimer
