@@ -16,10 +16,10 @@ index 4a7d86bb..d19cc1ad 100644
    CXXFLAGS="-fPIC -DBINARY_OUTPUT -DNO_PT_COMPRESSION=1" $(MAKE) lib DEPINST=$(host_prefix) CURVE=ALT_BN128 MULTICORE=1 NO_PROCPS=1 NO_GTEST=1 NO_DOCS=1 STATIC=1 NO_SUPERCOP=1 FEATUREFLAGS=-DMONTGOMERY_OUTPUT OPTFLAGS="-O2 -march=x86-64"
 diff --git a/depends/patches/libsnark/no-ar-script.patch b/depends/patches/libsnark/no-ar-script.patch
 new file mode 100644
-index 00000000..ca57dc92
+index 00000000..1e59c0ee
 --- /dev/null
 +++ b/depends/patches/libsnark/no-ar-script.patch
-@@ -0,0 +1,40 @@
+@@ -0,0 +1,41 @@
 +diff --git a/Makefile b/Makefile
 +index 13e54da..006497d 100644
 +--- a/Makefile
@@ -28,6 +28,7 @@ index 00000000..ca57dc92
 + #* @copyright  MIT license (see LICENSE file)
 + #*******************************************************************************/
 + 
+++# Determine building operating system
 ++ifeq ($(OS),Windows_NT)
 ++uname_S := Windows
 ++else
