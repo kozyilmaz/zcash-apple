@@ -1,0 +1,62 @@
+diff --git a/depends/packages/libsnark.mk b/depends/packages/libsnark.mk
+index 4a7d86bb..d19cc1ad 100644
+--- a/depends/packages/libsnark.mk
++++ b/depends/packages/libsnark.mk
+@@ -7,6 +7,11 @@ $(package)_sha256_hash=dad153fe46e2e1f33557a195cbe7d69aed8b19ed9befc08ddcb8c6d3c
+ $(package)_git_commit=9ada3f84ab484c57b2247c2f41091fd6a0916573
+ 
+ $(package)_dependencies=libgmp libsodium
++$(package)_patches=no-ar-script.patch
++
++define $(package)_preprocess_cmds
++  patch -p1 < $($(package)_patch_dir)/no-ar-script.patch
++endef
+ 
+ define $(package)_build_cmds
+   CXXFLAGS="-fPIC -DBINARY_OUTPUT -DNO_PT_COMPRESSION=1" $(MAKE) lib DEPINST=$(host_prefix) CURVE=ALT_BN128 MULTICORE=1 NO_PROCPS=1 NO_GTEST=1 NO_DOCS=1 STATIC=1 NO_SUPERCOP=1 FEATUREFLAGS=-DMONTGOMERY_OUTPUT OPTFLAGS="-O2 -march=x86-64"
+diff --git a/depends/patches/libsnark/no-ar-script.patch b/depends/patches/libsnark/no-ar-script.patch
+new file mode 100644
+index 00000000..ca57dc92
+--- /dev/null
++++ b/depends/patches/libsnark/no-ar-script.patch
+@@ -0,0 +1,40 @@
++diff --git a/Makefile b/Makefile
++index 13e54da..006497d 100644
++--- a/Makefile
+++++ b/Makefile
++@@ -6,6 +6,13 @@
++ #* @copyright  MIT license (see LICENSE file)
++ #*******************************************************************************/
++ 
+++ifeq ($(OS),Windows_NT)
+++uname_S := Windows
+++else
+++uname_S := $(shell uname -s)
+++endif
+++
++ # To override these, use "make OPTFLAGS=..." etc.
++ CURVE = BN128
++ OPTFLAGS = -O2 -march=native -mtune=native
++@@ -196,6 +203,14 @@ $(LIBGTEST_A): $(GTESTDIR)/src/gtest-all.cc $(DEPINST_EXISTS)
++ 
++ # libsnark.a will contains all of our relevant object files, and we also mash in the .a files of relevant dependencies built by ./prepare-depends.sh
++ $(LIBSNARK_A): $(LIB_OBJS) $(AR_LIBS)
+++ifeq ($(uname_S), Darwin)
+++	( \
+++	  echo " $(LIBSNARK_A)"; \
+++	  echo " $(LIB_OBJS)"; \
+++	  if [ -n "$(AR_LIBS)" ]; then for AR_LIB in $(AR_LIBS); do echo addlib $$AR_LIB; done; fi; \
+++	) | xargs  $(AR) -r
+++	 $(AR) s $(LIBSNARK_A)
+++else
++ 	( \
++ 	  echo "create $(LIBSNARK_A)"; \
++ 	  echo "addmod $(LIB_OBJS)"; \
++@@ -204,6 +219,7 @@ $(LIBSNARK_A): $(LIB_OBJS) $(AR_LIBS)
++ 	  echo "end"; \
++ 	) | $(AR) -M
++ 	$(AR) s $(LIBSNARK_A)
+++endif
++ 
++ libsnark.so: $(LIBSNARK_A) $(DEPINST_EXISTS)
++ 	$(CXX) -o $@   --shared -Wl,--whole-archive $(LIBSNARK_A) $(CXXFLAGS) $(LDFLAGS) -Wl,--no-whole-archive $(LDLIBS)

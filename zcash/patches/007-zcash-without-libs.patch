@@ -1,0 +1,11 @@
+diff --git a/zcutil/build.sh b/zcutil/build.sh
+index 7d9e7142..7ab190bb 100755
+--- a/zcutil/build.sh
++++ b/zcutil/build.sh
+@@ -106,5 +106,5 @@ ld --version
+ 
+ HOST="$HOST" BUILD="$BUILD" NO_RUST="$RUST_ARG" NO_PROTON="$PROTON_ARG" "$MAKE" "$@" -C ./depends/ V=1
+ ./autogen.sh
+-CC="$CC" CXX="$CXX" ./configure --prefix="${PREFIX}" --host="$HOST" --build="$BUILD" "$RUST_ARG" "$HARDENING_ARG" "$LCOV_ARG" "$TEST_ARG" "$MINING_ARG" "$PROTON_ARG" CXXFLAGS='-fwrapv -fno-strict-aliasing -Werror -g'
++CC="$CC" CXX="$CXX" ./configure --prefix="${PREFIX}" --host="$HOST" --build="$BUILD" "$RUST_ARG" "$HARDENING_ARG" "$LCOV_ARG" "$TEST_ARG" "$MINING_ARG" "$PROTON_ARG" CXXFLAGS='-fwrapv -fno-strict-aliasing -Werror -g' --without-libs
+ "$MAKE" "$@" V=1
