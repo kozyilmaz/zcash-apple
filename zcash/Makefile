@@ -3,29 +3,23 @@ target_name ?= zcash
 
 include ../Makefile.build
 
-ZCASH_VERSION=v1.0.8-1
+ZCASH_VERSION=v1.0.9
+ZCASH_MACHINE=$(shell ${BSP_CC} -dumpmachine)
 
 zcash_clone:
 	if [ ! -d "zcash_$(ZCASH_VERSION)" ]; then git clone -b $(ZCASH_VERSION) https://github.com/zcash/zcash.git zcash_$(ZCASH_VERSION); fi
 
 zcash_config:
 	$(call patchme,zcash_$(ZCASH_VERSION))
-	if [ ! -f zcash_$(ZCASH_VERSION)/configure ]; then (cd zcash_$(ZCASH_VERSION); ./autogen.sh); fi
-	( cd zcash_$(ZCASH_VERSION); \
-		CC=${BSP_CC} CXX=${BSP_CXX} \
-		CPPFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark" \
-		CXXFLAGS="-I${BSPROOTFS}/include -I${BSPROOTFS}/include/libsnark -fwrapv -fno-strict-aliasing -Werror -g" \
-		LDFLAGS="-L${BSPROOTFS}/lib" \
-		ZMQ_CFLAGS="-I${BSPROOTFS}/include" ZMQ_LIBS="-L${BSPROOTFS}/lib -lzmq" \
-		SSL_CFLAGS="-I${BSPROOTFS}/include" SSL_LIBS="-L${BSPROOTFS}/lib -lssl" \
-		CRYPTO_CFLAGS="-I${BSPROOTFS}/include" CRYPTO_LIBS="-L${BSPROOTFS}/lib -lcrypto" \
-		EVENT_CFLAGS="-I${BSPROOTFS}/include" EVENT_LIBS="-L${BSPROOTFS}/lib -levent" \
-		EVENT_PTHREADS_CFLAGS="-I${BSPROOTFS}/include" EVENT_PTHREADS_LIBS="-L${BSPROOTFS}/lib -levent_pthreads" \
-		./configure --with-boost=${BSPROOTFS} --without-libs --disable-tests; \
-	)
 
 zcash_build:
-	make -C zcash_$(ZCASH_VERSION) -j ${BSPJOB}
+	( cd zcash_$(ZCASH_VERSION); \
+		LIBTOOLIZE=glibtoolize \
+		CC=${BSP_CC} CXX=${BSP_CXX} \
+		HOST=$(ZCASH_MACHINE) \
+		BUILD=$(ZCASH_MACHINE) \
+		./zcutil/build.sh; \
+	)
 
 define fix_library_paths
 	install_name_tool -change "${BSPTOOLS}/o/lib/libgcc_s.1.dylib" "@executable_path/libgcc_s.1.dylib" $(1);
@@ -34,8 +28,11 @@ define fix_library_paths
 endef
 
 zcash_install:
-	mkdir -p ${BSPINSTALL}
-	make DESTDIR=${BSPINSTALL} -C zcash_$(ZCASH_VERSION) install
+	rm -rf tmp
+	mkdir -p tmp
+	mkdir -p ${BSPINSTALL}/usr/local
+	make DESTDIR=${BSPROOT}/zcash/tmp -C zcash_$(ZCASH_VERSION) install
+	cp -af ${BSPROOT}/zcash/tmp${BSPROOT}/zcash/zcash_$(ZCASH_VERSION)/depends/$(ZCASH_MACHINE)/* ${BSPINSTALL}/usr/local
 # unable to static link yet (-static-libgcc -static-libstdc++), fix up library paths for portability
 	( cd ${BSPINSTALL}/usr/local/bin; \
 		cp -a ${BSPTOOLS}/o/lib/libgcc_s.1.dylib ${BSPINSTALL}/usr/local/bin; \
