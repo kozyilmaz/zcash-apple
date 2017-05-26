@@ -1,8 +1,8 @@
-# Yet Another ZCash Builder for Apple Platform
+# Yet Another Zcash Builder for Apple Platform
 
-![Screenshot](https://github.com/kozyilmaz/zcash-apple/raw/master/docs/zcash-apple.png "ZCash on Mac OS")
+![Screenshot](https://github.com/kozyilmaz/zcash-apple/raw/master/docs/zcash-apple.png "Zcash on Mac OS")
 
-This repository builds standalone ZCash binaries for macOS platform without installing brew.  
+This repository builds standalone Zcash binaries for macOS platform without installing brew.  
 No additional dependency required, all tools (`autotools, cmake, gcc etc.`) and libraries (`boost`, `libsnark`) are compiled from scratch.  
 
 
@@ -14,7 +14,7 @@ No additional dependency required, all tools (`autotools, cmake, gcc etc.`) and 
 `$ source environment`  
 `$ make`
 
-After successful build ZCash binaries will be installed to `out` directory under project root  
+After successful build Zcash binaries will be installed to `out` directory under project root  
 You can then copy binary directory anywhere you like there are no dependencies to the build tree anymore  
 ```
 bash-3.2$ ls -lrt out/usr/local/bin/
@@ -45,7 +45,7 @@ Please run the commands below once for the first time
 `$ ./zcash-init`  
 `$ ./zcashd`  
 
-You can just run `ZCash` by launching the daemon afterwards  
+You can just run `Zcash` by launching the daemon afterwards  
 
 `$ ./zcashd`  
 
@@ -107,9 +107,9 @@ If you feel this project is useful to you. Feel free to donate.
 
 
 ### Disclaimer
-This program is not officially endorsed by or associated with the ZCash project and the ZCash company.
-[ZCash®](https://trademarks.justia.com/871/93/zcash-87193130.html) and the 
-[ZCash® logo](https://trademarks.justia.com/868/84/z-86884549.html) are trademarks of the
+This program is not officially endorsed by or associated with the Zcash project and the Zcash company.
+[Zcash®](https://trademarks.justia.com/871/93/zcash-87193130.html) and the 
+[Zcash® logo](https://trademarks.justia.com/868/84/z-86884549.html) are trademarks of the
 [Zerocoin Electric Coin Company](https://trademarks.justia.com/owners/zerocoin-electric-coin-company-3232749/).
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
