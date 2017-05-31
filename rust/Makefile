@@ -3,7 +3,7 @@ target_name ?= rust
 
 include ../Makefile.build
 
-RUST_VERSION=1.16.0
+RUST_VERSION=1.17.0
 RUST_PLATFORM=x86_64-apple-darwin
 
 rust_clone:
