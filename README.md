@@ -14,9 +14,9 @@ $ ./contrib/devtools/git-subtree-check.sh tools
 
 ### sync subtree repositories
 ```
-$ git remote add tools https://github.com/kozyilmaz/tools.git
+$ git remote add tools-remote https://github.com/kozyilmaz/tools.git
 $ git checkout master
-$ git subtree pull --prefix=tools/ --squash tools master
+$ git subtree pull --prefix=tools/ --squash tools-remote master
 ```
 
 ### two ways of checking subtrees
