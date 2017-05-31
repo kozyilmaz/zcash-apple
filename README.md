@@ -7,9 +7,8 @@ No additional dependency required, all tools (`autotools, cmake, gcc etc.`) and 
 
 
 ### Build instructions
-**NOTE: Common mistake is to clone this repo without recursive, you need to use --recursive**
 
-`$ git clone --recursive https://github.com/kozyilmaz/zcash-apple.git`  
+`$ git clone https://github.com/kozyilmaz/zcash-apple.git`  
 `$ cd zcash-apple`  
 `$ source environment`  
 `$ make`
