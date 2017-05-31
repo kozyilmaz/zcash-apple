@@ -1,8 +1,26 @@
 # Tools
 
-## For adding as submodule
-git submodule add https://github.com/kozyilmaz/tools.git
+# add subtree to project
+```
+$ git remote add tools https://github.com/kozyilmaz/tools.git
+$ git subtree add --prefix=tools/ --squash tools master
+```
 
-## For updating submodule
-git submodule init
-git submodule update --remote --recursive
+# check subtree after clean clone
+```
+$ git fetch https://github.com/kozyilmaz/tools.git master
+$ ./contrib/devtools/git-subtree-check.sh tools
+```
+
+# sync subtree repositories
+```
+$ git remote add tools https://github.com/kozyilmaz/tools.git
+$ git checkout master
+$ git subtree pull --prefix=tools/ --squash tools master
+```
+
+# two ways of checking subtrees
+```
+$ git log | grep git-subtree-dir | tr -d ' ' | cut -d ":" -f2 | sort | uniq
+$ git log | grep git-subtree-dir | tr -d ' ' | cut -d ":" -f2 | sort | uniq | xargs -I {} bash -c 'if [ -d $(git rev-parse --show-toplevel)/{} ] ; then echo {}; fi'
+```
