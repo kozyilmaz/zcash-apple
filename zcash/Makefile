@@ -18,7 +18,7 @@ zcash_build:
 		CC=${BSP_CC} CXX=${BSP_CXX} \
 		HOST=$(ZCASH_MACHINE) \
 		BUILD=$(ZCASH_MACHINE) \
-		./zcutil/build.sh; \
+		./zcutil/build.sh --disable-libs; \
 	)
 
 define fix_library_paths
