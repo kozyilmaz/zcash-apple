@@ -3,11 +3,11 @@ ifeq ($(BSPROOT),)
     $(error You must first run 'source environment')
 endif
 
-subdir-y := tools
+#subdir-y := tools
 subdir-y += zcash
 
-zcash_depends-y = \
-	tools
+#zcash_depends-y = \
+#	tools
 
 include Makefile.lib
 
