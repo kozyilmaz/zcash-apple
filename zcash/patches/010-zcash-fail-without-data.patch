@@ -1,0 +1,13 @@
+diff --git a/depends/builders/darwin.mk b/depends/builders/darwin.mk
+index b366460e..7182cb6b 100644
+--- a/depends/builders/darwin.mk
++++ b/depends/builders/darwin.mk
+@@ -7,7 +7,7 @@ build_darwin_OTOOL: = $(shell xcrun -f otool)
+ build_darwin_NM: = $(shell xcrun -f nm)
+ build_darwin_INSTALL_NAME_TOOL:=$(shell xcrun -f install_name_tool)
+ build_darwin_SHA256SUM = shasum -a 256
+-build_darwin_DOWNLOAD = curl --connect-timeout $(DOWNLOAD_CONNECT_TIMEOUT) --retry $(DOWNLOAD_RETRIES) -L -o
++build_darwin_DOWNLOAD = curl --connect-timeout $(DOWNLOAD_CONNECT_TIMEOUT) --fail --retry $(DOWNLOAD_RETRIES) -L -o
+ 
+ #darwin host on darwin builder. overrides darwin host preferences.
+ darwin_CC=$(shell xcrun -f clang) -mmacosx-version-min=$(OSX_MIN_VERSION)
