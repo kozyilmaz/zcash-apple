@@ -170,30 +170,6 @@
 
 TOPDIR ?= $(CURDIR)
 
-uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
-
-override CFLAGS += -Wall -Wextra -Werror -pipe -g3 -O2 -fPIC -fsigned-char -fno-strict-aliasing -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
-# -fvisibility=hidden
-
-#override CFLAGS += -fno-math-errno -fno-trapping-math
-
-ifeq ($(uname_S),Linux)
-	override __LINUX__  = y
-	override MFLAGS    += __LINUX__=y
-	override CFLAGS    += -D__LINUX__=1
-#	override CFLAGS    += -fassociative-math -fno-signed-zeros
-endif
-ifeq ($(uname_S),Darwin)
-	override __DARWIN__  = y
-	override MFLAGS     += __DARWIN__=y
-	override CFLAGS     += -D__DARWIN__=1
-	override CFLAGS     += -I/opt/local/include
-#	override CFLAGS     += -fassociative-math -fno-signed-zeros
-	override LDOPTS     += -keep_private_externs
-endif
-
-MAKE       := + CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" TOPDIR='$(TOPDIR)' uname_S=$(uname_S) $(MAKE) $(MFLAGS) --no-print-directory
-
 CC         := $(CROSS_COMPILE_PREFIX)gcc $(SYSROOT)
 CXX        := $(CROSS_COMPILE_PREFIX)g++ $(SYSROOT)
 CPP        := $(CROSS_COMPILE_PREFIX)cpp $(SYSROOT)
@@ -219,6 +195,42 @@ CP         := cp -rf
 MV         := mv
 RM         := rm -rf
 MKDIR      := mkdir -p
+
+override CFLAGS += -Wall -Wextra -Werror -pipe -g3 -O2 -fsigned-char -fno-strict-aliasing -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
+# -fvisibility=hidden
+
+#override CFLAGS += -fno-math-errno -fno-trapping-math
+
+uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
+TARGET_MACHINE := $(subst -, ,$(shell $(CC) -dumpmachine))
+
+ifneq ($(findstring mingw, $(TARGET_MACHINE)),)
+TARGET_OS := WINDOWS
+else ifneq ($(findstring apple, $(TARGET_MACHINE)),)
+TARGET_OS := MACOS
+else ifneq ($(findstring linux, $(TARGET_MACHINE)),)
+TARGET_OS := LINUX
+else
+TARGET_OS := UNKNOWN
+endif
+
+ifeq      ($(TARGET_OS),WINDOWS)
+else ifeq ($(TARGET_OS),MACOS)
+	override __DARWIN__  = y
+	override MFLAGS     += __DARWIN__=y
+	override CFLAGS     += -D__DARWIN__=1
+	override CFLAGS     += -I/opt/local/include
+	override CFLAGS     += -fPIC
+#	override CFLAGS     += -fassociative-math -fno-signed-zeros
+	override LDOPTS     += -keep_private_externs
+else ifeq ($(TARGET_OS),LINUX)
+	override __LINUX__  = y
+	override MFLAGS    += __LINUX__=y
+	override CFLAGS    += -D__LINUX__=1 -fPIC
+#	override CFLAGS    += -fassociative-math -fno-signed-zeros -fPIC
+endif
+
+MAKE       := + CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" TOPDIR='$(TOPDIR)' uname_S=$(uname_S) TARGET_OS=$(TARGET_OS) $(MAKE) $(MFLAGS) --no-print-directory
 
 all:
 
