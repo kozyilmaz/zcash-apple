@@ -3,7 +3,7 @@ target_name ?= zcash
 
 include ../Makefile.build
 
-ZCASH_VERSION=v1.0.9
+ZCASH_VERSION=master
 ZCASH_MACHINE=$(shell ${BSP_CC} -dumpmachine)
 
 zcash_clone:
