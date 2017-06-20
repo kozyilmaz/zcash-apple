@@ -23,3 +23,18 @@ $ git subtree pull --prefix=tools/ --squash tools-remote master
 $ git log | grep git-subtree-dir | tr -d ' ' | cut -d ":" -f2 | sort | uniq
 $ git log | grep git-subtree-dir | tr -d ' ' | cut -d ":" -f2 | sort | uniq | xargs -I {} bash -c 'if [ -d $(git rev-parse --show-toplevel)/{} ] ; then echo {}; fi'
 ```
+
+### working with forks
+```
+$ git clone LOCAL_REPO
+$ git remote add upstream FORKED_REPO
+$ git fetch upstream
+$ git merge upstream/master
+```
+
+### working with branches
+```
+$ git branch newbranch
+$ git checkout newbranch
+$ git push -u origin newbranch
+```
