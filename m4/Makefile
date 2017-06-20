@@ -10,7 +10,7 @@ m4_clone:
 	if [ ! -d "m4-$(M4_VERSION)" ]; then tar xzf m4-$(M4_VERSION).tar.gz; fi
 
 m4_config:
-	( cd m4-$(M4_VERSION); ./configure --prefix=${BSPTOOLS}/o )
+	( cd m4-$(M4_VERSION); ./configure --prefix=${BSPTOOLS} )
 
 m4_build:
 	make -C m4-$(M4_VERSION) -j ${BSPJOB}

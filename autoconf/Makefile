@@ -10,7 +10,7 @@ autoconf_clone:
 	if [ ! -d "autoconf-$(AUTOCONF_VERSION)" ]; then tar xzf autoconf-$(AUTOCONF_VERSION).tar.gz; fi
 
 autoconf_config:
-	( cd autoconf-$(AUTOCONF_VERSION); ./configure --prefix=${BSPTOOLS}/o )
+	( cd autoconf-$(AUTOCONF_VERSION); ./configure --prefix=${BSPTOOLS} )
 
 autoconf_build:
 	make -C autoconf-$(AUTOCONF_VERSION) -j ${BSPJOB}

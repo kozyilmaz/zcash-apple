@@ -10,7 +10,7 @@ automake_clone:
 	if [ ! -d "automake-$(AUTOMAKE_VERSION)" ]; then tar xzf automake-$(AUTOMAKE_VERSION).tar.gz; fi
 
 automake_config:
-	( cd automake-$(AUTOMAKE_VERSION); ./configure --prefix=${BSPTOOLS}/o; )
+	( cd automake-$(AUTOMAKE_VERSION); ./configure --prefix=${BSPTOOLS}; )
 
 automake_build:
 	make -C automake-$(AUTOMAKE_VERSION) -j ${BSPJOB}

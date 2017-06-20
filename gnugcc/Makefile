@@ -10,7 +10,7 @@ gnugcc_clone:
 	if [ ! -d "gcc-$(GCC_VERSION)" ]; then tar xzf gcc-$(GCC_VERSION).tar.gz; fi
 
 gnugcc_config:
-	( cd gcc-$(GCC_VERSION); CFLAGS="" ./configure --prefix=${BSPTOOLS}/o --enable-checking=release --with-gmp=${BSPTOOLS}/o --with-mpfr=${BSPTOOLS}/o --with-mpc=${BSPTOOLS}/o --enable-languages=c,c++ --with-isl=${BSPTOOLS}/o --program-suffix=-$(GCC_VERSION); )
+	( cd gcc-$(GCC_VERSION); CFLAGS="" ./configure --prefix=${BSPTOOLS} --enable-checking=release --with-gmp=${BSPTOOLS} --with-mpfr=${BSPTOOLS} --with-mpc=${BSPTOOLS} --enable-languages=c,c++ --with-isl=${BSPTOOLS} --program-suffix=-$(GCC_VERSION); )
 
 gnugcc_build:
 	make -C gcc-$(GCC_VERSION) -j ${BSPJOB}

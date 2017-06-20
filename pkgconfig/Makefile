@@ -10,7 +10,7 @@ pkgconfig_clone:
 	if [ ! -d "pkg-config-$(PKGCONFIG_VERSION)" ]; then tar xzf pkg-config-$(PKGCONFIG_VERSION).tar.gz; fi
 
 pkgconfig_config:
-	( cd pkg-config-$(PKGCONFIG_VERSION); ./configure --prefix=${BSPTOOLS}/o -with-internal-glib; )
+	( cd pkg-config-$(PKGCONFIG_VERSION); ./configure --prefix=${BSPTOOLS} -with-internal-glib; )
 
 pkgconfig_build:
 	make -C pkg-config-$(PKGCONFIG_VERSION) -j ${BSPJOB}
