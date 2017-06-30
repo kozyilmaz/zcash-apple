@@ -27,7 +27,7 @@ echo $git_commit_output >> version.txt
 sudo mv version.txt ${BSPTOOLS}/version.txt
 
 # build tools
-PRINT_DEBUG=y make
+make
 echo "tools version '$git_version_string' is installed with root priviliges under ${BSPTOOLS}"
 
 # create tarball and checksum
