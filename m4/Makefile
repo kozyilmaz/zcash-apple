@@ -16,10 +16,10 @@ m4_build:
 	make -C m4-$(M4_VERSION) -j ${BSPJOB}
 
 m4_install:
-	make -C m4-$(M4_VERSION) install
+	${BSPSUDO} make -C m4-$(M4_VERSION) install
 
 m4_uninstall:
-	make -C m4-$(M4_VERSION) uninstall
+	${BSPSUDO} make -C m4-$(M4_VERSION) uninstall
 
 m4_clean:
 	if [ -f "m4-$(M4_VERSION)/Makefile" ]; then make -C m4-$(M4_VERSION) distclean; fi

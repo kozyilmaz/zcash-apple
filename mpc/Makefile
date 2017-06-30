@@ -16,10 +16,10 @@ mpc_build:
 	make -C mpc-$(MPC_VERSION) -j ${BSPJOB}
 
 mpc_install:
-	make -C mpc-$(MPC_VERSION) install
+	${BSPSUDO} make -C mpc-$(MPC_VERSION) install
 
 mpc_uninstall:
-	make -C mpc-$(MPC_VERSION) uninstall
+	${BSPSUDO} make -C mpc-$(MPC_VERSION) uninstall
 
 mpc_clean:
 	if [ -f "mpc-$(MPC_VERSION)/Makefile" ]; then make -C mpc-$(MPC_VERSION) distclean; fi

@@ -16,10 +16,10 @@ cmake_build:
 	make -C cmake-$(CMAKE_VERSION) -j ${BSPJOB}
 
 cmake_install:
-	make -C cmake-$(CMAKE_VERSION) -j ${BSPJOB} install
+	${BSPSUDO} make -C cmake-$(CMAKE_VERSION) -j ${BSPJOB} install
 
 cmake_uninstall:
-	make -C cmake-$(CMAKE_VERSION) uninstall
+	${BSPSUDO} make -C cmake-$(CMAKE_VERSION) uninstall
 
 cmake_clean:
 	if [ -f "cmake-$(CMAKE_VERSION)/Makefile" ]; then make -C cmake-$(CMAKE_VERSION) distclean; fi

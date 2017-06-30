@@ -21,10 +21,10 @@ fasm_build:
 	)
 
 fasm_install:
-	if [ -f "fasm/fasm" ]; then cp fasm/fasm ${BSPTOOLS}/bin; fi
+	if [ -f "fasm/fasm" ]; then ${BSPSUDO} cp fasm/fasm ${BSPTOOLS}/bin; fi
 
 fasm_uninstall:
-	rm -rf ${BSPTOOLS}/bin/fasm
+	${BSPSUDO} rm -rf ${BSPTOOLS}/bin/fasm
 
 fasm_clean:
 	if [ -f "fasm/fasm" ]; then rm -rf fasm/fasm; fi

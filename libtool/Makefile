@@ -16,10 +16,10 @@ libtool_build:
 	make -C libtool-$(LIBTOOL_VERSION) -j ${BSPJOB}
 
 libtool_install:
-	make -C libtool-$(LIBTOOL_VERSION) install
+	${BSPSUDO} make -C libtool-$(LIBTOOL_VERSION) install
 
 libtool_uninstall:
-	make -C libtool-$(LIBTOOL_VERSION) uninstall
+	${BSPSUDO} make -C libtool-$(LIBTOOL_VERSION) uninstall
 
 libtool_clean:
 	if [ -f "libtool-$(LIBTOOL_VERSION)/Makefile" ]; then make -C libtool-$(LIBTOOL_VERSION) distclean; fi

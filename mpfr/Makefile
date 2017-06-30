@@ -16,10 +16,10 @@ mpfr_build:
 	make -C mpfr-$(MPFR_VERSION) -j ${BSPJOB}
 
 mpfr_install:
-	make -C mpfr-$(MPFR_VERSION) install
+	${BSPSUDO} make -C mpfr-$(MPFR_VERSION) install
 
 mpfr_uninstall:
-	make -C mpfr-$(MPFR_VERSION) uninstall
+	${BSPSUDO} make -C mpfr-$(MPFR_VERSION) uninstall
 
 mpfr_clean:
 	if [ -f "mpfr-$(MPFR_VERSION)/Makefile" ]; then make -C mpfr-$(MPFR_VERSION) distclean; fi

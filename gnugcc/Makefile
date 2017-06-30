@@ -16,10 +16,10 @@ gnugcc_build:
 	make -C gcc-$(GCC_VERSION) -j ${BSPJOB}
 
 gnugcc_install:
-	make -C gcc-$(GCC_VERSION) install
+	${BSPSUDO} make -C gcc-$(GCC_VERSION) install
 
 gnugcc_uninstall:
-	make -C gcc-$(GCC_VERSION) uninstall
+	${BSPSUDO} make -C gcc-$(GCC_VERSION) uninstall
 
 gnugcc_clean:
 	if [ -f "gcc-$(GCC_VERSION)/Makefile" ]; then make -C gcc-$(GCC_VERSION) distclean; fi

@@ -16,10 +16,10 @@ autoconf_build:
 	make -C autoconf-$(AUTOCONF_VERSION) -j ${BSPJOB}
 
 autoconf_install:
-	make -C autoconf-$(AUTOCONF_VERSION) install
+	${BSPSUDO} make -C autoconf-$(AUTOCONF_VERSION) install
 
 autoconf_uninstall:
-	make -C autoconf-$(AUTOCONF_VERSION) uninstall
+	${BSPSUDO} make -C autoconf-$(AUTOCONF_VERSION) uninstall
 
 autoconf_clean:
 	if [ -f "autoconf-$(AUTOCONF_VERSION)/Makefile" ]; then make -C autoconf-$(AUTOCONF_VERSION) distclean; fi

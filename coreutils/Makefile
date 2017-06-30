@@ -16,14 +16,14 @@ coreutils_build:
 	make -C coreutils-$(COREUTILS_VERSION) -j ${BSPJOB}
 
 coreutils_install:
-	if [ -f "coreutils-$(COREUTILS_VERSION)/src/readlink" ]; then cp coreutils-$(COREUTILS_VERSION)/src/readlink ${BSPTOOLS}/bin/greadlink; ln -sf ${BSPTOOLS}/bin/greadlink ${BSPTOOLS}/bin/readlink; fi
-	if [ -f "coreutils-$(COREUTILS_VERSION)/src/ginstall" ]; then cp coreutils-$(COREUTILS_VERSION)/src/ginstall ${BSPTOOLS}/bin/ginstall; ln -sf ${BSPTOOLS}/bin/ginstall ${BSPTOOLS}/bin/install; fi
+	if [ -f "coreutils-$(COREUTILS_VERSION)/src/readlink" ]; then ${BSPSUDO} cp coreutils-$(COREUTILS_VERSION)/src/readlink ${BSPTOOLS}/bin/greadlink; ${BSPSUDO} ln -sf ${BSPTOOLS}/bin/greadlink ${BSPTOOLS}/bin/readlink; fi
+	if [ -f "coreutils-$(COREUTILS_VERSION)/src/ginstall" ]; then ${BSPSUDO} cp coreutils-$(COREUTILS_VERSION)/src/ginstall ${BSPTOOLS}/bin/ginstall; ${BSPSUDO} ln -sf ${BSPTOOLS}/bin/ginstall ${BSPTOOLS}/bin/install; fi
 
 coreutils_uninstall:
-	rm -rf ${BSPTOOLS}/bin/readlink
-	rm -rf ${BSPTOOLS}/bin/greadlink
-	rm -rf ${BSPTOOLS}/bin/install
-	rm -rf ${BSPTOOLS}/bin/ginstall
+	${BSPSUDO} rm -rf ${BSPTOOLS}/bin/readlink
+	${BSPSUDO} rm -rf ${BSPTOOLS}/bin/greadlink
+	${BSPSUDO} rm -rf ${BSPTOOLS}/bin/install
+	${BSPSUDO} rm -rf ${BSPTOOLS}/bin/ginstall
 
 coreutils_clean:
 	if [ -f "coreutils-$(COREUTILS_VERSION)/Makefile" ]; then make -C coreutils-$(COREUTILS_VERSION) distclean; fi

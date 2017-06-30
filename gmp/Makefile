@@ -16,10 +16,10 @@ gmp_build:
 	make -C gmp-$(GMP_VERSION) -j ${BSPJOB}
 
 gmp_install:
-	make -C gmp-$(GMP_VERSION) install
+	${BSPSUDO} make -C gmp-$(GMP_VERSION) install
 
 gmp_uninstall:
-	make -C gmp-$(GMP_VERSION) uninstall
+	${BSPSUDO} make -C gmp-$(GMP_VERSION) uninstall
 
 gmp_clean:
 	if [ -f "gmp-$(GMP_VERSION)/Makefile" ]; then make -C gmp-$(GMP_VERSION) distclean; fi

@@ -16,10 +16,10 @@ automake_build:
 	make -C automake-$(AUTOMAKE_VERSION) -j ${BSPJOB}
 
 automake_install:
-	make -C automake-$(AUTOMAKE_VERSION) install
+	${BSPSUDO} make -C automake-$(AUTOMAKE_VERSION) install
 
 automake_uninstall:
-	make -C automake-$(AUTOMAKE_VERSION) uninstall
+	${BSPSUDO} make -C automake-$(AUTOMAKE_VERSION) uninstall
 
 automake_clean:
 	if [ -f "automake-$(AUTOMAKE_VERSION)/Makefile" ]; then make -C automake-$(AUTOMAKE_VERSION) distclean; fi

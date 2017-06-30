@@ -16,10 +16,10 @@ pkgconfig_build:
 	make -C pkg-config-$(PKGCONFIG_VERSION) -j ${BSPJOB}
 
 pkgconfig_install:
-	make -C pkg-config-$(PKGCONFIG_VERSION) install
+	${BSPSUDO} make -C pkg-config-$(PKGCONFIG_VERSION) install
 
 pkgconfig_uninstall:
-	make -C pkg-config-$(PKGCONFIG_VERSION) uninstall
+	${BSPSUDO} make -C pkg-config-$(PKGCONFIG_VERSION) uninstall
 
 pkgconfig_clean:
 	if [ -f "pkg-config-$(PKGCONFIG_VERSION)/Makefile" ]; then make -C pkg-config-$(PKGCONFIG_VERSION) distclean; fi
