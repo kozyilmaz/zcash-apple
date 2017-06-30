@@ -17,7 +17,7 @@ echo "tools commit version: $git_version_string"
 source environment;
 export BSPJOB=16;
 export BSPSUDO=sudo;
-export BSPTOOLS=/usr/local/gnutools;
+export BSPTOOLS=/usr/local/gnutools-$git_version_string;
 export PATH=${BSPTOOLS}/bin:${PATH};
 
 # add version info
