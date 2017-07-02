@@ -26,15 +26,27 @@ $ git log | grep git-subtree-dir | tr -d ' ' | cut -d ":" -f2 | sort | uniq | xa
 
 ### working with forks
 ```
-$ git clone LOCAL_REPO
-$ git remote add upstream FORKED_REPO
+$ git clone https://github.com/<your_username>/<forked_repo>.git
+$ git remote add upstream https://github.com/<forked_username>/<forked_repo>.git
 $ git fetch upstream
-$ git merge upstream/master
+$ git merge upstream/master
 ```
 
 ### working with branches
 ```
-$ git branch newbranch
-$ git checkout newbranch
-$ git push -u origin newbranch
+$ git branch <branch>
+$ git checkout <branch>
+$ git push -u origin <branch>
+```
+
+### revert a single commit
+```
+$ git checkout <branch>
+$ git revert <commit>
+$ git push origin <branch>
+```
+
+### reference GitHub issue or pull request
+```
+https://github.com/<user>/<repo>/issues/<number>
 ```

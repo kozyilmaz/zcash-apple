@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "build and install tools to with root privileges"
+echo "build and install tools with root privileges"
 
 # get version info
 git_commit_output=$(git log -1)
