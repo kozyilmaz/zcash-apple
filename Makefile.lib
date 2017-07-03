@@ -174,7 +174,7 @@ CC         := $(CROSS_COMPILE_PREFIX)gcc $(SYSROOT)
 CXX        := $(CROSS_COMPILE_PREFIX)g++ $(SYSROOT)
 CPP        := $(CROSS_COMPILE_PREFIX)cpp $(SYSROOT)
 LD         := $(CROSS_COMPILE_PREFIX)ld
-AR         := $(CROSS_COMPILE_PREFIX)ar rcs
+AR         := $(CROSS_COMPILE_PREFIX)ar
 RANLIB     := $(CROSS_COMPILE_PREFIX)ranlib
 STRIP      := $(CROSS_COMPILE_PREFIX)strip -sx
 MOC        ?= $(CROSS_COMPILE_PREFIX)moc
@@ -183,7 +183,7 @@ HOSTCC     := $(HOST_COMPILE_PREFIX)gcc
 HOSTCXX    := $(HOST_COMPILE_PREFIX)g++
 HOSTCPP    := $(HOST_COMPILE_PREFIX)cpp
 HOSTLD     := $(HOST_COMPILE_PREFIX)ld
-HOSTAR     := $(HOST_COMPILE_PREFIX)ar rcs
+HOSTAR     := $(HOST_COMPILE_PREFIX)ar
 HOSTRANLIB := $(HOST_COMPILE_PREFIX)ranlib
 HOSTSTRIP  := $(HOST_COMPILE_PREFIX)strip
 HOSTMOC    ?= $(HOST_COMPILE_PREFIX)moc
@@ -466,7 +466,7 @@ _cmd_link.m.host      = $(HOSTCC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $
 _cmd_link_so.m.host   = $(HOSTCC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                         $($1_ldflags) $$(filter-out -static,$(LDFLAGS)) -shared
 
-_cmd_ar               = $(AR) $$@ $$(filter-out __FORCE $($1_depends-y),$$^)
+_cmd_ar               = $(AR) rcs $$@ $$(filter-out __FORCE $($1_depends-y),$$^)
 _cmd_ranlib           = $(RANLIB) $$@
 _cmd_ld               = $(LD) $(LDOPTS) -r -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^)
 
