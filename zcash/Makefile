@@ -22,9 +22,9 @@ zcash_build:
 	)
 
 define fix_library_paths
-	install_name_tool -change "${BSPTOOLS}/o/lib/libgcc_s.1.dylib" "@executable_path/libgcc_s.1.dylib" $(1);
-	install_name_tool -change "${BSPTOOLS}/o/lib/libgomp.1.dylib" "@executable_path/libgomp.1.dylib" $(1);
-	install_name_tool -change "${BSPTOOLS}/o/lib/libstdc++.6.dylib" "@executable_path/libstdc++.6.dylib" $(1);
+	install_name_tool -change "${BSPTOOLS}/lib/libgcc_s.1.dylib" "@executable_path/libgcc_s.1.dylib" $(1);
+	install_name_tool -change "${BSPTOOLS}/lib/libgomp.1.dylib" "@executable_path/libgomp.1.dylib" $(1);
+	install_name_tool -change "${BSPTOOLS}/lib/libstdc++.6.dylib" "@executable_path/libstdc++.6.dylib" $(1);
 endef
 
 zcash_install:
@@ -35,14 +35,14 @@ zcash_install:
 	cp -af ${BSPROOT}/zcash/tmp${BSPROOT}/zcash/zcash_$(ZCASH_VERSION)/depends/$(ZCASH_MACHINE)/* ${BSPINSTALL}/usr/local
 # unable to static link yet (-static-libgcc -static-libstdc++), fix up library paths for portability
 	( cd ${BSPINSTALL}/usr/local/bin; \
-		cp -a ${BSPTOOLS}/o/lib/libgcc_s.1.dylib ${BSPINSTALL}/usr/local/bin; \
-		cp -a ${BSPTOOLS}/o/lib/libgomp.1.dylib ${BSPINSTALL}/usr/local/bin; \
-		cp -a ${BSPTOOLS}/o/lib/libstdc++.6.dylib ${BSPINSTALL}/usr/local/bin; \
+		cp -a ${BSPTOOLS}/lib/libgcc_s.1.dylib ${BSPINSTALL}/usr/local/bin; \
+		cp -a ${BSPTOOLS}/lib/libgomp.1.dylib ${BSPINSTALL}/usr/local/bin; \
+		cp -a ${BSPTOOLS}/lib/libstdc++.6.dylib ${BSPINSTALL}/usr/local/bin; \
 		install_name_tool -id @executable_path/libgcc_s.1.dylib libgcc_s.1.dylib; \
 		install_name_tool -id @executable_path/libgomp.1.dylib libgomp.1.dylib; \
-		install_name_tool -change ${BSPTOOLS}/o/lib/libgcc_s.1.dylib @executable_path/libgcc_s.1.dylib libgomp.1.dylib; \
+		install_name_tool -change ${BSPTOOLS}/lib/libgcc_s.1.dylib @executable_path/libgcc_s.1.dylib libgomp.1.dylib; \
 		install_name_tool -id @executable_path/libstdc++.6.dylib libstdc++.6.dylib; \
-		install_name_tool -change ${BSPTOOLS}/o/lib/libgcc_s.1.dylib @executable_path/libgcc_s.1.dylib libstdc++.6.dylib; \
+		install_name_tool -change ${BSPTOOLS}/lib/libgcc_s.1.dylib @executable_path/libgcc_s.1.dylib libstdc++.6.dylib; \
 	)
 	$(call fix_library_paths,${BSPINSTALL}/usr/local/bin/zcashd)
 	$(call fix_library_paths,${BSPINSTALL}/usr/local/bin/zcash-tx)
