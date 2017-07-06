@@ -1,11 +1,11 @@
 #!/bin/sh
 
-BSPJOB=4
+BSPJOB=22
 BSPROOT=`pwd`
 BSPTOOLS=${BSPROOT}/tools/o
 BSPROOTFS=${BSPROOT}/rootfs
 BSPINSTALL=${BSPROOT}/out
-PATH=${BSPTOOLS}/o/bin:${PATH}
+PATH=${BSPTOOLS}/bin:${PATH}
 
 BSP_CC="gcc-6.3.0"
 BSP_CXX="g++-6.3.0"
