@@ -39,4 +39,4 @@ echo "Zcash for macOS ($git_tag_string) is installed to ${BSPINSTALL}"
 echo "creating Zcash tarball 'zcash-macos-$git_tag_string.tar.bz2' and checksum"
 tar -cjvf zcash-macos-$git_tag_string.tar.bz2 ${BSPINSTALL}
 shasum -a 256 zcash-macos-$git_tag_string.tar.bz2 > zcash-macos-$git_tag_string.tar.bz2.hash
-shasum -a 256 -c zcash-macos-$git_tag_string.hash
+shasum -a 256 -c zcash-macos-$git_tag_string.tar.bz2.hash
