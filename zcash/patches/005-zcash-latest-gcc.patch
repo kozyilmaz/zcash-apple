@@ -1,5 +1,5 @@
 diff --git a/depends/builders/darwin.mk b/depends/builders/darwin.mk
-index b366460e..f8f5170f 100644
+index b366460e..bd67417e 100644
 --- a/depends/builders/darwin.mk
 +++ b/depends/builders/darwin.mk
 @@ -10,8 +10,8 @@ build_darwin_SHA256SUM = shasum -a 256
@@ -8,13 +8,13 @@ index b366460e..f8f5170f 100644
  #darwin host on darwin builder. overrides darwin host preferences.
 -darwin_CC=$(shell xcrun -f clang) -mmacosx-version-min=$(OSX_MIN_VERSION)
 -darwin_CXX:=$(shell xcrun -f clang++) -mmacosx-version-min=$(OSX_MIN_VERSION)
-+darwin_CC=gcc-6.3.0
-+darwin_CXX:=g++-6.3.0
++darwin_CC=gcc-6.4.0
++darwin_CXX:=g++-6.4.0
  darwin_AR:=$(shell xcrun -f ar)
  darwin_RANLIB:=$(shell xcrun -f ranlib)
  darwin_STRIP:=$(shell xcrun -f strip)
 diff --git a/depends/packages/boost.mk b/depends/packages/boost.mk
-index 7303821b..7841403a 100644
+index 7303821b..1780a8aa 100644
 --- a/depends/packages/boost.mk
 +++ b/depends/packages/boost.mk
 @@ -11,7 +11,7 @@ $(package)_config_opts_debug=variant=debug
@@ -22,7 +22,7 @@ index 7303821b..7841403a 100644
  $(package)_config_opts+=threading=multi link=static -sNO_BZIP2=1 -sNO_ZLIB=1
  $(package)_config_opts_linux=threadapi=pthread runtime-link=shared
 -$(package)_config_opts_darwin=--toolset=darwin-4.2.1 runtime-link=shared
-+$(package)_config_opts_darwin=--toolset=darwin-6.3.0 runtime-link=shared
++$(package)_config_opts_darwin=--toolset=darwin-6.4.0 runtime-link=shared
  $(package)_config_opts_mingw32=binary-format=pe target-os=windows threadapi=win32 runtime-link=static
  $(package)_config_opts_x86_64_mingw32=address-model=64
  $(package)_config_opts_i686_mingw32=address-model=32
