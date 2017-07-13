@@ -46,6 +46,12 @@ $ git revert <commit>
 $ git push origin <branch>
 ```
 
+### tag tree
+```
+$ git tag <tagname>
+$ git push origin --tags
+```
+
 ### reference GitHub issue or pull request
 ```
 https://github.com/<user>/<repo>/issues/<number>
