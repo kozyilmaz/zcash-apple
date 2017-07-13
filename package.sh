@@ -7,7 +7,7 @@ git_status_output=$(git diff)
 
 # check associated tag
 if [[ $git_tag_output == *"tags"* ]]; then
-   git_tag_string=$git_tag_output
+   git_tag_string=${git_tag_output##*/}
 else
    git_tag_string="unknown"
 fi
