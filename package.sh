@@ -31,8 +31,8 @@ export BSPINSTALL=${BSPROOT}/zcash-macos-$git_tag_string;
 
 # build tools
 make
-echo $git_version_string > ${BSPINSTALL}/version.txt
-echo $git_tag_string    >> ${BSPINSTALL}/version.txt
+echo $git_version_string > ${BSPINSTALL}/usr/local/bin/version.txt
+echo $git_tag_string    >> ${BSPINSTALL}/usr/local/bin/version.txt
 echo "Zcash for macOS ($git_tag_string) is installed to ${BSPINSTALL}"
 
 # create tarball and checksum
