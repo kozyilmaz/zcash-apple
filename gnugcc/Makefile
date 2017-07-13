@@ -3,7 +3,7 @@ target_name ?= gnugcc
 
 include ../Makefile.build
 
-GCC_VERSION="6.3.0"
+GCC_VERSION="6.4.0"
 
 gnugcc_clone:
 	if [ ! -f "gcc-$(GCC_VERSION).tar.gz" ]; then curl -OL http://ftp.gnu.org/gnu/gcc/gcc-$(GCC_VERSION)/gcc-$(GCC_VERSION).tar.gz; fi;
