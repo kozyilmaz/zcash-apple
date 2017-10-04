@@ -3,7 +3,7 @@ target_name ?= cmake
 
 include ../Makefile.build
 
-CMAKE_VERSION="3.8.2"
+CMAKE_VERSION="3.9.3"
 
 cmake_clone:
 	if [ ! -f "cmake-$(CMAKE_VERSION).tar.gz" ]; then curl -OL https://cmake.org/files/v3.8/cmake-$(CMAKE_VERSION).tar.gz; fi;
