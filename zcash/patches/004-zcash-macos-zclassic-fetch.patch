@@ -1,5 +1,5 @@
 diff --git a/zcutil/fetch-params.sh b/zcutil/fetch-params.sh
-index 8bb31fc3..33ae1646 100755
+index 10bade7c..9eb52bec 100755
 --- a/zcutil/fetch-params.sh
 +++ b/zcutil/fetch-params.sh
 @@ -2,7 +2,11 @@
@@ -15,41 +15,64 @@ index 8bb31fc3..33ae1646 100755
  
  SPROUT_PKEY_NAME='sprout-proving.key'
  SPROUT_VKEY_NAME='sprout-verifying.key'
-@@ -18,17 +22,23 @@ function fetch_params {
-     local dlname="${output}.dl"
-     local expectedhash="$3"
+@@ -14,10 +18,12 @@ SHA256ARGS="$(command -v sha256sum >/dev/null || echo '-a 256')"
  
--    if ! [ -f "$output" ]
--    then
-+    if ! [ -f "$output" ]; then
-         echo "Retrieving: $url"
--        wget \
--            --progress=dot:giga \
--            --output-document="$dlname" \
--            --continue \
--            --retry-connrefused --waitretry=3 --timeout=30 \
--            "$url"
--
--        "$SHA256CMD" $SHA256ARGS -c <<EOF
-+        if [[ $(sw_vers -productName) == "Mac OS X" ]]; then
-+            curl \
-+                --output "$dlname" \
-+                -# -L -C - \
-+                "$url"
-+        else
-+            wget \
-+                --progress=dot:giga \
-+                --output-document="$dlname" \
-+                --continue \
-+                --retry-connrefused --waitretry=3 --timeout=30 \
-+                "$url"
-+        fi
+ WGETCMD="$(command -v wget || echo '')"
+ IPFSCMD="$(command -v ipfs || echo '')"
++CURLCMD="$(command -v curl || echo '')"
+ 
+ # fetch methods can be disabled with ZC_DISABLE_SOMETHING=1
+ ZC_DISABLE_WGET="${ZC_DISABLE_WGET:-}"
+ ZC_DISABLE_IPFS="${ZC_DISABLE_IPFS:-}"
++ZC_DISABLE_CURL="${ZC_DISABLE_CURL:-}"
+ 
+ function fetch_wget {
+     if [ -z "$WGETCMD" ] || ! [ -z "$ZC_DISABLE_WGET" ]; then
+@@ -56,6 +62,26 @@ EOF
+     ipfs get --output "$dlname" "$SPROUT_IPFS/$filename"
+ }
+ 
++function fetch_curl {
++    if [ -z "$CURLCMD" ] || ! [ -z "$ZC_DISABLE_CURL" ]; then
++        return 1
++    fi
 +
-+        "$SHA256CMD" $SHA256ARGS --check <<EOF
- $expectedhash  $dlname
- EOF
++    local filename="$1"
++    local dlname="$2"
++
++    cat <<EOF
++
++Retrieving (curl): $SPROUT_URL/$filename
++EOF
++
++    curl \
++        --output "$dlname" \
++        -# -L -C - \
++        "$SPROUT_URL/$filename"
++
++}
++
+ function fetch_failure {
+     cat >&2 <<EOF
  
-@@ -46,12 +56,20 @@ EOF
+@@ -64,6 +90,7 @@ Try installing one of the following programs and make sure you're online:
+ 
+  * ipfs
+  * wget
++ * curl
+ 
+ EOF
+     exit 1
+@@ -77,7 +104,7 @@ function fetch_params {
+ 
+     if ! [ -f "$output" ]
+     then
+-        for method in wget ipfs failure; do
++        for method in wget ipfs curl failure; do
+             if "fetch_$method" "$filename" "$dlname"; then
+                 echo "Download successful!"
+                 break
+@@ -102,12 +129,20 @@ EOF
  # Use flock to prevent parallel execution.
  function lock() {
      local lockfile=/tmp/fetch_params.lock
