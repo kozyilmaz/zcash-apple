@@ -2,7 +2,7 @@
 
 BSPJOB=4
 BSPROOT=`pwd`
-BSPTOOLS=/usr/local/tools-v5.1
+BSPTOOLS=${BSPROOT}/tools/o
 BSPROOTFS=${BSPROOT}/rootfs
 BSPINSTALL=${BSPROOT}/out
 PATH=${BSPTOOLS}/bin:${PATH}
