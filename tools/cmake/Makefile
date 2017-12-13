@@ -10,7 +10,7 @@ cmake_clone:
 	if [ ! -d "cmake-$(CMAKE_VERSION)" ]; then tar xzf cmake-$(CMAKE_VERSION).tar.gz; fi
 
 cmake_config:
-	( cd cmake-$(CMAKE_VERSION); CFLAGS="" CXXFLAGS="" ./bootstrap --prefix=${BSPTOOLS}; )
+	( cd cmake-$(CMAKE_VERSION); CFLAGS="" CXXFLAGS="" ./bootstrap --parallel=${BSPJOB} --prefix=${BSPTOOLS} --no-qt-gui; )
 
 cmake_build:
 	make -C cmake-$(CMAKE_VERSION) -j ${BSPJOB}
