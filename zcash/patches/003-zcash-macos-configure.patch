@@ -1,8 +1,8 @@
 diff --git a/configure.ac b/configure.ac
-index 75a7aeba..dd12a3c0 100644
+index b44b486a..614c66e9 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -436,13 +436,22 @@ if test x$use_hardening != xno; then
+@@ -454,13 +454,22 @@ if test x$use_hardening != xno; then
      HARDENED_CPPFLAGS="$HARDENED_CPPFLAGS -D_FORTIFY_SOURCE=2"
    ],[AC_MSG_ERROR(Cannot enable -D_FORTIFY_SOURCE=2)])
  
@@ -18,7 +18,7 @@ index 75a7aeba..dd12a3c0 100644
  
    if test x$TARGET_OS != xwindows; then
      # All windows code is PIC, forcing it on just adds useless compile warnings
-     AX_CHECK_COMPILE_FLAG([-fPIE],[HARDENED_CXXFLAGS="$HARDENED_CXXFLAGS -fPIE"],[AC_MSG_ERROR(Cannot enable -fPIE)])
+     AX_CHECK_COMPILE_FLAG([-fPIE],[PIE_FLAGS="-fPIE"],[AC_MSG_ERROR(Cannot enable -fPIE)])
 -    AX_CHECK_LINK_FLAG([[-pie]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -pie"],[AC_MSG_ERROR(Cannot enable -pie)])
 +    if test x$BUILD_OS = xdarwin; then
 +      AX_CHECK_LINK_FLAG([[-pie]], [HARDENED_LDFLAGS="$HARDENED_LDFLAGS -pie"],[AC_MSG_WARN(Cannot enable -pie)])
