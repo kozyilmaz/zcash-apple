@@ -13,7 +13,7 @@ zcash_config:
 
 zcash_build:
 	( cd zcash_$(ZCASH_VERSION); \
-		LIBTOOLIZE=glibtoolize ./zcutil/build.sh --disable-tests --disable-libs; \
+		LIBTOOLIZE=glibtoolize ./zcutil/build.sh --disable-libs; \
 	)
 
 zcash_install:
