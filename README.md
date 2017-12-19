@@ -4,7 +4,7 @@
 
 This repository builds standalone Zcash binaries for macOS platform without installing brew.  
 No additional dependency required except Xcode (https://developer.apple.com/xcode).  
-All tools (`autotools, cmake, gcc etc.`) and libraries (`boost`, `libsnark`) are compiled from scratch.  
+All build tools (`autoconf, automake, libtool, pkgconfig, cmake, install and readlink`) and `Zcash` are compiled from scratch (finally with `clang`).  
 
 
 ### Build instructions
@@ -17,22 +17,25 @@ All tools (`autotools, cmake, gcc etc.`) and libraries (`boost`, `libsnark`) are
 After successful build Zcash binaries will be installed to `out` directory under project root  
 You can then copy binary directory anywhere you like there are no dependencies to the build tree anymore  
 ```
-bash-3.2$ ls -lrt out/usr/local/bin/
-total 104760
--rwxr-xr-x  1 loki  staff       483 Apr  4 18:47 zcash-init
--rwxr-xr-x  1 loki  staff  41668528 Apr  4 19:02 zcashd
--rwxr-xr-x  1 loki  staff   5797980 Apr  4 19:02 zcash-tx
--rwxr-xr-x  1 loki  staff      3502 Apr  4 19:02 zcash-fetch-params
--rwxr-xr-x  1 loki  staff   3006696 Apr  4 19:02 zcash-cli
--rwxr-xr-x  1 loki  staff   2644540 Apr  4 19:02 libstdc++.6.dylib
--rwxr-xr-x  1 loki  staff    245464 Apr  4 19:02 libgomp.1.dylib
--rw-r--r--  1 loki  staff    255268 Apr  4 19:02 libgcc_s.1.dylib
+bash-3.2$ ls -lrt out/usr/local/bin
+total 31544
+-rwxr-xr-x  1 loki  staff       483 Dec 16 15:56 zcash-init
+-rwxr-xr-x  1 loki  staff  13120252 Dec 20 01:06 zcashd
+-rwxr-xr-x  1 loki  staff   1772400 Dec 20 01:06 zcash-tx
+-rwxr-xr-x  1 loki  staff      4761 Dec 20 01:06 zcash-fetch-params
+-rwxr-xr-x  1 loki  staff   1237116 Dec 20 01:06 zcash-cli
 bash-3.2$ otool -L out/usr/local/bin/zcashd
 out/usr/local/bin/zcashd:
-    @executable_path/libstdc++.6.dylib (compatibility version 7.0.0, current version 7.22.0)
-    @executable_path/libgomp.1.dylib (compatibility version 2.0.0, current version 2.0.0)
-    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1238.51.1)
-    @executable_path/libgcc_s.1.dylib (compatibility version 1.0.0, current version 1.0.0)
+    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1238.60.2)
+    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 307.5.0)
+bash-3.2$ otool -L out/usr/local/bin/zcash-cli 
+out/usr/local/bin/zcash-cli:
+    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 307.5.0)
+    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1238.60.2)
+bash-3.2$ otool -L out/usr/local/bin/zcash-tx
+out/usr/local/bin/zcash-tx:
+    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 307.5.0)
+    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1238.60.2)
 ```
 
 ### Run instructions
