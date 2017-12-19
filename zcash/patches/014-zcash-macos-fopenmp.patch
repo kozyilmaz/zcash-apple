@@ -1,5 +1,5 @@
 diff --git a/src/Makefile.am b/src/Makefile.am
-index 25038c1e..e7204e81 100644
+index 25038c1e..b3476b25 100644
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
 @@ -527,7 +527,10 @@ libzcash_a_SOURCES = \
@@ -7,42 +7,45 @@ index 25038c1e..e7204e81 100644
    zcash/circuit/utils.tcc
  
 -libzcash_a_CPPFLAGS = -DMULTICORE -fopenmp -fPIC -DBINARY_OUTPUT -DCURVE_ALT_BN128 -DBOOST_SPIRIT_THREADSAFE -DHAVE_BUILD_INFO -D__STDC_FORMAT_MACROS $(HARDENED_CPPFLAGS) -pipe -O1 -g -Wstack-protector -fstack-protector-all -fPIE -fvisibility=hidden -DSTATIC $(BITCOIN_INCLUDES)
-+libzcash_a_CPPFLAGS = -fPIC -DBINARY_OUTPUT -DCURVE_ALT_BN128 -DBOOST_SPIRIT_THREADSAFE -DHAVE_BUILD_INFO -D__STDC_FORMAT_MACROS $(HARDENED_CPPFLAGS) -pipe -O1 -g -Wstack-protector -fstack-protector-all -fPIE -fvisibility=hidden -DSTATIC $(BITCOIN_INCLUDES)
 +if HAVE_OPENMP
-+libzcash_a_CPPFLAGS += -DMULTICORE -fopenmp
++libzcash_a_CPPFLAGS = -DMULTICORE -fopenmp
 +endif
++libzcash_a_CPPFLAGS += -fPIC -DBINARY_OUTPUT -DCURVE_ALT_BN128 -DBOOST_SPIRIT_THREADSAFE -DHAVE_BUILD_INFO -D__STDC_FORMAT_MACROS $(HARDENED_CPPFLAGS) -pipe -O1 -g -Wstack-protector -fstack-protector-all -fPIE -fvisibility=hidden -DSTATIC $(BITCOIN_INCLUDES)
  
  libzcash_a_CXXFLAGS = $(HARDENED_CXXFLAGS) -fwrapv -fno-strict-aliasing
  
 diff --git a/src/Makefile.gtest.include b/src/Makefile.gtest.include
-index 522bfa84..e43654b5 100644
+index 522bfa84..5940453a 100644
 --- a/src/Makefile.gtest.include
 +++ b/src/Makefile.gtest.include
-@@ -45,7 +45,10 @@ zcash_gtest_SOURCES += \
+@@ -45,7 +45,11 @@ zcash_gtest_SOURCES += \
  	wallet/gtest/test_wallet.cpp
  endif
  
 -zcash_gtest_CPPFLAGS = $(AM_CPPFLAGS) -DMULTICORE -fopenmp -DBINARY_OUTPUT -DCURVE_ALT_BN128 -DSTATIC $(BITCOIN_INCLUDES)
-+zcash_gtest_CPPFLAGS = $(AM_CPPFLAGS) -DBINARY_OUTPUT -DCURVE_ALT_BN128 -DSTATIC $(BITCOIN_INCLUDES)
++zcash_gtest_CPPFLAGS = $(AM_CPPFLAGS)
 +if HAVE_OPENMP
 +zcash_gtest_CPPFLAGS += -DMULTICORE -fopenmp
 +endif
++zcash_gtest_CPPFLAGS += -DBINARY_OUTPUT -DCURVE_ALT_BN128 -DSTATIC $(BITCOIN_INCLUDES)
  zcash_gtest_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
  
  zcash_gtest_LDADD = -lgtest -lgmock $(LIBBITCOIN_SERVER) $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBMEMENV) \
 diff --git a/src/Makefile.test.include b/src/Makefile.test.include
-index 582ecb57..1a657013 100644
+index 582ecb57..6db88b5c 100644
 --- a/src/Makefile.test.include
 +++ b/src/Makefile.test.include
-@@ -99,7 +99,10 @@ BITCOIN_TESTS += \
+@@ -99,7 +99,12 @@ BITCOIN_TESTS += \
  endif
  
  test_test_bitcoin_SOURCES = $(BITCOIN_TESTS) $(JSON_TEST_FILES) $(RAW_TEST_FILES)
 -test_test_bitcoin_CPPFLAGS = $(AM_CPPFLAGS) -fopenmp $(BITCOIN_INCLUDES) -I$(builddir)/test/ $(TESTDEFS) $(EVENT_CFLAGS)
-+test_test_bitcoin_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) -I$(builddir)/test/ $(TESTDEFS) $(EVENT_CFLAGS)
++test_test_bitcoin_CPPFLAGS = $(AM_CPPFLAGS)
 +if HAVE_OPENMP
-+test_test_bitcoin_CPPFLAGS += -fopenmp
++test_test_bitcoin_CPPFLAGS += -DMULTICORE -fopenmp
 +endif
++test_test_bitcoin_CPPFLAGS += $(BITCOIN_INCLUDES) -I$(builddir)/test/ $(TESTDEFS) $(EVENT_CFLAGS)
++
  test_test_bitcoin_LDADD = $(LIBBITCOIN_SERVER) $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBMEMENV) \
    $(BOOST_LIBS) $(BOOST_UNIT_TEST_FRAMEWORK_LIB) $(LIBSECP256K1) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
  test_test_bitcoin_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
