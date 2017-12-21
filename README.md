@@ -52,8 +52,6 @@ You can just run `Zcash` by launching the daemon afterwards
 
 `$ ./zcashd`  
 
-Vaklinov's [Desktop GUI Wallet](https://github.com/vaklinov/zcash-swing-wallet-ui) also works, please follow [build instructions for MacOS](https://github.com/vaklinov/zcash-swing-wallet-ui/blob/master/docs/Readme-Mac.md)
-
 Console output from the first run is below:
 ```
 bash-3.2$ ./zcash-fetch-params
@@ -97,6 +95,9 @@ bash-3.2$ ./zcash-init
 Creating zcash.conf
 Complete!
 ```
+
+Vaklinov's [Desktop GUI Wallet](https://github.com/vaklinov/zcash-swing-wallet-ui) also works, please follow build instructions for MacOS
+
 
 ## Thanks
 Developers of `Zcash`  
