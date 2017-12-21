@@ -1,17 +1,18 @@
 diff --git a/src/gtest/test_deprecation.cpp b/src/gtest/test_deprecation.cpp
-index 72d98cf9..4800a94b 100644
+index 72d98cf9..c44b810f 100644
 --- a/src/gtest/test_deprecation.cpp
 +++ b/src/gtest/test_deprecation.cpp
-@@ -25,6 +25,7 @@ static bool ThreadSafeMessageBox(MockUIInterface *mock,
+@@ -24,7 +24,7 @@ static bool ThreadSafeMessageBox(MockUIInterface *mock,
+                                  const std::string& caption,
                                   unsigned int style)
  {
-     mock->ThreadSafeMessageBox(message, caption, style);
-+    return true;
+-    mock->ThreadSafeMessageBox(message, caption, style);
++    return mock->ThreadSafeMessageBox(message, caption, style);
  }
  
  class DeprecationTest : public ::testing::Test {
 diff --git a/src/test/rpc_wallet_tests.cpp b/src/test/rpc_wallet_tests.cpp
-index e444eb2a..8fc90195 100644
+index e444eb2a..d0632262 100644
 --- a/src/test/rpc_wallet_tests.cpp
 +++ b/src/test/rpc_wallet_tests.cpp
 @@ -1061,14 +1061,14 @@ BOOST_AUTO_TEST_CASE(rpc_z_sendmany_internals)
@@ -19,7 +20,7 @@ index e444eb2a..8fc90195 100644
          BOOST_CHECK(tx.vout.size() == 0);
  
 -        CAmount amount = 123.456;
-+        CAmount amount = (CAmount) 123.456;
++        CAmount amount = AmountFromValue(ValueFromString("123.456"));
          proxy.add_taddr_change_output_to_tx(amount);
          tx = proxy.getTx();
          BOOST_CHECK(tx.vout.size() == 1);
@@ -27,7 +28,7 @@ index e444eb2a..8fc90195 100644
          BOOST_CHECK_EQUAL(out.nValue, amount);
  
 -        amount = 1.111;
-+        amount = (CAmount) 1.111;
++        amount = AmountFromValue(ValueFromString("1.111"));
          proxy.add_taddr_change_output_to_tx(amount);
          tx = proxy.getTx();
          BOOST_CHECK(tx.vout.size() == 2);
