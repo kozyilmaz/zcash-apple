@@ -12,10 +12,24 @@ index 72d98cf9..c44b810f 100644
  
  class DeprecationTest : public ::testing::Test {
 diff --git a/src/test/rpc_wallet_tests.cpp b/src/test/rpc_wallet_tests.cpp
-index e444eb2a..d0632262 100644
+index e444eb2a..9f873464 100644
 --- a/src/test/rpc_wallet_tests.cpp
 +++ b/src/test/rpc_wallet_tests.cpp
-@@ -1061,14 +1061,14 @@ BOOST_AUTO_TEST_CASE(rpc_z_sendmany_internals)
+@@ -46,6 +46,13 @@ bool find_error(const UniValue& objError, const std::string& expected) {
+     return find_value(objError, "message").get_str().find(expected) != string::npos;
+ }
+ 
++static UniValue ValueFromString(const std::string &str)
++{
++    UniValue value;
++    BOOST_CHECK(value.setNumStr(str));
++    return value;
++}
++
+ BOOST_FIXTURE_TEST_SUITE(rpc_wallet_tests, TestingSetup)
+ 
+ BOOST_AUTO_TEST_CASE(rpc_addmultisig)
+@@ -1061,14 +1068,14 @@ BOOST_AUTO_TEST_CASE(rpc_z_sendmany_internals)
          CTransaction tx = proxy.getTx();
          BOOST_CHECK(tx.vout.size() == 0);
  
