@@ -8,15 +8,19 @@ All build tools (`autoconf, automake, libtool, pkgconfig, cmake, install and rea
 
 
 ### Build instructions
-
-`$ git clone https://github.com/kozyilmaz/zcash-apple.git`  
-`$ cd zcash-apple`  
-`$ source environment`  
-`$ make`
+```shell
+# run once to install Xcode CLI tools
+$ xcode-select --install
+#
+$ git clone https://github.com/kozyilmaz/zcash-apple.git
+$ cd zcash-apple
+$ source environment
+$ make
+```
 
 After successful build Zcash binaries will be installed to `out` directory under project root  
 You can then copy binary directory anywhere you like there are no dependencies to the build tree anymore  
-```
+```shell
 bash-3.2$ ls -lrt out/usr/local/bin
 total 31544
 -rwxr-xr-x  1 loki  staff       483 Dec 16 15:56 zcash-init
@@ -43,17 +47,19 @@ out/usr/local/bin/zcash-tx:
 When launching `Zcash` on MacOS for the first time, certain initalization steps should be completed.  
 Please run the commands below once for the first time  
 
-`$ cd out/usr/local/bin`  
-`$ ./zcash-fetch-params`  
-`$ ./zcash-init`  
-`$ ./zcashd`  
+```shell
+$ cd out/usr/local/bin
+$ ./zcash-fetch-params
+$ ./zcash-init
+$ ./zcashd
+```
 
 You can just run `Zcash` by launching the daemon afterwards  
 
 `$ ./zcashd`  
 
 Console output from the first run is below:
-```
+```shell
 bash-3.2$ ./zcash-fetch-params
 Zcash - fetch-params.sh
 
