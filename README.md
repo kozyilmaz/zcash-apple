@@ -11,7 +11,7 @@ All build tools (`autoconf, automake, libtool, pkgconfig, cmake, install and rea
 ```shell
 # run once to install Xcode CLI tools
 $ xcode-select --install
-#
+# clone and build Zcash on macOS
 $ git clone https://github.com/kozyilmaz/zcash-apple.git
 $ cd zcash-apple
 $ source environment
