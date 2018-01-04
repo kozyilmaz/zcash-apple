@@ -935,6 +935,7 @@ all: $(addsuffix _all, $(subdirs))
 all: $(target-builds)
 all: $(target-dists)
 all: __FORCE
+	@true
 
 clean: $(addsuffix _clean, $(subdir-y) $(subdir-n) $(subdir-))
 clean: $(target-cleans)
