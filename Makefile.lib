@@ -36,6 +36,7 @@
 #   20170407 - depends-y file gen fix
 #   20170425 - directory with space fix
 #   20170927 - cflags for .c, cxxflags for .cpp
+#   20180105 - target.extra-y
 
 #
 # Example
@@ -934,6 +935,7 @@ endif
 all: $(addsuffix _all, $(subdirs))
 all: $(target-builds)
 all: $(target-dists)
+all: $(target.extra-y)
 all: __FORCE
 	@true
 
