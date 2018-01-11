@@ -1,0 +1,17 @@
+diff --git a/configure.ac b/configure.ac
+index df8d3fdb..4d773380 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -188,9 +188,10 @@ fi
+ ERROR_CXXFLAGS=
+ if test "x$enable_werror" = "xyes"; then
+   if test "x$CXXFLAG_WERROR" = "x"; then
+-    AC_MSG_ERROR("enable-werror set but -Werror is not usable")
++    AC_MSG_WARN("enable-werror set but -Werror is not usable")
++  else
++    ERROR_CXXFLAGS="$ERROR_CXXFLAGS -Werror"
+   fi
+-  ERROR_CXXFLAGS="$ERROR_CXXFLAGS -Werror"
+ fi
+ 
+ if test "x$CXXFLAGS_overridden" = "xno"; then
