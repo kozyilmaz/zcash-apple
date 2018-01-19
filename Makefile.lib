@@ -37,7 +37,6 @@
 #   20170425 - directory with space fix
 #   20170927 - cflags for .c, cxxflags for .cpp
 #   20180105 - target.extra-y
-#   20180119 - target.all-y, target.clean-y
 #   20180119 - support using source files from outer directories
 
 #
@@ -937,16 +936,14 @@ endif
 all: $(addsuffix _all, $(subdirs))
 all: $(target-builds)
 all: $(target-dists)
-all: $(target.all-y)
+all: $(target.extra-y)
 all: __FORCE
 	@true
 
 clean: $(addsuffix _clean, $(subdir-y) $(subdir-n) $(subdir-))
 clean: $(target-cleans)
 clean: $(addsuffix _clean, $(targets-empty))
-clean: $(target.clean-y)
 clean: __FORCE
-	@true
 
 __FORCE:
 	@true
