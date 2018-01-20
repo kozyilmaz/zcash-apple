@@ -107,9 +107,6 @@ Creating zcash.conf
 Complete!
 ```
 
-Vaklinov's [Desktop GUI Wallet](https://github.com/vaklinov/zcash-swing-wallet-ui) also works, please follow build instructions for MacOS
-
-
 ## Thanks
 Developers of `Zcash`  
 Developers of `ZClassic` for MacOS patches
