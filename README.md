@@ -18,6 +18,11 @@ $ source environment
 $ make
 ```
 
+In case of an error please run the following command for debug info
+```shell
+$ PRINT_DEBUG=y make all
+```
+
 After successful build Zcash binaries will be installed to `out` directory under project root  
 You can then copy binary directory anywhere you like there are no dependencies to the build tree anymore  
 ```shell
