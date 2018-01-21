@@ -181,6 +181,7 @@ AR         := $(CROSS_COMPILE_PREFIX)ar
 RANLIB     := $(CROSS_COMPILE_PREFIX)ranlib
 STRIP      := $(CROSS_COMPILE_PREFIX)strip -sx
 MOC        ?= $(CROSS_COMPILE_PREFIX)moc
+UIC        ?= $(CROSS_COMPILE_PREFIX)uic
 
 HOSTCC     := $(HOST_COMPILE_PREFIX)gcc
 HOSTCXX    := $(HOST_COMPILE_PREFIX)g++
@@ -190,6 +191,7 @@ HOSTAR     := $(HOST_COMPILE_PREFIX)ar
 HOSTRANLIB := $(HOST_COMPILE_PREFIX)ranlib
 HOSTSTRIP  := $(HOST_COMPILE_PREFIX)strip
 HOSTMOC    ?= $(HOST_COMPILE_PREFIX)moc
+HOSTUIC    ?= $(HOST_COMPILE_PREFIX)uic
 
 SED        := sed
 
@@ -265,7 +267,8 @@ pur_disp_compile.cxx      = echo "  CXX        $(pur_objects)"
 pur_disp_link.cxx         = echo "  LINK       $(pur_objects)"
 pur_disp_link_so.cxx      = echo "  LINKSO     $(pur_objects)"
 
-pur_disp_moc.cxx          = echo "  MOC        $(pur_objects)"
+pur_disp_moc.qt           = echo "  MOC        $(pur_objects)"
+pur_disp_uic.qt           = echo "  UIC        $(pur_objects)"
 
 pur_disp_depend.m         = echo "  CPP        $(pur_objects)"
 pur_disp_compile.m        = echo "  CC         $(pur_objects)"
@@ -282,7 +285,8 @@ pur_disp_compile.cxx.host = echo "  HOSTCXX    $(pur_objects)"
 pur_disp_link.cxx.host    = echo "  HOSTLINK   $(pur_objects)"
 pur_disp_link_so.cxx.host = echo "  HOSTLINKSO $(pur_objects)"
 
-pur_disp_moc.cxx.host     = echo "  HOSTMOC    $(pur_objects)"
+pur_disp_moc.qt.host      = echo "  HOSTMOC    $(pur_objects)"
+pur_disp_uic.qt.host      = echo "  HOSTUIC    $(pur_objects)"
 
 pur_disp_depend.m.host    = echo "  HOSTCPP    $(pur_objects)"
 pur_disp_compile.m.host   = echo "  HOSTCC     $(pur_objects)"
@@ -315,7 +319,8 @@ ver_disp_compile.cxx      = echo "$(subst ",\",$(cmd_compile.cxx))"
 ver_disp_link.cxx         = echo "$(subst ",\",$(cmd_link.cxx))"
 ver_disp_link_so.cxx      = echo "$(subst ",\",$(cmd_link_so.cxx))"
 
-ver_disp_moc.cxx          = echo "$(subst ",\",$(cmd_moc.cxx))"
+ver_disp_moc.qt           = echo "$(subst ",\",$(cmd_moc.qt))"
+ver_disp_uic.qt           = echo "$(subst ",\",$(cmd_uic.qt))"
 
 ver_disp_depend.m         = echo "$(subst ",\",$(cmd_depend.m))"
 ver_disp_compile.m        = echo "$(subst ",\",$(cmd_compile.m))"
@@ -332,7 +337,8 @@ ver_disp_compile.cxx.host = echo "$(subst ",\",$(cmd_compile.cxx.host))"
 ver_disp_link.cxx.host    = echo "$(subst ",\",$(cmd_link.cxx.host))"
 ver_disp_link_so.cxx.host = echo "$(subst ",\",$(cmd_link_so.cxx.host))"
 
-ver_disp_moc.cxx.host     = echo "$(subst ",\",$(cmd_moc.cxx.host))"
+ver_disp_moc.qt.host      = echo "$(subst ",\",$(cmd_moc.qt.host))"
+ver_disp_uic.qt.host      = echo "$(subst ",\",$(cmd_uic.qt.host))"
 
 ver_disp_depend.m.host    = echo "$(subst ",\",$(cmd_depend.m.host))"
 ver_disp_compile.m.host   = echo "$(subst ",\",$(cmd_compile.m.host))"
@@ -365,7 +371,8 @@ disp_compile.cxx      = $($(verbose)_disp_compile.cxx)
 disp_link.cxx         = $($(verbose)_disp_link.cxx)
 disp_link_so.cxx      = $($(verbose)_disp_link_so.cxx)
 
-disp_moc.cxx          = $($(verbose)_disp_moc.cxx)
+disp_moc.qt           = $($(verbose)_disp_moc.qt)
+disp_uic.qt           = $($(verbose)_disp_uic.qt)
 
 disp_depend.m         = $($(verbose)_disp_depend.m)
 disp_compile.m        = $($(verbose)_disp_compile.m)
@@ -382,7 +389,8 @@ disp_compile.cxx.host = $($(verbose)_disp_compile.cxx.host)
 disp_link.cxx.host    = $($(verbose)_disp_link.cxx.host)
 disp_link_so.cxx.host = $($(verbose)_disp_link_so.cxx.host)
 
-disp_moc.cxx.host     = $($(verbose)_disp_moc.cxx.host)
+disp_moc.qt.host      = $($(verbose)_disp_moc.qt.host)
+disp_uic.qt.host      = $($(verbose)_disp_uic.qt.host)
 
 disp_depend.m.host    = $($(verbose)_disp_depend.m.host)
 disp_compile.m.host   = $($(verbose)_disp_compile.m.host)
@@ -453,9 +461,11 @@ _cmd_link.cxx.host    = $(HOSTCXX) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-
 _cmd_link_so.cxx.host = $(HOSTCXX) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                         $($1_ldflags) $$(filter-out -static,$(LDFLAGS)) -shared
 
-_cmd_moc.cxx          = $(MOC) $$< -o $$@
+_cmd_moc.qt           = $(MOC) $$< -o $$@
+_cmd_moc.qt.host      = $(HOSTMOC) $$< -o $$@
 
-_cmd_moc.cxx.host     = $(HOSTMOC) $$< -o $$@
+_cmd_uic.qt           = $(UIC) $$< -o $$@
+_cmd_uic.qt.host      = $(HOSTUIC) $$< -o $$@
 
 _cmd_depend.m         = $(CC) $(CFLAGS) $($1_cflags) \
                         $($1_includes) -M $$< | $(SED) 's,\($$(notdir $$*)\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
@@ -517,8 +527,11 @@ cmd_compile.cxx.host = echo "$(_cmd_compile.cxx.host)" > $$@.cmd; $(_cmd_compile
 cmd_link.cxx.host    = echo "$(_cmd_link.cxx.host)" > $$@.cmd   ; $(_cmd_link.cxx.host)
 cmd_link_so.cxx.host = echo "$(_cmd_link_so.cxx.host)" > $$@.cmd; $(_cmd_link_so.cxx.host)
 
-cmd_moc.cxx          = echo "$(_cmd_moc.cxx)" > $$@.cmd         ; $(_cmd_moc.cxx)
-cmd_moc.cxx.host     = echo "$(_cmd_moc.cxx.host)" > $$@.cmd    ; $(_cmd_moc.cxx.host)
+cmd_moc.qt           = echo "$(_cmd_moc.qt)" > $$@.cmd         ; $(_cmd_moc.qt)
+cmd_moc.qt.host      = echo "$(_cmd_moc.qt.host)" > $$@.cmd    ; $(_cmd_moc.qt.host)
+
+cmd_uic.qt           = echo "$(_cmd_uic.qt)" > $$@.cmd         ; $(_cmd_uic.qt)
+cmd_uic.qt.host      = echo "$(_cmd_uic.qt.host)" > $$@.cmd    ; $(_cmd_uic.qt.host)
 
 cmd_depend.m         = echo "$(_cmd_depend.m)" > $$@.cmd        ; $(_cmd_depend.m)
 cmd_compile.m        = echo "$(_cmd_compile.m)" > $$@.cmd       ; $(_cmd_compile.m)
@@ -566,8 +579,11 @@ do_compile.cxx.host = @$(disp_compile.cxx.host) ; $(MKDIR) $$(dir $$@); $(cmd_co
 do_link.cxx.host    = @$(disp_link.cxx.host)    ; $(MKDIR) $$(dir $$@); $(cmd_link.cxx.host)
 do_link_so.cxx.host = @$(disp_link_so.cxx.host) ; $(MKDIR) $$(dir $$@); $(cmd_link_so.cxx.host)
 
-do_moc.cxx          = @$(disp_moc.cxx)          ; $(MKDIR) $$(dir $$@); $(cmd_moc.cxx)
-do_moc.cxx.host     = @$(disp_moc.cxx.host      ; $(MKDIR) $$(dir $$@); $(cmd_moc.cxx.host)
+do_moc.qt           = @$(disp_moc.qt)          ; $(MKDIR) $$(dir $$@); $(cmd_moc.qt)
+do_moc.qt.host      = @$(disp_moc.qt.host      ; $(MKDIR) $$(dir $$@); $(cmd_moc.qt.host)
+
+do_uic.qt           = @$(disp_uic.qt)          ; $(MKDIR) $$(dir $$@); $(cmd_uic.qt)
+do_uic.qt.host      = @$(disp_uic.qt.host      ; $(MKDIR) $$(dir $$@); $(cmd_uic.qt.host)
 
 do_depend.m         = @$(disp_depend.m)         ; $(MKDIR) $$(dir $$@); $(cmd_depend.m)
 do_compile.m        = @$(disp_compile.m)        ; $(MKDIR) $$(dir $$@); $(cmd_compile.m)
@@ -605,6 +621,7 @@ define target-defaults_base
     $(eval $1_headers_cxx  = $(filter %.hh,$2))
     $(eval $1_headers_cxx += $(filter %.hpp,$2))
     $(eval $1_sources_moc  = $(addprefix .$1/, $(filter %-moc.cpp,$2)))
+    $(eval $1_sources_uic  = $(filter %.ui,$2))
     $(eval $1_sources_m    = $(filter %.m,$2))
     $(eval $1_headers_m    = $(filter %.h,$2))
     $(eval $1_objects_c    = $(addprefix .$1/, $(subst .c,.c.o,$($1_sources_c))))
@@ -627,6 +644,8 @@ define target-defaults_base
     $(eval $1_libraries   += $(addprefix -Wl$(comma)-rpath , $($1_libraries-y)))
     $(eval $1_ldflags      = $($1_ldflags-y))
     
+    $(eval $1_headers_uic  = $(addprefix .$1/, $(patsubst %.ui,ui_%.h,$($1_sources_uic))))
+    
     $(eval $1_depends_c    = $(subst ../,__UPDIR__/,$($1_depends_c)))
     $(eval $1_objects_c    = $(subst ../,__UPDIR__/,$($1_objects_c)))
 
@@ -646,6 +665,9 @@ define target-defaults_base
 
     $(eval $1_depends      = $(MAKEFILE_LIST) $($1_depends_c) $($1_depends_cc) $($1_depends_cpp) $($1_depends_m) $($1_depends_moc))
     $(eval $1_depends-y   += $($1_depends))
+    $(eval $1_depends-y   += $($1_headers_c))
+    $(eval $1_depends-y   += $($1_headers_cxx))
+    $(eval $1_depends-y   += $($1_headers_uic))
 
     $(eval target-builds  += $1)
     $(eval target-objects += $($1_objects_c))
@@ -682,7 +704,7 @@ define target-defaults_base
     .$1/$1: $($1_depends-y) $($1_objects_c) $($1_objects_cc) $($1_objects_cpp) $($1_objects_moc) $($1_objects_m) $($1_objects_e)
 
     $1_clean: __FORCE
-	$(do_clean) $1 .$1 $$@.cmd $1.dSYM
+	$(do_clean) $1 .$1 $$@.cmd $1.dSYM $($1_headers_uic)
 
     $1_distclean: __FORCE
 endef
@@ -690,6 +712,7 @@ endef
 define target-defaults-rule
     alper += $2
     $(eval source = $(patsubst $3,$4,$(subst __UPDIR__/,../,$2)))
+    akcan += $(source)
     $2: ${source} $(MAKEFILE_LIST)
 	$5
 endef
@@ -706,7 +729,9 @@ define target-defaults
     $(eval $(foreach F,$($1_depends_cpp), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.d,%.cpp,$(do_depend.cxx)))))
     $(eval $(foreach F,$($1_objects_cpp), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.o,%.cpp,$(do_compile.cxx)))))
     
-    $(eval $(foreach F,$($1_sources_moc), $(eval $(call target-defaults-rule,$1,$F,.$1/%-moc.cpp,%.h,$(do_moc.cxx)))))
+    $(eval $(foreach F,$($1_headers_uic), $(eval $(call target-defaults-rule,$1,$F,.$1/ui_%.h,%.ui,$(do_uic.qt)))))
+    
+    $(eval $(foreach F,$($1_sources_moc), $(eval $(call target-defaults-rule,$1,$F,.$1/%-moc.cpp,%.h,$(do_moc.qt)))))
     $(eval $(foreach F,$($1_depends_moc), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.d,.$1/%.cpp,$(do_depend.cxx)))))
     $(eval $(foreach F,$($1_objects_moc), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.o,.$1/%.cpp,$(do_compile.cxx)))))
     
@@ -726,7 +751,7 @@ define target.host-defaults
     $(eval $(foreach F,$($1_depends_cpp), $(eval $(call target-defaults-rule,$1,$F,%.cpp.d,%.cpp,$(do_depend.cxx.host)))))
     $(eval $(foreach F,$($1_objects_cpp), $(eval $(call target-defaults-rule,$1,$F,%.cpp.o,%.cpp,$(do_compile.cxx.host)))))
     
-    $(eval $(foreach F,$($1_sources_moc), $(eval $(call target-defaults-rule,$1,$F,%-moc.cpp,%.h,$(do_moc.cxx.host)))))
+    $(eval $(foreach F,$($1_sources_moc), $(eval $(call target-defaults-rule,$1,$F,%-moc.cpp,%.h,$(do_moc.qt.host)))))
     $(eval $(foreach F,$($1_depends_moc), $(eval $(call target-defaults-rule,$1,$F,%.cpp.d,%.cpp,$(do_depend.cxx.host)))))
     $(eval $(foreach F,$($1_objects_moc), $(eval $(call target-defaults-rule,$1,$F,%.cpp.o,%.cpp,$(do_compile.cxx.host)))))
     
