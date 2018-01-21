@@ -38,6 +38,7 @@
 #   20170927 - cflags for .c, cxxflags for .cpp
 #   20180105 - target.extra-y
 #   20180119 - support using source files from outer directories
+#   20180121 - qt uic support
 
 #
 # Example
