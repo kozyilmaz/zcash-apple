@@ -650,7 +650,7 @@ define target-defaults_base
         $(eval A = $(subst ./,,$U)) \
         $(eval B = $(notdir $F)) \
         $(eval C = $(patsubst %.ui,ui_%.h,$B)) \
-        $1_headers_uic += $(addprefix .$1/, $A$C) \
+        $(eval $1_headers_uic += $(addprefix .$1/, $A$C)) \
     ))
     
     $(eval $1_depends_c    = $(subst ../,__UPDIR__/,$($1_depends_c)))
