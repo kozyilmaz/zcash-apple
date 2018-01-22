@@ -415,7 +415,7 @@ disp_distclean        = $($(verbose)_disp_distclean)
 # _CMD
 #
 _cmd_depend.c       = $(CC) $(CFLAGS) $($1_cflags) \
-                      $($1_includes) -M $$< | $(SED) 's,\($$(notdir $$*)\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
+                      $($1_includes) -M $$< | $(SED) 's,\($$(basename $$(basename $$(notdir $$@)))\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
                       $(CP) $$@ $$@.p; \
                       $(SED) -e 's/\#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$$$//' -e '/^$$$$/ d' -e 's/$$$$/ :/' < $$@ >> $$@.p; \
                       $(MV) $$@.p $$@
@@ -427,7 +427,7 @@ _cmd_link_so.c      = $(CC) $(CFLAGS) $($1_libraries) -o $$@ $$(filter-out __FOR
                       $($1_ldflags) $$(filter-out -static,$(LDFLAGS)) -shared
 
 _cmd_depend.c.host  = $(HOSTCC) $(CFLAGS) $($1_cflags) \
-                      $($1_includes) -M $$< | $(SED) 's,\($$(notdir $$*)\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
+                      $($1_includes) -M $$< | $(SED) 's,\($$(basename $$(basename $$(notdir $$@)))\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
                       $(CP) $$@ $$@.p; \
                       $(SED) -e 's/\#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$$$//' -e '/^$$$$/ d' -e 's/$$$$/ :/' < $$@ >> $$@.p; \
                       $(MV) $$@.p $$@
@@ -439,7 +439,7 @@ _cmd_link_so.c.host = $(HOSTCC) $(CFLAGS) $($1_libraries) -o $$@ $$(filter-out _
                       $($1_ldflags) $$(filter-out -static,$(LDFLAGS)) -shared
 
 _cmd_depend.cxx       = $(CXX) $(CXXFLAGS) $($1_cxxflags) \
-                        $($1_includes) -M $$< | $(SED) 's,\($$(notdir $$*)\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
+                        $($1_includes) -M $$< | $(SED) 's,\($$(basename $$(basename $$(notdir $$@)))\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
                         $(CP) $$@ $$@.p; \
                         $(SED) -e 's/\#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$$$//' -e '/^$$$$/ d' -e 's/$$$$/ :/' < $$@ >> $$@.p; \
                         $(MV) $$@.p $$@
@@ -451,7 +451,7 @@ _cmd_link_so.cxx      = $(CXX) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out 
                         $($1_ldflags) $$(filter-out -static,$(LDFLAGS)) -shared
 
 _cmd_depend.cxx.host  = $(HOSTCXX) $(CXXFLAGS) $($1_cxxflags) \
-                        $($1_includes) -M $$< | $(SED) 's,\($$(notdir $$*)\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
+                        $($1_includes) -M $$< | $(SED) 's,\($$(basename $$(basename $$(notdir $$@)))\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
                         $(CP) $$@ $$@.p; \
                         $(SED) -e 's/\#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$$$//' -e '/^$$$$/ d' -e 's/$$$$/ :/' < $$@ >> $$@.p; \
                         $(MV) $$@.p $$@
@@ -469,7 +469,7 @@ _cmd_uic.qt           = $(UIC) $$< -o $$@
 _cmd_uic.qt.host      = $(HOSTUIC) $$< -o $$@
 
 _cmd_depend.m         = $(CC) $(CFLAGS) $($1_cflags) \
-                        $($1_includes) -M $$< | $(SED) 's,\($$(notdir $$*)\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
+                        $($1_includes) -M $$< | $(SED) 's,\($$(basename $$(basename $$(notdir $$@)))\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
                         $(CP) $$@ $$@.p; \
                         $(SED) -e 's/\#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$$$//' -e '/^$$$$/ d' -e 's/$$$$/ :/' < $$@ >> $$@.p; \
                         $(MV) $$@.p $$@
@@ -481,7 +481,7 @@ _cmd_link_so.m        = $(CC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(fi
                         $($1_ldflags) $$(filter-out -static,$(LDFLAGS)) -shared
 
 _cmd_depend.m.host    = $(HOSTCC) $(CFLAGS) $($1_cflags) \
-                        $($1_includes) -M $$< | $(SED) 's,\($$(notdir $$*)\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
+                        $($1_includes) -M $$< | $(SED) 's,\($$(basename $$(basename $$(notdir $$@)))\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
                         $(CP) $$@ $$@.p; \
                         $(SED) -e 's/\#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$$$//' -e '/^$$$$/ d' -e 's/$$$$/ :/' < $$@ >> $$@.p; \
                         $(MV) $$@.p $$@
@@ -672,8 +672,9 @@ define target-defaults_base
 
     $(eval $1_depends      = $(MAKEFILE_LIST) $($1_depends_c) $($1_depends_cc) $($1_depends_cpp) $($1_depends_m) $($1_depends_moc))
     $(eval $1_depends-y   += $($1_depends))
-    $(eval $1_depends-y   += $($1_headers_c))
-    $(eval $1_depends-y   += $($1_headers_cxx))
+    $(eval $1_depends-n   += $($1_headers_c))
+    $(eval $1_depends-n   += $($1_headers_m))
+    $(eval $1_depends-n   += $($1_headers_cxx))
     $(eval $1_depends-y   += $($1_headers_uic))
 
     $(eval target-builds  += $1)
