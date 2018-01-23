@@ -39,6 +39,7 @@
 #   20180105 - target.extra-y
 #   20180119 - support using source files from outer directories
 #   20180121 - qt uic support
+#   20180123 - add ./ to includes-y and libriries-y by default
 
 #
 # Example
@@ -640,9 +641,9 @@ define target-defaults_base
     $(eval $1_depends_m    = $(addprefix .$1/, $(subst .m,.m.d,$($1_sources_m))))
     $(eval $1_cflags       = $($1_cflags-y))
     $(eval $1_cxxflags     = $($1_cxxflags-y))
-    $(eval $1_includes     = $(addprefix -I, $($1_includes-y)))
-    $(eval $1_libraries    = $(addprefix -L, $($1_libraries-y)))
-    $(eval $1_libraries   += $(addprefix -Wl$(comma)-rpath , $($1_libraries-y)))
+    $(eval $1_includes     = $(addprefix -I, ./ $($1_includes-y)))
+    $(eval $1_libraries    = $(addprefix -L, ./ $($1_libraries-y)))
+    $(eval $1_libraries   += $(addprefix -Wl$(comma)-rpath , ./ $($1_libraries-y)))
     $(eval $1_ldflags      = $($1_ldflags-y))
     
     $(eval $(foreach F,$($1_sources_uic), \
