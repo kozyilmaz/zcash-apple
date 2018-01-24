@@ -619,17 +619,17 @@ define target-defaults_base
     $(eval $1_sources_c    = $(filter %.c,$2))
     $(eval $1_headers_c    = $(filter %.h,$2))
     $(eval $1_sources_cc   = $(filter %.cc,$2))
-    $(eval $1_sources_cpp  = $(filter-out %-moc.cpp, $(filter %.cpp,$2)))
+    $(eval $1_sources_cpp  = $(filter %.cpp,$2))
     $(eval $1_headers_cxx  = $(filter %.hh,$2))
     $(eval $1_headers_cxx += $(filter %.hpp,$2))
-    $(eval $1_sources_moc  = $(addprefix .$1/, $(filter %-moc.cpp,$2)))
+    $(eval $1_sources_moc  = $(filter %.moc,$2))
     $(eval $1_sources_uic  = $(filter %.ui,$2))
     $(eval $1_sources_m    = $(filter %.m,$2))
     $(eval $1_headers_m    = $(filter %.h,$2))
     $(eval $1_objects_c    = $(addprefix .$1/, $(subst .c,.c.o,$($1_sources_c))))
     $(eval $1_objects_cc   = $(addprefix .$1/, $(subst .cc,.cc.o,$($1_sources_cc))))
     $(eval $1_objects_cpp  = $(addprefix .$1/, $(subst .cpp,.cpp.o,$($1_sources_cpp))))
-    $(eval $1_objects_moc  = $(subst .cpp,.cpp.o,$($1_sources_moc)))
+    $(eval $1_objects_moc  = $(addprefix .$1/, $(subst .moc,.moc.cpp.o,$($1_sources_moc))))
     $(eval $1_objects_m    = $(addprefix .$1/, $(subst .m,.m.o,$($1_sources_m))))
     $(eval $1_objects_e    = $(subst ",,$(filter %.o,$2)))
     $(eval $1_objects_e   += $(subst ",,$(filter %.a,$2)))
@@ -637,7 +637,7 @@ define target-defaults_base
     $(eval $1_depends_c    = $(addprefix .$1/, $(subst .c,.c.d,$($1_sources_c))))
     $(eval $1_depends_cc   = $(addprefix .$1/, $(subst .cc,.cc.d,$($1_sources_cc))))
     $(eval $1_depends_cpp  = $(addprefix .$1/, $(subst .cpp,.cpp.d,$($1_sources_cpp))))
-    $(eval $1_depends_moc  = $(subst .cpp,.cpp.d,$($1_sources_moc)))
+    $(eval $1_depends_moc  = $(addprefix .$1/, $(subst .moc,.moc.cpp.d,$($1_sources_moc))))
     $(eval $1_depends_m    = $(addprefix .$1/, $(subst .m,.m.d,$($1_sources_m))))
     $(eval $1_cflags       = $($1_cflags-y))
     $(eval $1_cxxflags     = $($1_cxxflags-y))
@@ -647,13 +647,7 @@ define target-defaults_base
     $(eval $1_libraries   += $(addprefix -Wl$(comma)-rpath , ./ $($1_libraries-y)))
     $(eval $1_ldflags      = $($1_ldflags-y))
     
-    $(eval $(foreach F,$($1_sources_uic), \
-        $(eval U = $(subst ../,__UPDIR__/,$(dir $F))) \
-        $(eval A = $(subst ./,,$U)) \
-        $(eval B = $(notdir $F)) \
-        $(eval C = $(patsubst %.ui,ui_%.h,$B)) \
-        $(eval $1_headers_uic += $(addprefix .$1/, $A$C)) \
-    ))
+    $(eval $1_headers_uic  = $(patsubst %.ui,.$1/%-ui.h,$(subst ../,__UPDIR__/,$($1_sources_uic))))
     
     $(eval $1_depends_c    = $(subst ../,__UPDIR__/,$($1_depends_c)))
     $(eval $1_objects_c    = $(subst ../,__UPDIR__/,$($1_objects_c)))
@@ -721,6 +715,10 @@ endef
 
 define target-defaults-rule
     $(eval source = $(patsubst $3,$4,$(subst __UPDIR__/,../,$2)))
+    $(eval alper += ${source})
+    $(eval akcan += ${2})
+    $(eval eylem += ${3})
+    $(eval barik += ${4})
     $2: ${source} $(MAKEFILE_LIST)
 	$5
 endef
@@ -737,16 +735,8 @@ define target-defaults
     $(eval $(foreach F,$($1_depends_cpp), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.d,%.cpp,$(do_depend.cxx)))))
     $(eval $(foreach F,$($1_objects_cpp), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.o,%.cpp,$(do_compile.cxx)))))
     
-    $(eval $(foreach F,$($1_headers_uic), \
-        $(eval S = $(subst __UPDIR__/,../,$F)) \
-        $(eval A = $(dir $S)) \
-        $(eval B = $(notdir $S)) \
-        $(eval C = $(patsubst ui_%.h,%.ui,$B)) \
-        $(eval D = $(patsubst .$1/%,%,$A)) \
-        $F: $D$C  $(MAKEFILE_LIST)
-		$(do_uic.qt)
-    ))
-    $(eval $(foreach F,$($1_sources_moc), $(eval $(call target-defaults-rule,$1,$F,.$1/%-moc.cpp,%.h,$(do_moc.qt)))))
+    $(eval $(foreach F,$($1_headers_uic), $(eval $(call target-defaults-rule,$1,$F,.$1/%-ui.h,%.ui,$(do_uic.qt)))))
+    $(eval $(foreach F,$($1_sources_moc), $(eval $(call target-defaults-rule,$1,$(patsubst %.moc,.$1/%.moc.cpp,$F),.$1/%.moc.cpp,%.h,$(do_moc.qt)))))
     $(eval $(foreach F,$($1_depends_moc), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.d,.$1/%.cpp,$(do_depend.cxx)))))
     $(eval $(foreach F,$($1_objects_moc), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.o,.$1/%.cpp,$(do_compile.cxx)))))
     
@@ -766,16 +756,8 @@ define target.host-defaults
     $(eval $(foreach F,$($1_depends_cpp), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.d,%.cpp,$(do_depend.cxx.host)))))
     $(eval $(foreach F,$($1_objects_cpp), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.o,%.cpp,$(do_compile.cxx.host)))))
     
-    $(eval $(foreach F,$($1_headers_uic), \
-        $(eval S = $(subst __UPDIR__/,../,$F)) \
-        $(eval A = $(subst ./,,$(dir $S))) \
-        $(eval B = $(notdir $S)) \
-        $(eval C = $(patsubst ui_%.h,%.ui,$B)) \
-        $(eval D = $(patsubst .$1/%,%,$A)) \
-        $F: $D$C  $(MAKEFILE_LIST)
-		$(do_uic.qt.host)
-    ))
-    $(eval $(foreach F,$($1_sources_moc), $(eval $(call target-defaults-rule,$1,$F,.$1/%-moc.cpp,%.h,$(do_moc.qt.host)))))
+    $(eval $(foreach F,$($1_headers_uic), $(eval $(call target-defaults-rule,$1,$F,.$1/%-ui.h,%.ui,$(do_uic.qt)))))
+    $(eval $(foreach F,$($1_sources_moc), $(eval $(call target-defaults-rule,$1,$(patsubst %.moc,.$1/%.moc.cpp,$F),.$1/%.moc.cpp,%.h,$(do_moc.qt)))))
     $(eval $(foreach F,$($1_depends_moc), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.d,.$1/%.cpp,$(do_depend.cxx.host)))))
     $(eval $(foreach F,$($1_objects_moc), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.o,.$1/%.cpp,$(do_compile.cxx.host)))))
     
