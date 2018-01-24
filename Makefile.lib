@@ -715,10 +715,6 @@ endef
 
 define target-defaults-rule
     $(eval source = $(patsubst $3,$4,$(subst __UPDIR__/,../,$2)))
-    $(eval alper += ${source})
-    $(eval akcan += ${2})
-    $(eval eylem += ${3})
-    $(eval barik += ${4})
     $2: ${source} $(MAKEFILE_LIST)
 	$5
 endef
