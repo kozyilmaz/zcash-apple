@@ -203,7 +203,7 @@ MV         := mv
 RM         := rm -rf
 MKDIR      := mkdir -p
 
-override CFLAGS += -Wall -Wextra -Werror -pipe -g3 -O2 -fsigned-char -fno-strict-aliasing -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
+override CFLAGS += -Wall -Wextra -pipe -g3 -O2 -fsigned-char -fno-strict-aliasing -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
 # -fvisibility=hidden
 
 #override CFLAGS += -fno-math-errno -fno-trapping-math
@@ -847,11 +847,26 @@ define subdir-defaults
     $(addsuffix _all, $1): $($1_depends-y) __FORCE
 	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _all,,$$@)' all
 
+    $(addsuffix _clone, $1): $($1_depends-y) __FORCE
+	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _clone,,$$@)' clone
+
+    $(addsuffix _config, $1): $($1_depends-y) __FORCE
+	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _config,,$$@)' config
+
     $(addsuffix _build, $1): $($1_depends-y) __FORCE
 	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _build,,$$@)' build
 
     $(addsuffix _clean, $1): __FORCE
 	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _clean,,$$@)' clean
+
+    $(addsuffix _distclean, $1): __FORCE
+	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _distclean,,$$@)' distclean
+
+    $(addsuffix _install, $1): __FORCE
+	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _install,,$$@)' install
+
+    $(addsuffix _uninstall, $1): __FORCE
+	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _uninstall,,$$@)' uninstall
 
 endef
 
@@ -971,6 +986,9 @@ clean: $(addsuffix _clean, $(subdir-y) $(subdir-n) $(subdir-))
 clean: $(target-cleans)
 clean: $(addsuffix _clean, $(targets-empty))
 clean: __FORCE
+
+distclean: $(addsuffix _distclean, $(subdir-y))
+distclean: __FORCE
 
 __FORCE:
 	@true
