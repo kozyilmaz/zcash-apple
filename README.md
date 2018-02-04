@@ -59,15 +59,15 @@ https://github.com/<user>/<repo>/issues/<number>
 
 ### add libmakefile as subtree
 ```
-# add libmakefile as subtree
+add libmakefile as subtree
 $ git remote add libmakefile https://github.com/kozyilmaz/libmakefile.git
 $ git subtree add --prefix=libmakefile/ --squash libmakefile buildsystem
 
-# check libmakefile subtree
+check libmakefile subtree
 $ git fetch https://github.com/kozyilmaz/libmakefile.git master
 $ ./contrib/devtools/git-subtree-check.sh libmakefile
 
-# sync libmakefile subtree
+sync libmakefile subtree
 $ git remote add libmakefile-remote https://github.com/kozyilmaz/libmakefile.git
 $ git subtree pull --prefix=libmakefile/ --squash libmakefile-remote buildsystem
 ```
