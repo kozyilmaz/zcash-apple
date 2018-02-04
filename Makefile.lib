@@ -1,7 +1,7 @@
 # 
 # Makefile.lib 
 #
-# version   : 3.1.0
+# version   : 3.2.0
 # copyright : 2002 - 2018 by Alper Akcan
 # email     : alper.akcan@gmail.com
 #
@@ -40,6 +40,7 @@
 #   20180119 - support using source files from outer directories
 #   20180121 - qt uic support
 #   20180123 - add ./ to includes-y and libriries-y by default
+#   20180204 - seemless qt .moc, .ui support
 
 #
 # Example
@@ -629,7 +630,7 @@ define target-defaults_base
     $(eval $1_objects_c    = $(addprefix .$1/, $(subst .c,.c.o,$($1_sources_c))))
     $(eval $1_objects_cc   = $(addprefix .$1/, $(subst .cc,.cc.o,$($1_sources_cc))))
     $(eval $1_objects_cpp  = $(addprefix .$1/, $(subst .cpp,.cpp.o,$($1_sources_cpp))))
-    $(eval $1_objects_moc  = $(addprefix .$1/, $(subst .moc,.moc.cpp.o,$($1_sources_moc))))
+    $(eval $1_objects_moc  = $(addprefix .$1/, $(subst .moc,-moc.cpp.o,$($1_sources_moc))))
     $(eval $1_objects_m    = $(addprefix .$1/, $(subst .m,.m.o,$($1_sources_m))))
     $(eval $1_objects_e    = $(subst ",,$(filter %.o,$2)))
     $(eval $1_objects_e   += $(subst ",,$(filter %.a,$2)))
@@ -637,7 +638,7 @@ define target-defaults_base
     $(eval $1_depends_c    = $(addprefix .$1/, $(subst .c,.c.d,$($1_sources_c))))
     $(eval $1_depends_cc   = $(addprefix .$1/, $(subst .cc,.cc.d,$($1_sources_cc))))
     $(eval $1_depends_cpp  = $(addprefix .$1/, $(subst .cpp,.cpp.d,$($1_sources_cpp))))
-    $(eval $1_depends_moc  = $(addprefix .$1/, $(subst .moc,.moc.cpp.d,$($1_sources_moc))))
+    $(eval $1_depends_moc  = $(addprefix .$1/, $(subst .moc,-moc.cpp.d,$($1_sources_moc))))
     $(eval $1_depends_m    = $(addprefix .$1/, $(subst .m,.m.d,$($1_sources_m))))
     $(eval $1_cflags       = $($1_cflags-y))
     $(eval $1_cxxflags     = $($1_cxxflags-y))
@@ -732,7 +733,7 @@ define target-defaults
     $(eval $(foreach F,$($1_objects_cpp), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.o,%.cpp,$(do_compile.cxx)))))
     
     $(eval $(foreach F,$($1_headers_uic), $(eval $(call target-defaults-rule,$1,$F,.$1/%-ui.h,%.ui,$(do_uic.qt)))))
-    $(eval $(foreach F,$($1_sources_moc), $(eval $(call target-defaults-rule,$1,$(patsubst %.moc,.$1/%.moc.cpp,$F),.$1/%.moc.cpp,%.h,$(do_moc.qt)))))
+    $(eval $(foreach F,$($1_sources_moc), $(eval $(call target-defaults-rule,$1,$(patsubst %.moc,.$1/%-moc.cpp,$F),.$1/%-moc.cpp,%.h,$(do_moc.qt)))))
     $(eval $(foreach F,$($1_depends_moc), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.d,.$1/%.cpp,$(do_depend.cxx)))))
     $(eval $(foreach F,$($1_objects_moc), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.o,.$1/%.cpp,$(do_compile.cxx)))))
     
@@ -753,7 +754,7 @@ define target.host-defaults
     $(eval $(foreach F,$($1_objects_cpp), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.o,%.cpp,$(do_compile.cxx.host)))))
     
     $(eval $(foreach F,$($1_headers_uic), $(eval $(call target-defaults-rule,$1,$F,.$1/%-ui.h,%.ui,$(do_uic.qt)))))
-    $(eval $(foreach F,$($1_sources_moc), $(eval $(call target-defaults-rule,$1,$(patsubst %.moc,.$1/%.moc.cpp,$F),.$1/%.moc.cpp,%.h,$(do_moc.qt)))))
+    $(eval $(foreach F,$($1_sources_moc), $(eval $(call target-defaults-rule,$1,$(patsubst %.moc,.$1/%-moc.cpp,$F),.$1/%-moc.cpp,%.h,$(do_moc.qt)))))
     $(eval $(foreach F,$($1_depends_moc), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.d,.$1/%.cpp,$(do_depend.cxx.host)))))
     $(eval $(foreach F,$($1_objects_moc), $(eval $(call target-defaults-rule,$1,$F,.$1/%.cpp.o,.$1/%.cpp,$(do_compile.cxx.host)))))
     
