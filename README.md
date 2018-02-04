@@ -52,7 +52,7 @@ $ git tag <tagname>
 $ git push origin --tags
 ```
 
-### add libmakefile as subtree
+### add subtree libmakefile
 ```
 $ git remote add libmakefile https://github.com/kozyilmaz/libmakefile.git
 $ git subtree add --prefix=libmakefile/ --squash libmakefile buildsystem
