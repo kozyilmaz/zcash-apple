@@ -52,12 +52,6 @@ $ git tag <tagname>
 $ git push origin --tags
 ```
 
-### reference GitHub issue or pull request
-```
-https://github.com/<user>/<repo>/issues/<number>
-```
-
-
 ### add libmakefile as subtree
 ```
 $ git remote add libmakefile https://github.com/kozyilmaz/libmakefile.git
@@ -68,4 +62,9 @@ $ ./contrib/devtools/git-subtree-check.sh libmakefile
 
 $ git remote add libmakefile-remote https://github.com/kozyilmaz/libmakefile.git
 $ git subtree pull --prefix=libmakefile/ --squash libmakefile-remote buildsystem
+```
+
+### reference GitHub issue or pull request
+```
+https://github.com/<user>/<repo>/issues/<number>
 ```
