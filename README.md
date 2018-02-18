@@ -6,20 +6,20 @@ All build tools are compiled from scratch with native macOS `clang`
 
 ### Available packages
 ```
-$ autoconf
-$ automake
-$ libtool    (prefixed with 'g')
-$ pkg-config
-$ objconv
-$ fasm
-$ cmake
-$ coreutils  (only install and readlink)
-$ kconfig
-$ gmp        (only as static library)
-$ mpfr       (only as static library)
-$ mpc        (only as static library)
-$ isl        (only as static library)
-$ gcc        (suffixed with version)
+autoconf
+automake
+libtool    (prefixed with 'g')
+pkg-config
+objconv
+fasm
+cmake
+coreutils  (only install and readlink)
+kconfig
+gmp        (only as static library)
+mpfr       (only as static library)
+mpc        (only as static library)
+isl        (only as static library)
+gcc        (suffixed with version)
 ```
 
 ### Build instructions
@@ -27,10 +27,8 @@ $ gcc        (suffixed with version)
 # run once to install Xcode CLI tools
 $ xcode-select --install
 
-# clone and build Zcash on macOS
+# clone and build tools
 $ git clone https://github.com/kozyilmaz/tools.git
-
-
 $ cd tools
 $ source environment
 $ make
