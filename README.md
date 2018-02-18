@@ -6,21 +6,20 @@ All build tools are compiled from scratch with native macOS `clang`
 
 ### Available packages
 ```
-autoconf
-automake
-libtool    (prefixed with 'g')
-pkg-config
-objconv
-fasm
-cmake
-coreutils  (only install and readlink)
-kconfig
-
-gmp        (only as static library)
-mpfr       (only as static library)
-mpc        (only as static library)
-isl        (only as static library)
-gcc        (suffixed with version)
+$ autoconf
+$ automake
+$ libtool    (prefixed with 'g')
+$ pkg-config
+$ objconv
+$ fasm
+$ cmake
+$ coreutils  (only install and readlink)
+$ kconfig
+$ gmp        (only as static library)
+$ mpfr       (only as static library)
+$ mpc        (only as static library)
+$ isl        (only as static library)
+$ gcc        (suffixed with version)
 ```
 
 ### Build instructions
@@ -38,7 +37,7 @@ $ make
 ```
 
 ### Fine Tuning and Debugging
-```
+```shell
 # console logs will be enabled via PRINT_DEBUG
 $ cd tools
 $ source environment
