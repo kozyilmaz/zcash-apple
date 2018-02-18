@@ -1,7 +1,7 @@
 # GNU Tools for macOS
 
 This repository builds most used GNU tools for macOS  
-No additional dependency required except Xcode (https://developer.apple.com/xcode) Command Line Tools  
+No additional dependency required except Xcode Command Line Tools  
 All build tools are compiled from scratch with native macOS `clang`  
 
 ### Available packages
