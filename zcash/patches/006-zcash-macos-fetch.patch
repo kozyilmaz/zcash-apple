@@ -1,0 +1,53 @@
+From 4c2120c7365ae1099459bb75739b226f9271e6f7 Mon Sep 17 00:00:00 2001
+From: kozyilmaz <kazim@monolytic.com>
+Date: Sun, 17 Dec 2017 20:18:03 +0300
+Subject: [PATCH] [macOS] use shlock instead of flock in fetch-params
+
+---
+ zcutil/fetch-params.sh | 26 +++++++++++++++++++-------
+ 1 file changed, 19 insertions(+), 7 deletions(-)
+
+diff --git a/zcutil/fetch-params.sh b/zcutil/fetch-params.sh
+index b8511c7802..9eb52bec1d 100755
+--- a/zcutil/fetch-params.sh
++++ b/zcutil/fetch-params.sh
+@@ -2,7 +2,11 @@
+ 
+ set -eu
+ 
+-PARAMS_DIR="$HOME/.zcash-params"
++if [[ "$OSTYPE" == "darwin"* ]]; then
++    PARAMS_DIR="$HOME/Library/Application Support/ZcashParams"
++else
++    PARAMS_DIR="$HOME/.zcash-params"
++fi
+ 
+ SPROUT_PKEY_NAME='sprout-proving.key'
+ SPROUT_VKEY_NAME='sprout-verifying.key'
+@@ -125,12 +129,20 @@ EOF
+ # Use flock to prevent parallel execution.
+ function lock() {
+     local lockfile=/tmp/fetch_params.lock
+-    # create lock file
+-    eval "exec 200>/$lockfile"
+-    # acquire the lock
+-    flock -n 200 \
+-        && return 0 \
+-        || return 1
++    if [[ "$OSTYPE" == "darwin"* ]]; then
++        if shlock -f ${lockfile} -p $$; then
++            return 0
++        else
++            return 1
++        fi
++    else
++        # create lock file
++        eval "exec 200>/$lockfile"
++        # acquire the lock
++        flock -n 200 \
++            && return 0 \
++            || return 1
++    fi
+ }
+ 
+ function exit_locked_error {

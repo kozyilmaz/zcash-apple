@@ -1,7 +1,7 @@
-diff --git a/src/snark/src/common/profiling.cpp b/src/snark/src/common/profiling.cpp
+diff --git a/src/snark/libsnark/common/profiling.cpp b/src/snark/libsnark/common/profiling.cpp
 index d227203a..4c06cd34 100644
---- a/src/snark/src/common/profiling.cpp
-+++ b/src/snark/src/common/profiling.cpp
+--- a/src/snark/libsnark/common/profiling.cpp
++++ b/src/snark/libsnark/common/profiling.cpp
 @@ -26,6 +26,11 @@
  #include <proc/readproc.h>
  #endif

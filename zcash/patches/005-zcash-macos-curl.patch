@@ -1,21 +1,17 @@
+From 3c3623ef23328cb6373da02e3aae825792c33623 Mon Sep 17 00:00:00 2001
+From: kozyilmaz <kazim@monolytic.com>
+Date: Sun, 17 Dec 2017 19:30:19 +0300
+Subject: [PATCH] [macOS] added curl method for param download
+
+---
+ zcutil/fetch-params.sh | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
+
 diff --git a/zcutil/fetch-params.sh b/zcutil/fetch-params.sh
-index 10bade7c..9eb52bec 100755
+index 10bade7cb4..b8511c7802 100755
 --- a/zcutil/fetch-params.sh
 +++ b/zcutil/fetch-params.sh
-@@ -2,7 +2,11 @@
- 
- set -eu
- 
--PARAMS_DIR="$HOME/.zcash-params"
-+if [[ "$OSTYPE" == "darwin"* ]]; then
-+    PARAMS_DIR="$HOME/Library/Application Support/ZcashParams"
-+else
-+    PARAMS_DIR="$HOME/.zcash-params"
-+fi
- 
- SPROUT_PKEY_NAME='sprout-proving.key'
- SPROUT_VKEY_NAME='sprout-verifying.key'
-@@ -14,10 +18,12 @@ SHA256ARGS="$(command -v sha256sum >/dev/null || echo '-a 256')"
+@@ -14,10 +14,12 @@ SHA256ARGS="$(command -v sha256sum >/dev/null || echo '-a 256')"
  
  WGETCMD="$(command -v wget || echo '')"
  IPFSCMD="$(command -v ipfs || echo '')"
@@ -28,7 +24,7 @@ index 10bade7c..9eb52bec 100755
  
  function fetch_wget {
      if [ -z "$WGETCMD" ] || ! [ -z "$ZC_DISABLE_WGET" ]; then
-@@ -56,6 +62,26 @@ EOF
+@@ -56,6 +58,26 @@ EOF
      ipfs get --output "$dlname" "$SPROUT_IPFS/$filename"
  }
  
@@ -55,7 +51,7 @@ index 10bade7c..9eb52bec 100755
  function fetch_failure {
      cat >&2 <<EOF
  
-@@ -64,6 +90,7 @@ Try installing one of the following programs and make sure you're online:
+@@ -64,6 +86,7 @@ Try installing one of the following programs and make sure you're online:
  
   * ipfs
   * wget
@@ -63,7 +59,7 @@ index 10bade7c..9eb52bec 100755
  
  EOF
      exit 1
-@@ -77,7 +104,7 @@ function fetch_params {
+@@ -77,7 +100,7 @@ function fetch_params {
  
      if ! [ -f "$output" ]
      then
@@ -72,30 +68,3 @@ index 10bade7c..9eb52bec 100755
              if "fetch_$method" "$filename" "$dlname"; then
                  echo "Download successful!"
                  break
-@@ -102,12 +129,20 @@ EOF
- # Use flock to prevent parallel execution.
- function lock() {
-     local lockfile=/tmp/fetch_params.lock
--    # create lock file
--    eval "exec 200>/$lockfile"
--    # acquire the lock
--    flock -n 200 \
--        && return 0 \
--        || return 1
-+    if [[ "$OSTYPE" == "darwin"* ]]; then
-+        if shlock -f ${lockfile} -p $$; then
-+            return 0
-+        else
-+            return 1
-+        fi
-+    else
-+        # create lock file
-+        eval "exec 200>/$lockfile"
-+        # acquire the lock
-+        flock -n 200 \
-+            && return 0 \
-+            || return 1
-+    fi
- }
- 
- function exit_locked_error {
