@@ -1,0 +1,59 @@
+
+# for detailed information use the guides below
+https://github.com/zcash/zcash/wiki/1.0-User-Guide
+https://github.com/zcash/zcash/blob/master/doc/payment-api.md
+https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list
+
+# list info for a command 
+$ ./zcash-cli help <command>
+
+
+# list all accounts (therefore all t-addr's)
+$ ./zcash-cli listreceivedbyaddress 0 true
+
+# list of t-addr's for default account (again all t-addr's)
+$ ./zcash-cli getaddressesbyaccount ""
+
+# list all unspent transaction outputs (t-addr UTXO's)
+$ ./zcash-cli listunspent
+
+# create new t-addr's
+$ ./zcash-cli getnewaddress
+
+
+
+# list all z-addr's
+$ ./zcash-cli z_listaddresses
+
+# create new z-addr's
+$ ./zcash-cli z_getnewaddress
+
+# get total balance
+$ ./zcash-cli z_gettotalbalance
+
+
+
+# send funds
+$ export TADDR='t1TGVDzsEK2qbG1N8FJQFSAzV1bWWHMGGCS'
+$ export ZADDR='zcNeXiyD3JkhKTrU38xM9C6HQGy9aP5qqVFH25qFzQGnmdwYZ2Dr53Jy7iRp64D4CzkMZdmKagN6mmtu3jVKHuZ8xZp8fw3'
+$ export FRIEND='zcfZJW3qLHpSc7q7W1SXRGdVjgM6Q6kRwdkz1DHW5sP2EqcMHf5RCp3Frpf2qnb81j9K6upzRN4HoVxfboVwLTRaZ7bKn8b'
+
+# send from t-addr to z-addr (with memo and fee)
+$ ./zcash-cli z_sendmany "$TADDR" "[{\"address\": \"$ZADDR\", \"amount\": 0.1, \"memo\": \"0123456789\"}]" 1 0.002
+
+# send from t-addr to t-addr (with fee)
+$ ./zcash-cli z_sendmany "$TADDR1" "[{\"address\": \"$TADDR2\", \"amount\": 0.09}]" 1 0.002
+
+# send from z-addr to z-addr (with memo and fee)
+$ ./zcash-cli z_sendmany "$ZADDR" "[{\"address\": \"$FRIEND\", \"amount\": 0.05, \"memo\": \"9876543210\"}]" 1 0.002
+
+# get send result
+$ ./zcash-cli z_getoperationresult [\"$OPID\"]
+
+
+# list amounts received by z-addr
+$ ./zcash-cli z_listreceivedbyaddress "$ZADDR"
+
+# list balance both for t-addr and z-addr
+$ ./zcash-cli z_getbalance "$TADDR"
+
