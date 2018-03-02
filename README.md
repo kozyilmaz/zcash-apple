@@ -2,7 +2,7 @@
 
 ![Screenshot](https://github.com/kozyilmaz/zcash-apple/raw/master/docs/zcash-apple.png "Zcash on Mac OS")
 
-*This project requires Xcode 9 and a Mac running macOS 10.12.6 or later.*  
+**This project requires Xcode 9 and a Mac running macOS 10.12.6 or later.**  
 This repository builds standalone Zcash binaries for macOS platform without installing brew.  
 All build tools (`autoconf, automake, libtool, pkgconfig, cmake, install and readlink`) and `Zcash` are compiled from scratch.  
 
