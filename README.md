@@ -3,8 +3,8 @@
 ![Screenshot](https://github.com/kozyilmaz/zcash-apple/raw/master/docs/zcash-apple.png "Zcash on Mac OS")
 
 This repository builds standalone Zcash binaries for macOS platform without installing brew.  
-No additional dependency required except Xcode (https://developer.apple.com/xcode).  
-All build tools (`autoconf, automake, libtool, pkgconfig, cmake, install and readlink`) and `Zcash` are compiled from scratch (finally with `clang`).  
+This project requires Xcode 9 and a Mac running macOS 10.12.6 or later.  
+All build tools (`autoconf, automake, libtool, pkgconfig, cmake, install and readlink`) and `Zcash` are compiled from scratch.  
 
 
 ### Build instructions
@@ -27,24 +27,26 @@ After successful build Zcash binaries will be installed to `out` directory under
 You can then copy binary directory anywhere you like there are no dependencies to the build tree anymore  
 ```shell
 bash-3.2$ ls -lrt out/usr/local/bin
-total 31544
--rwxr-xr-x  1 loki  staff       483 Dec 16 15:56 zcash-init
--rwxr-xr-x  1 loki  staff  13120252 Dec 20 01:06 zcashd
--rwxr-xr-x  1 loki  staff   1772400 Dec 20 01:06 zcash-tx
--rwxr-xr-x  1 loki  staff      4761 Dec 20 01:06 zcash-fetch-params
--rwxr-xr-x  1 loki  staff   1237116 Dec 20 01:06 zcash-cli
+total 32136
+-rwxr-xr-x@ 1 loki  staff       483 Feb 25 21:19 zcash-init
+-rw-r--r--@ 1 loki  staff      1766 Feb 25 21:19 zcash-commands.txt
+-rwxr-xr-x@ 1 loki  staff  13369544 Feb 25 21:39 zcashd
+-rwxr-xr-x@ 1 loki  staff   1814860 Feb 25 21:39 zcash-tx
+-rwxr-xr-x@ 1 loki  staff      4761 Feb 25 21:39 zcash-fetch-params
+-rwxr-xr-x@ 1 loki  staff   1238732 Feb 25 21:39 zcash-cli
+-rw-r--r--@ 1 loki  staff        54 Feb 25 21:39 version.txt
 bash-3.2$ otool -L out/usr/local/bin/zcashd
 out/usr/local/bin/zcashd:
-    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1238.60.2)
-    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 307.5.0)
+    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1252.0.0)
+    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 400.9.0)
 bash-3.2$ otool -L out/usr/local/bin/zcash-cli 
 out/usr/local/bin/zcash-cli:
-    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 307.5.0)
-    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1238.60.2)
+    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 400.9.0)
+    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1252.0.0)
 bash-3.2$ otool -L out/usr/local/bin/zcash-tx
 out/usr/local/bin/zcash-tx:
-    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 307.5.0)
-    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1238.60.2)
+    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 400.9.0)
+    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1252.0.0)
 ```
 
 ### Run instructions
