@@ -13,7 +13,7 @@ zcash_config:
 
 zcash_build:
 	( cd zcash_$(ZCASH_VERSION); \
-		LIBTOOLIZE=glibtoolize ./zcutil/build.sh --disable-libs -j ${BSPJOB}; \
+		LIBTOOLIZE=glibtoolize ./zcutil/build.sh -j ${BSPJOB}; \
 	)
 
 zcash_install:

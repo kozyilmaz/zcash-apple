@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BSPJOB=4
+BSPJOB=20
 BSPROOT=`pwd`
 BSPTOOLS=${BSPROOT}/tools/o
 BSPROOTFS=${BSPROOT}/rootfs

@@ -1,11 +1,11 @@
 diff --git a/zcutil/build.sh b/zcutil/build.sh
-index 6d79d246..db8824e6 100755
+index d86ae99ab..b762ee5a1 100755
 --- a/zcutil/build.sh
 +++ b/zcutil/build.sh
-@@ -126,5 +126,5 @@ ld -v
+@@ -115,5 +115,5 @@ ld -v
  
  HOST="$HOST" BUILD="$BUILD" NO_PROTON="$PROTON_ARG" "$MAKE" "$@" -C ./depends/ V=1
  ./autogen.sh
--CC="$CC" CXX="$CXX" ./configure --prefix="${PREFIX}" --host="$HOST" --build="$BUILD" "$HARDENING_ARG" "$LCOV_ARG" "$TEST_ARG" "$MINING_ARG" "$PROTON_ARG" "$LIBS_ARG" $CONFIGURE_FLAGS --enable-werror CXXFLAGS='-g'
-+CC="$CC" CXX="$CXX" ./configure --prefix="${PREFIX}" --host="$HOST" --build="$BUILD" "$HARDENING_ARG" "$LCOV_ARG" "$TEST_ARG" "$MINING_ARG" "$PROTON_ARG" "$LIBS_ARG" $CONFIGURE_FLAGS CXXFLAGS='-g'
+-CC="$CC" CXX="$CXX" ./configure --prefix="${PREFIX}" --host="$HOST" --build="$BUILD" "$HARDENING_ARG" "$LCOV_ARG" "$TEST_ARG" "$MINING_ARG" "$PROTON_ARG" $CONFIGURE_FLAGS --enable-werror CXXFLAGS='-g'
++CC="$CC" CXX="$CXX" ./configure --prefix="${PREFIX}" --host="$HOST" --build="$BUILD" "$HARDENING_ARG" "$LCOV_ARG" "$TEST_ARG" "$MINING_ARG" "$PROTON_ARG" $CONFIGURE_FLAGS CXXFLAGS='-g'
  "$MAKE" "$@" V=1
