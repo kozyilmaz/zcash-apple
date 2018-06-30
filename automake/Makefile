@@ -3,7 +3,7 @@ target_name ?= automake
 
 include ../Makefile.build
 
-AUTOMAKE_VERSION="1.15.1"
+AUTOMAKE_VERSION="1.16.1"
 
 automake_clone:
 	if [ ! -f "automake-$(AUTOMAKE_VERSION).tar.gz" ]; then curl -OL http://ftp.gnu.org/gnu/automake/automake-$(AUTOMAKE_VERSION).tar.gz; fi;

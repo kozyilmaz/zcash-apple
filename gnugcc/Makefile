@@ -3,14 +3,13 @@ target_name ?= gnugcc
 
 include ../Makefile.build
 
-GCC_VERSION="7.3.0"
+GCC_VERSION="8.1.0"
 
 gnugcc_clone:
 	if [ ! -f "gcc-$(GCC_VERSION).tar.gz" ]; then curl -OL http://ftp.gnu.org/gnu/gcc/gcc-$(GCC_VERSION)/gcc-$(GCC_VERSION).tar.gz; fi;
 	if [ ! -d "gcc-$(GCC_VERSION)" ]; then tar xzf gcc-$(GCC_VERSION).tar.gz; fi
 
 gnugcc_config:
-	$(call patchme,gcc-$(GCC_VERSION))
 	( cd gcc-$(GCC_VERSION); CFLAGS="" CXXFLAGS="" ./configure --prefix=${BSPTOOLS} --enable-checking=release --with-gmp=${BSPTOOLS} --with-mpfr=${BSPTOOLS} --with-mpc=${BSPTOOLS} --enable-languages=c,c++ --with-isl=${BSPTOOLS} --program-suffix=-$(GCC_VERSION); )
 
 gnugcc_build:
