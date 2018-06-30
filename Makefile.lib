@@ -228,11 +228,11 @@ else ifeq ($(TARGET_OS),MACOS)
 	override __DARWIN__  = y
 	override MFLAGS     += __DARWIN__=y
 	override CFLAGS     += -D__DARWIN__=1
-	override CFLAGS     += -I/opt/local/include
+#	override CFLAGS     += -I/opt/local/include
 	override CFLAGS     += -fPIC
 #	override CFLAGS     += -fassociative-math -fno-signed-zeros
 	override CXXFLAGS   += $(CFLAGS)
-	override LDOPTS     += -keep_private_externs
+#	override LDOPTS     += -keep_private_externs
 else ifeq ($(TARGET_OS),LINUX)
 	override __LINUX__  = y
 	override MFLAGS    += __LINUX__=y
