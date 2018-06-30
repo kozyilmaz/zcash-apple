@@ -3,7 +3,7 @@ target_name ?= zcash
 
 include ../Makefile.build
 
-ZCASH_VERSION=v1.1.1
+ZCASH_VERSION=master
 
 zcash_clone:
 	if [ ! -d "zcash_$(ZCASH_VERSION)" ]; then git clone -b $(ZCASH_VERSION) https://github.com/zcash/zcash.git zcash_$(ZCASH_VERSION); fi
