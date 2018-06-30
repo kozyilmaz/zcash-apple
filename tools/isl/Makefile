@@ -3,7 +3,7 @@ target_name ?= isl
 
 include ../Makefile.build
 
-ISL_VERSION="0.18"
+ISL_VERSION="0.19"
 
 isl_clone:
 	if [ ! -f "isl-$(ISL_VERSION).tar.gz" ]; then curl -OL http://isl.gforge.inria.fr/isl-$(ISL_VERSION).tar.bz2; fi;
