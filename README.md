@@ -10,12 +10,12 @@ All build tools (`autoconf, automake, libtool, pkgconfig, cmake, install and rea
 ### Build instructions
 ```shell
 # run once to install Xcode CLI tools
-$ xcode-select --install
+$ xcode-select --install
 # clone and build Zcash on macOS
 $ git clone https://github.com/kozyilmaz/zcash-apple.git
 $ cd zcash-apple
 $ source environment
-$ make
+$ make
 ```
 
 In case of an error please run the following command for debug info
@@ -56,8 +56,14 @@ Please run the commands below once for the first time
 
 ```shell
 $ cd out/usr/local/bin
-$ ./zcash-fetch-params
-$ ./zcash-init
+
+# for testnet
+$ ./zcash-fetch-params --testnet
+
+# for mainnet
+$ ./zcash-fetch-params
+
+$ ./zcash-init
 $ ./zcashd
 ```
 
@@ -109,6 +115,36 @@ Creating zcash.conf
 Complete!
 ```
 
+## Running the testnetwork
+Modify your ```$HOME/Library/Application\ Support/Zcash/zcash.conf``` file and make sure it looks like this:
+
+``` 
+rpcuser=username
+rpcpassword=`head -c 32 /dev/urandom | base64`
+
+### connect to test network
+testnet=1
+addnode=testnet.z.cash
+```
+You can read more about configs and changing between network [here](https://github.com/zcash/zcash/blob/master/contrib/debian/examples/zcash.conf) on zcash's example config file.
+
+Now your config is good to go, start the network back up:
+``` 
+cd $HOME/.zcash/zcash-apple/out/usr/local/bin
+./zcashd
+```
+
+## See / query which network is running
+``` 
+cd $HOME/.zcash/zcash-apple/out/usr/local/bin
+./zcash-cli getmininginfo
+```
+should look like this:
+``` 
+"testnet": true,
+  "chain": "test",
+```
+
 ## Thanks
 Developers of `Zcash`  
 Developers of `ZClassic` for MacOS patches
@@ -133,4 +169,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
