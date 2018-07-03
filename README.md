@@ -119,8 +119,8 @@ Complete!
 Modify your ```$HOME/Library/Application\ Support/Zcash/zcash.conf``` file and make sure it looks like this:
 
 ``` 
-rpcuser=username
-rpcpassword=`head -c 32 /dev/urandom | base64`
+rpcuser=SOME_USERNAME
+rpcpassword=SOME_PASSWORD
 
 ### connect to test network
 testnet=1
