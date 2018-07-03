@@ -129,15 +129,15 @@ addnode=testnet.z.cash
 You can read more about configs and changing between network [here](https://github.com/zcash/zcash/blob/master/contrib/debian/examples/zcash.conf) on zcash's example config file.
 
 Now your config is good to go, start the network back up:
-``` 
-cd $HOME/.zcash/zcash-apple/out/usr/local/bin
-./zcashd
+```shell
+$ cd out/usr/local/bin
+$ ./zcashd
 ```
 
 ## See / query which network is running
-``` 
-cd $HOME/.zcash/zcash-apple/out/usr/local/bin
-./zcash-cli getmininginfo
+```shell
+$ cd out/usr/local/bin
+$ ./zcash-cli getmininginfo
 ```
 should look like this:
 ``` 
