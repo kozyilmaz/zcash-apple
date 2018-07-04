@@ -4,7 +4,7 @@ ifeq ($(BSPTOOLS),)
 endif
 
 ifeq ($(uname_S), Linux)
-TOOLS_ENABLE_ESSENTIALS ?= n
+TOOLS_ENABLE_ESSENTIALS ?= y
 TOOLS_ENABLE_OBJCONV    ?= n
 TOOLS_ENABLE_FASM       ?= n
 TOOLS_ENABLE_CMAKE      ?= n

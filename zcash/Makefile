@@ -3,7 +3,7 @@ target_name ?= zcash
 
 include ../Makefile.build
 
-ZCASH_VERSION=master
+ZCASH_VERSION=v1.1.2
 
 zcash_clone:
 	if [ ! -d "zcash_$(ZCASH_VERSION)" ]; then git clone -b $(ZCASH_VERSION) https://github.com/zcash/zcash.git zcash_$(ZCASH_VERSION); fi
@@ -13,7 +13,7 @@ zcash_config:
 
 zcash_build:
 	( cd zcash_$(ZCASH_VERSION); \
-		LIBTOOLIZE=glibtoolize ./zcutil/build.sh -j ${BSPJOB}; \
+		CFLAGS="" CXXFLAGS="" LIBTOOLIZE=glibtoolize ./zcutil/build.sh -j ${BSPJOB}; \
 	)
 
 zcash_install:
