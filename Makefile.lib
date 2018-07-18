@@ -42,6 +42,7 @@
 #   20180123 - add ./ to includes-y and libriries-y by default
 #   20180204 - seemless qt .moc, .ui support
 #   20180228 - rename distdir to dist.dir
+#   20180718 - fix @.cmd
 
 #
 # Example
@@ -511,47 +512,47 @@ _cmd_distclean        = $(RM)
 #
 # CMD
 #
-cmd_depend.c         = echo "$(_cmd_depend.c)" > $$@.cmd        ; $(_cmd_depend.c)
-cmd_compile.c        = echo "$(_cmd_compile.c)" > $$@.cmd       ; $(_cmd_compile.c)
-cmd_link.c           = echo "$(_cmd_link.c)" > $$@.cmd          ; $(_cmd_link.c)
-cmd_link_so.c        = echo "$(_cmd_link_so.c)" > $$@.cmd       ; $(_cmd_link_so.c)
+cmd_depend.c         = echo "$(subst ",\",$(_cmd_depend.c))" > $$@.cmd        ; $(_cmd_depend.c)
+cmd_compile.c        = echo "$(subst ",\",$(_cmd_compile.c))" > $$@.cmd       ; $(_cmd_compile.c)
+cmd_link.c           = echo "$(subst ",\",$(_cmd_link.c))" > $$@.cmd          ; $(_cmd_link.c)
+cmd_link_so.c        = echo "$(subst ",\",$(_cmd_link_so.c))" > $$@.cmd       ; $(_cmd_link_so.c)
 
-cmd_depend.c.host    = echo "$(_cmd_depend.c.host)" > $$@.cmd   ; $(_cmd_depend.c.host)
-cmd_compile.c.host   = echo "$(_cmd_compile.c.host)" > $$@.cmd  ; $(_cmd_compile.c.host)
-cmd_link.c.host      = echo "$(_cmd_link.c.host)" > $$@.cmd     ; $(_cmd_link.c.host)
-cmd_link_so.c.host   = echo "$(_cmd_link_so.c.host)" > $$@.cmd  ; $(_cmd_link_so.c.host)
+cmd_depend.c.host    = echo "$(subst ",\",$(_cmd_depend.c.host))" > $$@.cmd   ; $(_cmd_depend.c.host)
+cmd_compile.c.host   = echo "$(subst ",\",$(_cmd_compile.c.host))" > $$@.cmd  ; $(_cmd_compile.c.host)
+cmd_link.c.host      = echo "$(subst ",\",$(_cmd_link.c.host))" > $$@.cmd     ; $(_cmd_link.c.host)
+cmd_link_so.c.host   = echo "$(subst ",\",$(_cmd_link_so.c.host))" > $$@.cmd  ; $(_cmd_link_so.c.host)
 
-cmd_depend.cxx       = echo "$(_cmd_depend.cxx)" > $$@.cmd      ; $(_cmd_depend.cxx)
-cmd_compile.cxx      = echo "$(_cmd_compile.cxx)" > $$@.cmd     ; $(_cmd_compile.cxx)
-cmd_link.cxx         = echo "$(_cmd_link.cxx)" > $$@.cmd        ; $(_cmd_link.cxx)
-cmd_link_so.cxx      = echo "$(_cmd_link_so.cxx)" > $$@.cmd     ; $(_cmd_link_so.cxx)
+cmd_depend.cxx       = echo "$(subst ",\",$(_cmd_depend.cxx))" > $$@.cmd      ; $(_cmd_depend.cxx)
+cmd_compile.cxx      = echo "$(subst ",\",$(_cmd_compile.cxx))" > $$@.cmd     ; $(_cmd_compile.cxx)
+cmd_link.cxx         = echo "$(subst ",\",$(_cmd_link.cxx))" > $$@.cmd        ; $(_cmd_link.cxx)
+cmd_link_so.cxx      = echo "$(subst ",\",$(_cmd_link_so.cxx))" > $$@.cmd     ; $(_cmd_link_so.cxx)
 
-cmd_depend.cxx.host  = echo "$(_cmd_depend.cxx.host)" > $$@.cmd ; $(_cmd_depend.cxx.host)
-cmd_compile.cxx.host = echo "$(_cmd_compile.cxx.host)" > $$@.cmd; $(_cmd_compile.cxx.host)
-cmd_link.cxx.host    = echo "$(_cmd_link.cxx.host)" > $$@.cmd   ; $(_cmd_link.cxx.host)
-cmd_link_so.cxx.host = echo "$(_cmd_link_so.cxx.host)" > $$@.cmd; $(_cmd_link_so.cxx.host)
+cmd_depend.cxx.host  = echo "$(subst ",\",$(_cmd_depend.cxx.host))" > $$@.cmd ; $(_cmd_depend.cxx.host)
+cmd_compile.cxx.host = echo "$(subst ",\",$(_cmd_compile.cxx.host))" > $$@.cmd; $(_cmd_compile.cxx.host)
+cmd_link.cxx.host    = echo "$(subst ",\",$(_cmd_link.cxx.host))" > $$@.cmd   ; $(_cmd_link.cxx.host)
+cmd_link_so.cxx.host = echo "$(subst ",\",$(_cmd_link_so.cxx.host))" > $$@.cmd; $(_cmd_link_so.cxx.host)
 
-cmd_moc.qt           = echo "$(_cmd_moc.qt)" > $$@.cmd         ; $(_cmd_moc.qt)
-cmd_moc.qt.host      = echo "$(_cmd_moc.qt.host)" > $$@.cmd    ; $(_cmd_moc.qt.host)
+cmd_moc.qt           = echo "$(subst ",\",$(_cmd_moc.qt))" > $$@.cmd          ; $(_cmd_moc.qt)
+cmd_moc.qt.host      = echo "$(subst ",\",$(_cmd_moc.qt.host))" > $$@.cmd     ; $(_cmd_moc.qt.host)
 
-cmd_uic.qt           = echo "$(_cmd_uic.qt)" > $$@.cmd         ; $(_cmd_uic.qt)
-cmd_uic.qt.host      = echo "$(_cmd_uic.qt.host)" > $$@.cmd    ; $(_cmd_uic.qt.host)
+cmd_uic.qt           = echo "$(subst ",\",$(_cmd_uic.qt))" > $$@.cmd          ; $(_cmd_uic.qt)
+cmd_uic.qt.host      = echo "$(subst ",\",$(_cmd_uic.qt.host))" > $$@.cmd     ; $(_cmd_uic.qt.host)
 
-cmd_depend.m         = echo "$(_cmd_depend.m)" > $$@.cmd        ; $(_cmd_depend.m)
-cmd_compile.m        = echo "$(_cmd_compile.m)" > $$@.cmd       ; $(_cmd_compile.m)
-cmd_link.m           = echo "$(_cmd_link.m)" > $$@.cmd          ; $(_cmd_link.m)
-cmd_link_so.m        = echo "$(_cmd_link_so.m)" > $$@.cmd       ; $(_cmd_link_so.m)
+cmd_depend.m         = echo "$(subst ",\",$(_cmd_depend.m))" > $$@.cmd        ; $(_cmd_depend.m)
+cmd_compile.m        = echo "$(subst ",\",$(_cmd_compile.m))" > $$@.cmd       ; $(_cmd_compile.m)
+cmd_link.m           = echo "$(subst ",\",$(_cmd_link.m))" > $$@.cmd          ; $(_cmd_link.m)
+cmd_link_so.m        = echo "$(subst ",\",$(_cmd_link_so.m))" > $$@.cmd       ; $(_cmd_link_so.m)
 
-cmd_depend.m.host    = echo "$(_cmd_depend.m.host)" > $$@.cmd   ; $(_cmd_depend.m.host)
-cmd_compile.m.host   = echo "$(_cmd_compile.m.host)" > $$@.cmd  ; $(_cmd_compile.m.host)
-cmd_link.m.host      = echo "$(_cmd_link.m.host)" > $$@.cmd     ; $(_cmd_link.m.host)
-cmd_link_so.m.host   = echo "$(_cmd_link_so.m.host)" > $$@.cmd  ; $(_cmd_link_so.m.host)
+cmd_depend.m.host    = echo "$(subst ",\",$(_cmd_depend.m.host))" > $$@.cmd   ; $(_cmd_depend.m.host)
+cmd_compile.m.host   = echo "$(subst ",\",$(_cmd_compile.m.host))" > $$@.cmd  ; $(_cmd_compile.m.host)
+cmd_link.m.host      = echo "$(subst ",\",$(_cmd_link.m.host))" > $$@.cmd     ; $(_cmd_link.m.host)
+cmd_link_so.m.host   = echo "$(subst ",\",$(_cmd_link_so.m.host))" > $$@.cmd  ; $(_cmd_link_so.m.host)
 
-cmd_ar               = echo "$(_cmd_ar)" > $$@.cmd              ; $(_cmd_ar)
-cmd_ranlib           = echo "$(_cmd_ranlib)" >> $$@.cmd         ; $(_cmd_ranlib)
-cmd_ld               = echo "$(_cmd_ld)" > $$@.cmd              ; $(_cmd_ld)
+cmd_ar               = echo "$(subst ",\",$(_cmd_ar))" > $$@.cmd              ; $(_cmd_ar)
+cmd_ranlib           = echo "$(subst ",\",$(_cmd_ranlib))" >> $$@.cmd         ; $(_cmd_ranlib)
+cmd_ld               = echo "$(subst ",\",$(_cmd_ld))" > $$@.cmd              ; $(_cmd_ld)
 
-cmd_ld.host          = echo "$(_cmd_ld.host)" > $$@.cmd         ; $(_cmd_ld.host)
+cmd_ld.host          = echo "$(subst ",\",$(_cmd_ld.host))" > $$@.cmd         ; $(_cmd_ld.host)
 
 cmd_cp               = $(_cmd_cp)
 cmd_mkdir            = $(_cmd_mkdir)
@@ -583,11 +584,11 @@ do_compile.cxx.host = @$(disp_compile.cxx.host) ; $(MKDIR) $$(dir $$@); $(cmd_co
 do_link.cxx.host    = @$(disp_link.cxx.host)    ; $(MKDIR) $$(dir $$@); $(cmd_link.cxx.host)
 do_link_so.cxx.host = @$(disp_link_so.cxx.host) ; $(MKDIR) $$(dir $$@); $(cmd_link_so.cxx.host)
 
-do_moc.qt           = @$(disp_moc.qt)          ; $(MKDIR) $$(dir $$@); $(cmd_moc.qt)
-do_moc.qt.host      = @$(disp_moc.qt.host      ; $(MKDIR) $$(dir $$@); $(cmd_moc.qt.host)
+do_moc.qt           = @$(disp_moc.qt)           ; $(MKDIR) $$(dir $$@); $(cmd_moc.qt)
+do_moc.qt.host      = @$(disp_moc.qt.host       ; $(MKDIR) $$(dir $$@); $(cmd_moc.qt.host)
 
-do_uic.qt           = @$(disp_uic.qt)          ; $(MKDIR) $$(dir $$@); $(cmd_uic.qt)
-do_uic.qt.host      = @$(disp_uic.qt.host      ; $(MKDIR) $$(dir $$@); $(cmd_uic.qt.host)
+do_uic.qt           = @$(disp_uic.qt)           ; $(MKDIR) $$(dir $$@); $(cmd_uic.qt)
+do_uic.qt.host      = @$(disp_uic.qt.host       ; $(MKDIR) $$(dir $$@); $(cmd_uic.qt.host)
 
 do_depend.m         = @$(disp_depend.m)         ; $(MKDIR) $$(dir $$@); $(cmd_depend.m)
 do_compile.m        = @$(disp_compile.m)        ; $(MKDIR) $$(dir $$@); $(cmd_compile.m)
