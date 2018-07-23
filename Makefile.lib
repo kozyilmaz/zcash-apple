@@ -43,6 +43,7 @@
 #   20180204 - seemless qt .moc, .ui support
 #   20180228 - rename distdir to dist.dir
 #   20180718 - fix @.cmd
+#   20180723 - use file_cflags-y if exists
 
 #
 # Example
@@ -419,7 +420,7 @@ disp_distclean        = $($(verbose)_disp_distclean)
 # _CMD
 #
 _cmd_depend.c       = $(CC) $(CFLAGS) $($1_cflags) \
-                      $($1_includes) -M $$< | $(SED) 's,\($$(basename $$(basename $$(notdir $$@)))\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
+                      $($1_includes) $$($1_$$<_cflags-y) -M $$< | $(SED) 's,\($$(basename $$(basename $$(notdir $$@)))\.o\) *:,$$(dir $$@)\1 $$@: ,' > $$@; \
                       $(CP) $$@ $$@.p; \
                       $(SED) -e 's/\#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$$$//' -e '/^$$$$/ d' -e 's/$$$$/ :/' < $$@ >> $$@.p; \
                       $(MV) $$@.p $$@
