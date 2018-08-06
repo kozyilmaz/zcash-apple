@@ -9,7 +9,7 @@ zcash_clone:
 	if [ ! -d "zcash_$(ZCASH_VERSION)" ]; then git clone -b $(ZCASH_VERSION) https://github.com/zcash/zcash.git zcash_$(ZCASH_VERSION); fi
 
 zcash_config:
-	$(call patchme,zcash_$(ZCASH_VERSION))
+	@true
 
 zcash_build:
 	( cd zcash_$(ZCASH_VERSION); \
