@@ -6,7 +6,7 @@ include ../Makefile.build
 AUTOMAKE_VERSION="1.16.1"
 
 automake_clone:
-	if [ ! -f "automake-$(AUTOMAKE_VERSION).tar.gz" ]; then curl -OL http://ftp.gnu.org/gnu/automake/automake-$(AUTOMAKE_VERSION).tar.gz; fi;
+	if [ ! -f "automake-$(AUTOMAKE_VERSION).tar.gz" ]; then curl -OL http://ftpmirror.gnu.org/automake/automake-$(AUTOMAKE_VERSION).tar.gz; fi;
 	if [ ! -d "automake-$(AUTOMAKE_VERSION)" ]; then tar xzf automake-$(AUTOMAKE_VERSION).tar.gz; fi
 
 automake_config:

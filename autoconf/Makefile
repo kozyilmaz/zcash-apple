@@ -6,7 +6,7 @@ include ../Makefile.build
 AUTOCONF_VERSION="2.69"
 
 autoconf_clone:
-	if [ ! -f "autoconf-$(AUTOCONF_VERSION).tar.gz" ]; then curl -OL http://ftp.gnu.org/gnu/autoconf/autoconf-$(AUTOCONF_VERSION).tar.gz; fi
+	if [ ! -f "autoconf-$(AUTOCONF_VERSION).tar.gz" ]; then curl -OL http://ftpmirror.gnu.org/autoconf/autoconf-$(AUTOCONF_VERSION).tar.gz; fi
 	if [ ! -d "autoconf-$(AUTOCONF_VERSION)" ]; then tar xzf autoconf-$(AUTOCONF_VERSION).tar.gz; fi
 
 autoconf_config:
