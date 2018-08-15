@@ -44,6 +44,7 @@
 #   20180228 - rename distdir to dist.dir
 #   20180718 - fix @.cmd
 #   20180723 - use file_cflags-y if exists
+#   20180807 - fix circular dependency with complex makefile setup
 
 #
 # Example
@@ -704,7 +705,7 @@ define target-defaults_base
     $($1_objects_m):   .$1/%.o: .$1/%.d $(MAKEFILE_LIST)
     $($1_objects_e):   $(MAKEFILE_LIST)
 
-    $(target-depends): $(filter-out $($1_depends), $($1_depends-y))
+    $(target-depends): $(filter-out $(target-builds) $($1_depends), $($1_depends-y))
 
     $1: .$1/$1 $(MAKEFILE_LIST)
 	$(do_cp)
