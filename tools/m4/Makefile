@@ -6,7 +6,7 @@ include ../Makefile.build
 M4_VERSION="1.4.18"
 
 m4_clone:
-	if [ ! -f "m4-$(M4_VERSION).tar.gz" ]; then curl -OL http://ftp.gnu.org/gnu/m4/m4-$(M4_VERSION).tar.gz; fi
+	if [ ! -f "m4-$(M4_VERSION).tar.gz" ]; then curl -OL http://ftpmirror.gnu.org/m4/m4-$(M4_VERSION).tar.gz; fi
 	if [ ! -d "m4-$(M4_VERSION)" ]; then tar xzf m4-$(M4_VERSION).tar.gz; fi
 
 m4_config:

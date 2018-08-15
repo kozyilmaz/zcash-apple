@@ -6,7 +6,7 @@ include ../Makefile.build
 GCC_VERSION="8.2.0"
 
 gnugcc_clone:
-	if [ ! -f "gcc-$(GCC_VERSION).tar.gz" ]; then curl -OL http://ftp.gnu.org/gnu/gcc/gcc-$(GCC_VERSION)/gcc-$(GCC_VERSION).tar.gz; fi;
+	if [ ! -f "gcc-$(GCC_VERSION).tar.gz" ]; then curl -OL http://ftpmirror.gnu.org/gcc/gcc-$(GCC_VERSION)/gcc-$(GCC_VERSION).tar.gz; fi;
 	if [ ! -d "gcc-$(GCC_VERSION)" ]; then tar xzf gcc-$(GCC_VERSION).tar.gz; fi
 
 gnugcc_config:
