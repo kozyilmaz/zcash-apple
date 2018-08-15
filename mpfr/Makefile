@@ -6,7 +6,7 @@ include ../Makefile.build
 MPFR_VERSION="4.0.1"
 
 mpfr_clone:
-	if [ ! -f "mpfr-$(MPFR_VERSION).tar.gz" ]; then curl -OL http://ftp.gnu.org/gnu/mpfr/mpfr-$(MPFR_VERSION).tar.bz2; fi;
+	if [ ! -f "mpfr-$(MPFR_VERSION).tar.gz" ]; then curl -OL http://ftpmirror.gnu.org/mpfr/mpfr-$(MPFR_VERSION).tar.bz2; fi;
 	if [ ! -d "mpfr-$(MPFR_VERSION)" ]; then tar xzf mpfr-$(MPFR_VERSION).tar.bz2; fi
 
 mpfr_config:
