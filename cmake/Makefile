@@ -3,10 +3,13 @@ target_name ?= cmake
 
 include ../Makefile.build
 
-CMAKE_VERSION="3.12.0"
+CMAKE_MAJOR=3
+CMAKE_MINOR=12
+CMAKE_MICRO=3
+CMAKE_VERSION=$(CMAKE_MAJOR).$(CMAKE_MINOR).$(CMAKE_MICRO)
 
 cmake_clone:
-	if [ ! -f "cmake-$(CMAKE_VERSION).tar.gz" ]; then curl -OL https://cmake.org/files/v3.12/cmake-$(CMAKE_VERSION).tar.gz; fi;
+	if [ ! -f "cmake-$(CMAKE_VERSION).tar.gz" ]; then curl -OL https://cmake.org/files/v$(CMAKE_MAJOR).$(CMAKE_MINOR)/cmake-$(CMAKE_VERSION).tar.gz; fi;
 	if [ ! -d "cmake-$(CMAKE_VERSION)" ]; then tar xzf cmake-$(CMAKE_VERSION).tar.gz; fi
 
 cmake_config:
