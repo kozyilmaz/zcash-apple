@@ -3,6 +3,7 @@ target_name ?= isl
 
 include ../Makefile.build
 
+# ISL v0.20 is released but gcc-8.2.0 has issues
 ISL_VERSION="0.19"
 
 isl_clone:
