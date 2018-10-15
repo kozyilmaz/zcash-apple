@@ -21,8 +21,7 @@ zcash_install:
 	mkdir -p tmp
 	mkdir -p ${BSPINSTALL}/usr/local
 	make DESTDIR=${BSPROOT}/zcash/tmp -C zcash_$(ZCASH_VERSION) install
-	cp -af ${BSPROOT}/zcash/tmp${BSPROOT}/zcash/zcash_$(ZCASH_VERSION)/depends/*/* ${BSPINSTALL}/usr/local
-# install zcash init script
+	cp -af ${BSPROOT}/zcash/tmp/* ${BSPINSTALL}
 	cp -a files/* ${BSPINSTALL}/usr/local/bin
 
 zcash_uninstall:
