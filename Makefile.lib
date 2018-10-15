@@ -216,7 +216,7 @@ override CFLAGS += -Wall -Wextra -Werror -pipe -g3 -O2 -fsigned-char -fno-strict
 #override CFLAGS += -fno-math-errno -fno-trapping-math
 
 uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
-TARGET_MACHINE := $(subst -, ,$(shell $(CC) -dumpmachine))
+TARGET_MACHINE := $(subst -, ,$(shell $(CC) -dumpmachine 2>/dev/null))
 
 ifneq ($(findstring mingw, $(TARGET_MACHINE)),)
 TARGET_OS := WINDOWS
