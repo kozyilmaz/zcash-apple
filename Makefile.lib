@@ -246,7 +246,7 @@ else ifeq ($(TARGET_OS),LINUX)
 	override CXXFLAGS   += $(CFLAGS)
 endif
 
-MAKE       := + CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(LDFLAGS)" TOPDIR='$(TOPDIR)' uname_S=$(uname_S) TARGET_OS=$(TARGET_OS) $(MAKE) $(MFLAGS) --no-print-directory
+MAKE       := CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(LDFLAGS)" TOPDIR='$(TOPDIR)' uname_S=$(uname_S) TARGET_OS=$(TARGET_OS) $(MAKE) $(MFLAGS) --no-print-directory
 
 all:
 
@@ -843,7 +843,7 @@ endef
 
 define subdir_empty-defaults
     $(addsuffix _$2, $1): __FORCE
-	@$($1_makeflags-y) $(MAKE) -C '$$(subst _$2,,$$@)' $2
+	@+ $(MAKE) $($1_makeflags-y) -C '$$(subst _$2,,$$@)' $2
 endef
 
 define subdir-defaults
@@ -852,13 +852,13 @@ define subdir-defaults
     $1: $1_all
 
     $(addsuffix _all, $1): $($1_depends-y) __FORCE
-	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _all,,$$@)' all
+	${Q}+ $(MAKE) $($1_makeflags-y) -C '$$(subst _all,,$$@)' all
 
     $(addsuffix _build, $1): $($1_depends-y) __FORCE
-	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _build,,$$@)' build
+	${Q}+ $(MAKE) $($1_makeflags-y) -C '$$(subst _build,,$$@)' build
 
     $(addsuffix _clean, $1): __FORCE
-	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _clean,,$$@)' clean
+	${Q}+ $(MAKE) $($1_makeflags-y) -C '$$(subst _clean,,$$@)' clean
 
 endef
 
