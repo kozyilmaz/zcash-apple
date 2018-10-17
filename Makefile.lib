@@ -45,6 +45,7 @@
 #   20180718 - fix @.cmd
 #   20180723 - use file_cflags-y if exists
 #   20180807 - fix circular dependency with complex makefile setup
+#   20181017 - fix subdir makeflag passing
 
 #
 # Example
