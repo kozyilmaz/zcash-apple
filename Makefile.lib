@@ -501,7 +501,7 @@ _cmd_link.m.host      = $(HOSTCC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $
 _cmd_link_so.m.host   = $(HOSTCC) $(CFLAGS) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                         $($1_ldflags) $$(filter-out -static,$(LDFLAGS)) -shared
 
-_cmd_ar               = $(AR) q $$@ $$(filter-out __FORCE $($1_depends-y),$$^)
+_cmd_ar               = $(AR) rcs $$@ $$(filter-out __FORCE $($1_depends-y),$$^)
 _cmd_ranlib           = $(RANLIB) $$@
 _cmd_ld               = $(LD) $(LDOPTS) -r -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^)
 
