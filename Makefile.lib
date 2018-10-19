@@ -855,10 +855,10 @@ define subdir-defaults
 	@+ $(MAKE) $($1_makeflags-y) -C '$$(subst _all,,$$@)' all
 
     $(addsuffix _clone, $1): $($1_depends-y) __FORCE
-	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _clone,,$$@)' clone
+	@+ $(MAKE) $($1_makeflags-y) -C '$$(subst _clone,,$$@)' clone
 
     $(addsuffix _config, $1): $($1_depends-y) __FORCE
-	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _config,,$$@)' config
+	@+ $(MAKE) $($1_makeflags-y) -C '$$(subst _config,,$$@)' config
 
     $(addsuffix _build, $1): $($1_depends-y) __FORCE
 	@+ $(MAKE) $($1_makeflags-y) -C '$$(subst _build,,$$@)' build
@@ -867,13 +867,13 @@ define subdir-defaults
 	@+ $(MAKE) $($1_makeflags-y) -C '$$(subst _clean,,$$@)' clean
 
     $(addsuffix _distclean, $1): __FORCE
-	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _distclean,,$$@)' distclean
+	@+ $(MAKE) $($1_makeflags-y) -C '$$(subst _distclean,,$$@)' distclean
 
     $(addsuffix _install, $1): __FORCE
-	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _install,,$$@)' install
+	@+ $(MAKE) $($1_makeflags-y) -C '$$(subst _install,,$$@)' install
 
     $(addsuffix _uninstall, $1): __FORCE
-	@+ $($1_makeflags-y) $(MAKE) -C '$$(subst _uninstall,,$$@)' uninstall
+	@+ $(MAKE) $($1_makeflags-y) -C '$$(subst _uninstall,,$$@)' uninstall
 
 endef
 
