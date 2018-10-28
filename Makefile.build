@@ -2,7 +2,7 @@
 .PHONY: clone config build install uninstall clean
 
 # platform information
-TARGET_MACHINE := $(subst -, ,$(shell $(CC) -dumpmachine))
+TARGET_MACHINE ?= $(subst -, ,$(shell $(CC) -dumpmachine))
 
 ifneq ($(findstring mingw, $(TARGET_MACHINE)),)
 TARGET_OS := WINDOWS
@@ -10,6 +10,10 @@ else ifneq ($(findstring apple, $(TARGET_MACHINE)),)
 TARGET_OS := MACOS
 else ifneq ($(findstring linux, $(TARGET_MACHINE)),)
 TARGET_OS := LINUX
+else ifneq ($(findstring ios64, $(TARGET_MACHINE)),)
+TARGET_OS := IOS64
+else ifneq ($(findstring iossim, $(TARGET_MACHINE)),)
+TARGET_OS := IOSSIM
 else
 TARGET_OS := UNKNOWN
 endif
