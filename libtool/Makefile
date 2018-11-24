@@ -6,7 +6,7 @@ include ../Makefile.build
 LIBTOOL_VERSION="2.4.6"
 
 libtool_clone:
-	if [ ! -f "libtool-$(LIBTOOL_VERSION).tar.gz" ]; then curl -OL http://ftpmirror.gnu.org/libtool/libtool-$(LIBTOOL_VERSION).tar.gz; fi;
+	if [ ! -f "libtool-$(LIBTOOL_VERSION).tar.gz" ]; then curl -OL https://ftpmirror.gnu.org/libtool/libtool-$(LIBTOOL_VERSION).tar.gz; fi;
 	if [ ! -d "libtool-$(LIBTOOL_VERSION)" ]; then tar xzf libtool-$(LIBTOOL_VERSION).tar.gz; fi
 
 libtool_config:

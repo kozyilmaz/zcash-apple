@@ -4,7 +4,7 @@ target_name ?= objconv
 include ../Makefile.build
 
 objconv_clone:
-	if [ ! -f "objconv.zip" ]; then curl -OL http://www.agner.org/optimize/objconv.zip; fi;
+	if [ ! -f "objconv.zip" ]; then curl -OL https://www.agner.org/optimize/objconv.zip; fi;
 	if [ ! -d "objconv" ]; then unzip objconv.zip -d objconv; fi
 	if [ ! -d "objconv/src" ]; then unzip objconv/source.zip -d objconv/src; fi
 
