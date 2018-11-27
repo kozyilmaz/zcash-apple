@@ -6,7 +6,7 @@ include ../Makefile.build
 MPC_VERSION="1.1.0"
 
 mpc_clone:
-	if [ ! -f "mpc-$(MPC_VERSION).tar.gz" ]; then curl -OL http://ftpmirror.gnu.org/mpc/mpc-$(MPC_VERSION).tar.gz; fi;
+	if [ ! -f "mpc-$(MPC_VERSION).tar.gz" ]; then curl -OL https://ftpmirror.gnu.org/mpc/mpc-$(MPC_VERSION).tar.gz; fi;
 	if [ ! -d "mpc-$(MPC_VERSION)" ]; then tar xzf mpc-$(MPC_VERSION).tar.gz; fi
 
 mpc_config:
