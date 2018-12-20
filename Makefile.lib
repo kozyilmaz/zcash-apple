@@ -471,8 +471,8 @@ _cmd_link.cxx.host    = $(HOSTCXX) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-
 _cmd_link_so.cxx.host = $(HOSTCXX) $(CXXFLAGS) $($1_libraries) -o $$@ $$(filter-out __FORCE $($1_depends-y),$$^) \
                         $($1_ldflags) $$(filter-out -static,$(LDFLAGS)) -shared
 
-_cmd_moc.qt           = $(MOC) $$< -o $$@
-_cmd_moc.qt.host      = $(HOSTMOC) $$< -o $$@
+_cmd_moc.qt           = $(MOC) $($1_cxxflags) $($1_includes) $$< -o $$@
+_cmd_moc.qt.host      = $(HOSTMOC) $($1_cxxflags) $($1_includes) $$< -o $$@
 
 _cmd_uic.qt           = $(UIC) $$< -o $$@
 _cmd_uic.qt.host      = $(HOSTUIC) $$< -o $$@
