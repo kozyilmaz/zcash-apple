@@ -46,8 +46,6 @@ BSPJOB=4
 
 # environment file can be edited to select/unselect packages:
 export TOOLS_ENABLE_ESSENTIALS=y
-export TOOLS_ENABLE_OBJCONV=y
-export TOOLS_ENABLE_FASM=y
 export TOOLS_ENABLE_CMAKE=y
 export TOOLS_ENABLE_GNUTOOLS=y
 export TOOLS_ENABLE_KCONFIG=y

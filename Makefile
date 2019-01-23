@@ -5,16 +5,12 @@ endif
 
 ifeq ($(uname_S), Linux)
 TOOLS_ENABLE_ESSENTIALS ?= y
-TOOLS_ENABLE_OBJCONV    ?= n
-TOOLS_ENABLE_FASM       ?= n
 TOOLS_ENABLE_CMAKE      ?= n
 TOOLS_ENABLE_GNUTOOLS   ?= n
 TOOLS_ENABLE_KCONFIG    ?= n
 TOOLS_ENABLE_GCC        ?= n
 else
 TOOLS_ENABLE_ESSENTIALS ?= y
-TOOLS_ENABLE_OBJCONV    ?= n
-TOOLS_ENABLE_FASM       ?= n
 TOOLS_ENABLE_CMAKE      ?= n
 TOOLS_ENABLE_GNUTOOLS   ?= n
 TOOLS_ENABLE_KCONFIG    ?= n
@@ -27,14 +23,6 @@ subdir-${TOOLS_ENABLE_ESSENTIALS} = \
 	automake \
 	libtool \
 	pkgconfig
-
-# objconv (on macOS)
-subdir-${TOOLS_ENABLE_OBJCONV} += \
-	objconv
-
-# fasm (on macOS)
-subdir-${TOOLS_ENABLE_FASM} += \
-	fasm
 
 # cmake (on macOS)
 subdir-${TOOLS_ENABLE_CMAKE} += \
@@ -64,12 +52,6 @@ libtool_depends-y = \
 
 pkgconfig_depends-y = \
 	libtool
-
-objconv_depends-y = \
-	pkgconfig
-
-fasm_depends-y = \
-	objconv
 
 cmake_depends-y = \
 	pkgconfig
