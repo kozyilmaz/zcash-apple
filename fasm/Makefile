@@ -4,6 +4,7 @@ target_name ?= fasm
 include ../Makefile.build
 
 FASM_VERSION="1.73.06"
+MACOS_CRT1_PREFIX=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 
 fasm_clone:
 	if [ ! -f "fasm-$(FASM_VERSION).tar.gz" ]; then curl -OL https://flatassembler.net/fasm-$(FASM_VERSION).tar.gz; fi;
@@ -17,7 +18,7 @@ fasm_build:
 		rm -rf fasm.o; \
 		../precompiled/fasm source/libc/fasm.asm fasm.o; \
 		objconv -fmac -nu fasm.o fasm.mo; \
-		ld -arch i386 -macosx_version_min 10.6 -o fasm fasm.mo /usr/lib/crt1.o /usr/lib/libc.dylib; \
+		ld -arch i386 -macosx_version_min 10.6 -o fasm fasm.mo $(MACOS_CRT1_PREFIX)/usr/lib/crt1.o /usr/lib/libc.dylib; \
 	)
 
 fasm_install:
